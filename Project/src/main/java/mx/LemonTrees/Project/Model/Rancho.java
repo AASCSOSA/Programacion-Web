@@ -26,7 +26,11 @@ public class Rancho {
     @Column(nullable = false, length = 25)
     private String Extension_Rancho;
 
+<<<<<<< HEAD
     @OneToMany (mappedBy = "rancho",cascade = CascadeType.ALL)
+=======
+    @OneToMany (mappedBy = "Id_Rancho",cascade = CascadeType.ALL)
+>>>>>>> main
     private List<Carga> cargas = new ArrayList<>();
 
 
@@ -71,6 +75,7 @@ public class Rancho {
     public void setExtension_Rancho(String extension_Rancho) {
         Extension_Rancho = extension_Rancho;
     }
+<<<<<<< HEAD
 
     public List<Carga> getCargas() {
         return cargas;
@@ -79,5 +84,7 @@ public class Rancho {
     public void setCargas(List<Carga> cargas) {
         this.cargas = cargas;
     }
+=======
+>>>>>>> main
     
 }

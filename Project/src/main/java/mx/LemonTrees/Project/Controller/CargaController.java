@@ -1,6 +1,7 @@
 package mx.LemonTrees.Project.Controller;
 
 import java.net.URI;
+<<<<<<< HEAD
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+=======
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+>>>>>>> main
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -27,6 +37,7 @@ public class CargaController {
     @Autowired
     private CargaRepository cargaRepository;
 
+<<<<<<< HEAD
     // Buscar todos
     @GetMapping()
     public ResponseEntity<Iterable<Carga>> findAll() {
@@ -53,6 +64,17 @@ public class CargaController {
     // Crear
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody Carga newCarga, UriComponentsBuilder ucb) {
+=======
+    //Busca todos
+    @GetMapping()
+    public ResponseEntity<Iterable<Carga>>findAll(){
+        return ResponseEntity.ok(cargaRepository.findAll());
+    }
+
+    //Crea
+    @PostMapping
+    public ResponseEntity<Void> create(@RequestBody Carga newCarga, UriComponentsBuilder ucb){
+>>>>>>> main
         Carga savedCarga = cargaRepository.save(newCarga);
         URI uri = ucb
                 .path("carga/{Id_Carga}")
@@ -61,6 +83,7 @@ public class CargaController {
         return ResponseEntity.created(uri).build();
     }
 
+<<<<<<< HEAD
     // Actualizar
     @PutMapping("/{Id_Carga}")
     public ResponseEntity<Void> update(@PathVariable Long Id_Carga, @RequestBody Carga cargaAct) {
@@ -83,4 +106,6 @@ public class CargaController {
         return ResponseEntity.notFound().build();
     }
 
+=======
+>>>>>>> main
 }
