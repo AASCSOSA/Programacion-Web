@@ -10,11 +10,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import java.util.Objects;
 
 @Entity
 public class Rancho {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id_Rancho;
 
     @Column(nullable = false, length = 25)
@@ -26,50 +27,67 @@ public class Rancho {
     @Column(nullable = false, length = 25)
     private String Extension_Rancho;
 
-    @OneToMany (mappedBy = "Id_Rancho",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "rancho", cascade = CascadeType.ALL)
     private List<Carga> cargas = new ArrayList<>();
 
+    @OneToMany(mappedBy = "rancho", cascade = CascadeType.ALL)
+    private List<Fertilizacion> Fertilizacion;
 
     public Rancho() {
     }
 
-    public Rancho(Integer id_Rancho, String nombre_Rancho, String ubicacion_Rancho, String extension_Rancho) {
-
-        Nombre_Rancho = nombre_Rancho;
-        Ubicacion_Rancho = ubicacion_Rancho;
-        Extension_Rancho = extension_Rancho;
+    public Rancho(Integer Id_Rancho, String Nombre_Rancho, String Ubicacion_Rancho, String Extension_Rancho) {
+        this.Nombre_Rancho = Nombre_Rancho;
+        this.Ubicacion_Rancho = Ubicacion_Rancho;
+        this.Extension_Rancho = Extension_Rancho;
     }
 
     public Integer getId_Rancho() {
-        return Id_Rancho;
+        return this.Id_Rancho;
     }
 
-    public void setId_Rancho(Integer id_Rancho) {
-        Id_Rancho = id_Rancho;
+    public void setId_Rancho(Integer Id_Rancho) {
+        this.Id_Rancho = Id_Rancho;
     }
 
     public String getNombre_Rancho() {
-        return Nombre_Rancho;
+        return this.Nombre_Rancho;
     }
 
-    public void setNombre_Rancho(String nombre_Rancho) {
-        Nombre_Rancho = nombre_Rancho;
+    public void setNombre_Rancho(String Nombre_Rancho) {
+        this.Nombre_Rancho = Nombre_Rancho;
     }
 
     public String getUbicacion_Rancho() {
-        return Ubicacion_Rancho;
+        return this.Ubicacion_Rancho;
     }
 
-    public void setUbicacion_Rancho(String ubicacion_Rancho) {
-        Ubicacion_Rancho = ubicacion_Rancho;
+    public void setUbicacion_Rancho(String Ubicacion_Rancho) {
+        this.Ubicacion_Rancho = Ubicacion_Rancho;
     }
 
     public String getExtension_Rancho() {
-        return Extension_Rancho;
+        return this.Extension_Rancho;
     }
 
-    public void setExtension_Rancho(String extension_Rancho) {
-        Extension_Rancho = extension_Rancho;
+    public void setExtension_Rancho(String Extension_Rancho) {
+        this.Extension_Rancho = Extension_Rancho;
     }
-    
+
+    public List<Carga> getCargas() {
+        return this.cargas;
+    }
+
+    public void setCargas(List<Carga> cargas) {
+        this.cargas = cargas;
+    }
+
+    public List<Fertilizacion> getFertilizacion() {
+        return this.Fertilizacion;
+    }
+
+    public void setFertilizacion(List<Fertilizacion> Fertilizacion) {
+        this.Fertilizacion = Fertilizacion;
+    }
+
 }
