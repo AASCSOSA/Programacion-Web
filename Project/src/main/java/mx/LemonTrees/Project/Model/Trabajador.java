@@ -36,16 +36,12 @@ public class Trabajador {
 
     @Column(nullable = false)
     private float Sueldo;
-    
-    @OneToOne(mappedBy = "trabajador", cascade = CascadeType.ALL) 
-    private Carga carga;
-    
+
     @OneToMany(mappedBy = "trabajador", cascade = CascadeType.ALL)
     private List<Pago_Trabajador> pagos = new ArrayList<>();
     public Trabajador() {
         
     }
-
     public Trabajador(String Nombre, String Apellido_pat, String Apellido_mat, String Telefono, String Direccion, float Sueldo) {
         
         this.Nombre = Nombre;
@@ -111,5 +107,12 @@ public class Trabajador {
     public void setSueldo(float Sueldo) {
         this.Sueldo = Sueldo;
     }
-    
+
+    public List<Pago_Trabajador> getPagos() {
+        return pagos;
+    }
+
+    public void setPagos(List<Pago_Trabajador> pagos) {
+        this.pagos = pagos;
+    }
 }
