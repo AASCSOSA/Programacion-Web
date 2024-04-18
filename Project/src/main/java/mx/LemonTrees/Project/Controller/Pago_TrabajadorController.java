@@ -3,7 +3,9 @@ package mx.LemonTrees.Project.Controller;
 import java.net.URI;
 import java.util.Optional;
 import mx.LemonTrees.Project.Model.Pago_Trabajador;
+import mx.LemonTrees.Project.Model.Trabajador;
 import mx.LemonTrees.Project.Repository.Pago_TrabajadorRepository;
+import mx.LemonTrees.Project.Repository.TrabajadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +24,9 @@ public class Pago_TrabajadorController {
     
     @Autowired
     Pago_TrabajadorRepository pago_trabajadorRepository;
+
+    @Autowired
+    TrabajadorRepository trabajadorRepository;
 
     //BUSCAR TODOS
     @GetMapping()
@@ -43,6 +48,11 @@ public class Pago_TrabajadorController {
     //CREAR
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody Pago_Trabajador newPago_Trabajador, UriComponentsBuilder ucb) {
+        Optional<Trabajador> trabajadorOptional = trabajadorRepository.findById(newPago_Trabajador.getId_Pago_Trabajador());
+        if(!trabajadorOptional.isPresent()){
+            return ResponseEntity.unprocessableEntity().build();
+        }
+        newPago_Trabajador.setTrabajador(trabajadorOptional.get());
         Pago_Trabajador savedPago_Trabajador = pago_trabajadorRepository.save(newPago_Trabajador);
         URI uri = ucb
                 .path("pago_trabajador/{Id_Pago_Trabajador}")
