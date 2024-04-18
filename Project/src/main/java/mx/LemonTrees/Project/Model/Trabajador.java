@@ -36,6 +36,7 @@ public class Trabajador {
     }
 
     public Trabajador(String Nombre, String Apellido_pat, String Apellido_mat, String Telefono, String Direccion, float Sueldo) {
+        
         this.Nombre = Nombre;
         this.Apellido_Pat = Apellido_pat;
         this.Apellido_Mat = Apellido_mat;

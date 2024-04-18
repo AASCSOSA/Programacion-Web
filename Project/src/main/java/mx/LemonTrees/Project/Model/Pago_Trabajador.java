@@ -25,8 +25,7 @@ public class Pago_Trabajador {
         
     }
 
-    public Pago_Trabajador(Integer Id_Pago_Trabajador, String Monto, Date Fecha_Pago) {
-        this.Id_Pago_Trabajador = Id_Pago_Trabajador;
+    public Pago_Trabajador(String Monto, Date Fecha_Pago) {
         this.Monto = Monto;
         this.Fecha_Pago = Fecha_Pago;
     }
