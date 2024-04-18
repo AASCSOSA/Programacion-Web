@@ -1,12 +1,11 @@
+
 package mx.LemonTrees.Project.Repository;
 
+import mx.LemonTrees.Project.Model.Pago_Trabajador;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import mx.LemonTrees.Project.Model.Rancho;
 
 @Repository
-public interface RanchoRepository extends CrudRepository<Rancho,Long>{
-
-
-
+public interface Pago_TrabajadorRepository extends CrudRepository<Pago_Trabajador,Long> {
+    
 }

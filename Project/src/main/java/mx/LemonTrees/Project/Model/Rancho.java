@@ -26,14 +26,14 @@ public class Rancho {
     @Column(nullable = false, length = 25)
     private String Extension_Rancho;
 
-    @OneToMany (mappedBy = "Id_Rancho",cascade = CascadeType.ALL)
-    private List<Carga> cargas = new ArrayList<>();
+//    @OneToMany (mappedBy = "Id_Rancho",cascade = CascadeType.ALL)
+//    private List<Carga> cargas = new ArrayList<>();
 
 
     public Rancho() {
     }
 
-    public Rancho(Integer id_Rancho, String nombre_Rancho, String ubicacion_Rancho, String extension_Rancho) {
+    public Rancho(String nombre_Rancho, String ubicacion_Rancho, String extension_Rancho) {
 
         Nombre_Rancho = nombre_Rancho;
         Ubicacion_Rancho = ubicacion_Rancho;

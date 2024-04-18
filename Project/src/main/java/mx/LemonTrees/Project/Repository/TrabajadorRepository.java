@@ -1,11 +1,10 @@
 package mx.LemonTrees.Project.Repository;
 
+import mx.LemonTrees.Project.Model.Trabajador;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import mx.LemonTrees.Project.Model.Carga;
-
 @Repository
-public interface CargaRepository extends CrudRepository<Carga,Integer>{
-
+public interface TrabajadorRepository extends CrudRepository<Trabajador,Long>{
+    
 }

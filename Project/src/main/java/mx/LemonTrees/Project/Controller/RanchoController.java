@@ -1,6 +1,7 @@
 package mx.LemonTrees.Project.Controller;
 
 import java.net.URI;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,17 @@ public class RanchoController {
     @GetMapping()
     public ResponseEntity<Iterable<Rancho>> findAll() {
         return ResponseEntity.ok(ranchoRepository.findAll());
+    }
+    
+    //BUSCAR ID
+    @GetMapping("/{idRancho}")
+    public ResponseEntity<Rancho> findById(@PathVariable Long idRancho) {
+        Optional<Rancho> ranchoOptional = ranchoRepository.findById(idRancho);
+        if (ranchoOptional.isPresent()) {
+            return ResponseEntity.ok(ranchoOptional.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     //Crear
