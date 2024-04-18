@@ -30,7 +30,7 @@ public class Pago_TrabajadorController {
     }
 
     //BUSCAR ID
-    @GetMapping("/{idPago_Trabajador}")
+    @GetMapping("/{Id_Pago_Trabajador}")
     public ResponseEntity<Pago_Trabajador> findById(@PathVariable Long idPago_Trabajador) {
         Optional<Pago_Trabajador> pago_trabajadorOptional = pago_trabajadorRepository.findById(idPago_Trabajador);
         if (pago_trabajadorOptional.isPresent()) {
