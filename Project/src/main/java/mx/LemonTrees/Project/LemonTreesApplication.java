@@ -9,4 +9,5 @@ public class LemonTreesApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LemonTreesApplication.class, args);
 	}
+
 }
