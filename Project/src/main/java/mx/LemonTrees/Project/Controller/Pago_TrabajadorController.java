@@ -31,7 +31,7 @@ public class Pago_TrabajadorController {
 
     //BUSCAR ID
     @GetMapping("/{Id_Pago_Trabajador}")
-    public ResponseEntity<Pago_Trabajador> findById(@PathVariable Long idPago_Trabajador) {
+    public ResponseEntity<Pago_Trabajador> findById(@PathVariable Integer idPago_Trabajador) {
         Optional<Pago_Trabajador> pago_trabajadorOptional = pago_trabajadorRepository.findById(idPago_Trabajador);
         if (pago_trabajadorOptional.isPresent()) {
             return ResponseEntity.ok(pago_trabajadorOptional.get());
@@ -53,7 +53,7 @@ public class Pago_TrabajadorController {
 
     //UPDATE
     @PutMapping("/{Id_Pago_Trabajador}")
-    public ResponseEntity<Void> update(@PathVariable Long Id_Pago_Trabajador, @RequestBody Pago_Trabajador pago_trabajadorAct) {
+    public ResponseEntity<Void> update(@PathVariable Integer Id_Pago_Trabajador, @RequestBody Pago_Trabajador pago_trabajadorAct) {
         Pago_Trabajador pago_trabajadorAnt = pago_trabajadorRepository.findById(Id_Pago_Trabajador).get();
         if (pago_trabajadorAnt != null) {
             pago_trabajadorAct.setId_Pago_Trabajador(pago_trabajadorAnt.getId_Pago_Trabajador());
@@ -65,7 +65,7 @@ public class Pago_TrabajadorController {
 
     //ELIMINAR
     @DeleteMapping("/{Id_Pago_Trabajador}")
-    public ResponseEntity<Void> delete(@PathVariable Long Id_Pago_Trabajador) {
+    public ResponseEntity<Void> delete(@PathVariable Integer Id_Pago_Trabajador) {
         if (pago_trabajadorRepository.findById(Id_Pago_Trabajador).get() != null) {
             pago_trabajadorRepository.deleteById(Id_Pago_Trabajador);
             return ResponseEntity.noContent().build();
