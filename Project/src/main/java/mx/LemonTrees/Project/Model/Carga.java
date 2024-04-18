@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Carga {
@@ -42,6 +43,10 @@ public class Carga {
     @JoinColumn(name = "Id_Rancho")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Rancho rancho;
+    
+    @OneToOne
+    @JoinColumn(name = "Id_Trabajador")
+    private Trabajador trabajador;
 
     public Carga() {
     }
