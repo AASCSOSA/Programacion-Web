@@ -36,7 +36,7 @@ public class Rancho {
     public Rancho() {
     }
 
-    public Rancho(Integer Id_Rancho, String Nombre_Rancho, String Ubicacion_Rancho, String Extension_Rancho) {
+    public Rancho(String Nombre_Rancho, String Ubicacion_Rancho, String Extension_Rancho) {
         this.Nombre_Rancho = Nombre_Rancho;
         this.Ubicacion_Rancho = Ubicacion_Rancho;
         this.Extension_Rancho = Extension_Rancho;

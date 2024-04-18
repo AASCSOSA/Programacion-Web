@@ -71,12 +71,9 @@ public class Fertilizacion {
         this.rancho = rancho;
     }
 
-    public Fertilizacion(Integer Id_Fertilizacion, Date Fecha_Aplicacion, Integer Cantidad_Aplicacion, Fertilizante fertilizante, Rancho rancho) {
-        this.Id_Fertilizacion = Id_Fertilizacion;
+    public Fertilizacion(Date Fecha_Aplicacion, Integer Cantidad_Aplicacion) {
         this.Fecha_Aplicacion = Fecha_Aplicacion;
         this.Cantidad_Aplicacion = Cantidad_Aplicacion;
-        this.fertilizante = fertilizante;
-        this.rancho = rancho;
     }
 
     public Fertilizacion() {

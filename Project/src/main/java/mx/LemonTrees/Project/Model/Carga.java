@@ -46,7 +46,7 @@ public class Carga {
     public Carga() {
     }
 
-    public Carga(Integer Id_Carga, Integer Rejas_LimonVerde, Integer Rejas_LimonSegunda, Integer Rejas_LimonTercera, Date Fecha, Integer Total_Trabajadores, Float Total_PesoLimonVerde, Float Total_PesoLimonSegunda, Float Total_PesoLimonTercera, Rancho rancho) {
+    public Carga( Integer Rejas_LimonVerde, Integer Rejas_LimonSegunda, Integer Rejas_LimonTercera, Date Fecha, Integer Total_Trabajadores, Float Total_PesoLimonVerde, Float Total_PesoLimonSegunda, Float Total_PesoLimonTercera) {
         this.Rejas_LimonVerde = Rejas_LimonVerde;
         this.Rejas_LimonSegunda = Rejas_LimonSegunda;
         this.Rejas_LimonTercera = Rejas_LimonTercera;
@@ -55,7 +55,6 @@ public class Carga {
         this.Total_PesoLimonVerde = Total_PesoLimonVerde;
         this.Total_PesoLimonSegunda = Total_PesoLimonSegunda;
         this.Total_PesoLimonTercera = Total_PesoLimonTercera;
-        this.rancho = rancho;
     }
 
     public Integer getId_Carga() {
