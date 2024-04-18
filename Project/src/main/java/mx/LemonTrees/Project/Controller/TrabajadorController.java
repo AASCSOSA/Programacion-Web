@@ -31,7 +31,7 @@ public class TrabajadorController {
 
     //BUSCAR ID
     @GetMapping("/{Id_Trabajador}")
-    public ResponseEntity<Trabajador> findById(@PathVariable Long idTrabajador) {
+    public ResponseEntity<Trabajador> findById(@PathVariable Integer idTrabajador) {
         Optional<Trabajador> trabajadorOptional = trabajadorRepository.findById(idTrabajador);
         if (trabajadorOptional.isPresent()) {
             return ResponseEntity.ok(trabajadorOptional.get());
@@ -53,7 +53,7 @@ public class TrabajadorController {
 
     //UPDATE
     @PutMapping("/{Id_Trabajador}")
-    public ResponseEntity<Void> update(@PathVariable Long Id_Trabajador, @RequestBody Trabajador trabajadorAct) {
+    public ResponseEntity<Void> update(@PathVariable Integer Id_Trabajador, @RequestBody Trabajador trabajadorAct) {
         Trabajador trabajadorAnt = trabajadorRepository.findById(Id_Trabajador).get();
         if (trabajadorAnt != null) {
             trabajadorAct.setId_Trabajador(trabajadorAnt.getId_Trabajador());
@@ -65,7 +65,7 @@ public class TrabajadorController {
 
     //ELIMINAR
     @DeleteMapping("/{Id_Trabajador}")
-    public ResponseEntity<Void> delete(@PathVariable Long Id_Trabajador) {
+    public ResponseEntity<Void> delete(@PathVariable Integer Id_Trabajador) {
         if (trabajadorRepository.findById(Id_Trabajador).get() != null) {
             trabajadorRepository.deleteById(Id_Trabajador);
             return ResponseEntity.noContent().build();
