@@ -34,9 +34,9 @@ public class Trabajador {
     @Column(nullable = false)
     private float Sueldo;
     
-    @OneToOne(mappedBy = "trabajador", cascade = CascadeType.ALL)
+    //HOLA A TODOS
+    @OneToOne(mappedBy = "trabajador", cascade = CascadeType.ALL) 
     private Carga carga;
-
     public Trabajador() {
         
     }
