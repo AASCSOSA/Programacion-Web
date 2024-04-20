@@ -44,6 +44,7 @@ public class Trabajador {
     @OneToOne(mappedBy = "trabajador")
     private Herramienta herramienta;
 
+
     public Trabajador() {
         
     }
