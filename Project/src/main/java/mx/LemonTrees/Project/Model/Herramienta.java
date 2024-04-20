@@ -2,12 +2,9 @@ package mx.LemonTrees.Project.Model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Generated;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Herramienta {
@@ -32,6 +29,11 @@ public class Herramienta {
 
     @Column (nullable = false)
     private Date Fecha_Adquisicion;
+
+    @OneToOne
+    @JoinColumn(name = "Id_Trabajador")
+    private Trabajador trabajador;
+
 
     public Herramienta() {
     }

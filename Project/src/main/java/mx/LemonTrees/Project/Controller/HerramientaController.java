@@ -25,9 +25,20 @@ public class HerramientaController {
     @Autowired
     private HerramientaRepository herramientaRepository;
 
+    //Buscar todos
     @GetMapping()
     public ResponseEntity<Iterable<Herramienta>> findAll() {
         return ResponseEntity.ok(herramientaRepository.findAll());
+    }
+
+    //Buscar por ID
+    @GetMapping("/{Id_Herramienta}")
+    public ResponseEntity<Herramienta> findById(@PathVariable Long Id_Herramienta) {
+        if (herramientaRepository.findById(Id_Herramienta).isPresent()) {
+            return ResponseEntity.ok(herramientaRepository.findById(Id_Herramienta).get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     //Crear

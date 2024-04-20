@@ -40,6 +40,10 @@ public class Trabajador {
     //HOLA A TODOS
     @OneToOne(mappedBy = "trabajador", cascade = CascadeType.ALL) 
     private Carga carga;
+
+    @OneToOne(mappedBy = "trabajador")
+    private Herramienta herramienta;
+
     public Trabajador() {
         
     }

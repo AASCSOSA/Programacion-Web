@@ -3,6 +3,7 @@ package mx.LemonTrees.Project.Controller;
 import java.net.URI;
 import java.util.Optional;
 import mx.LemonTrees.Project.Model.Trabajador;
+import mx.LemonTrees.Project.Repository.HerramientaRepository;
 import mx.LemonTrees.Project.Repository.TrabajadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,9 @@ public class TrabajadorController {
 
     @Autowired
     TrabajadorRepository trabajadorRepository;
+
+    @Autowired
+    HerramientaRepository herramientaRepository;
 
     //BUSCAR TODOS
     @GetMapping()
