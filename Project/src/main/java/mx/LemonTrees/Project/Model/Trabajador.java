@@ -37,6 +37,8 @@ public class Trabajador {
     @Column(nullable = false)
     private float Sueldo;
 
+    //@OneToOne(mappedBy = "trabajador", cascade = CascadeType.ALL)
+    //private List<Herramienta> herramientas = new ArrayList<>();
     @OneToMany(mappedBy = "trabajador", cascade = CascadeType.ALL)
     private List<Pago_Trabajador> pagos = new ArrayList<>();
     public Trabajador() {
@@ -68,20 +70,20 @@ public class Trabajador {
         this.Nombre = Nombre;
     }
 
-    public String getApellido_pat() {
+    public String getApellido_Pat() {
         return Apellido_Pat;
     }
 
-    public void setApellido_pat(String Apellido_pat) {
-        this.Apellido_Pat = Apellido_pat;
+    public void setApellido_Pat(String Apellido_Pat) {
+        this.Apellido_Pat = Apellido_Pat;
     }
 
-    public String getApellido_mat() {
+    public String getApellido_Mat() {
         return Apellido_Mat;
     }
 
-    public void setApellido_mat(String Apellido_mat) {
-        this.Apellido_Mat = Apellido_mat;
+    public void setApellido_Mat(String Apellido_Mat) {
+        this.Apellido_Mat = Apellido_Mat;
     }
 
     public String getTelefono() {
@@ -115,4 +117,12 @@ public class Trabajador {
     public void setPagos(List<Pago_Trabajador> pagos) {
         this.pagos = pagos;
     }
+
+//    public List<Herramienta> getHerramientas() {
+//        return herramientas;
+//    }
+//
+//    public void setHerramientas(List<Herramienta> herramientas) {
+//        this.herramientas = herramientas;
+//    }
 }

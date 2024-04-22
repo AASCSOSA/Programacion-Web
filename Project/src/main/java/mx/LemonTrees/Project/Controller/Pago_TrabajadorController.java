@@ -36,19 +36,19 @@ public class Pago_TrabajadorController {
 
     //BUSCAR ID
     @GetMapping("/{Id_Pago_Trabajador}")
-    public ResponseEntity<Pago_Trabajador> findById(@PathVariable Integer idPago_Trabajador) {
-        Optional<Pago_Trabajador> pago_trabajadorOptional = pago_trabajadorRepository.findById(idPago_Trabajador);
+    public ResponseEntity<Pago_Trabajador> findById(@PathVariable Integer Id_Pago_Trabajador) {
+        Optional<Pago_Trabajador> pago_trabajadorOptional = pago_trabajadorRepository.findById(Id_Pago_Trabajador);
         if (pago_trabajadorOptional.isPresent()) {
             return ResponseEntity.ok(pago_trabajadorOptional.get());
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(pago_trabajadorRepository.findById(Id_Pago_Trabajador).get());
         }
     }
 
     //CREAR
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody Pago_Trabajador newPago_Trabajador, UriComponentsBuilder ucb) {
-        Optional<Trabajador> trabajadorOptional = trabajadorRepository.findById(newPago_Trabajador.getId_Pago_Trabajador());
+        Optional<Trabajador> trabajadorOptional = trabajadorRepository.findById(newPago_Trabajador.getTrabajador().getId_Trabajador());
         if(!trabajadorOptional.isPresent()){
             return ResponseEntity.unprocessableEntity().build();
         }

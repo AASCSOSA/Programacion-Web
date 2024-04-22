@@ -26,17 +26,18 @@ public class TrabajadorController {
     //BUSCAR TODOS
     @GetMapping()
     public ResponseEntity<Iterable<Trabajador>> findAll() {
+
         return ResponseEntity.ok(trabajadorRepository.findAll());
     }
 
     //BUSCAR ID
     @GetMapping("/{Id_Trabajador}")
-    public ResponseEntity<Trabajador> findById(@PathVariable Integer idTrabajador) {
-        Optional<Trabajador> trabajadorOptional = trabajadorRepository.findById(idTrabajador);
+    public ResponseEntity<Trabajador> findById(@PathVariable Integer Id_Trabajador) {
+        Optional<Trabajador> trabajadorOptional = trabajadorRepository.findById(Id_Trabajador);
         if (trabajadorOptional.isPresent()) {
             return ResponseEntity.ok(trabajadorOptional.get());
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(trabajadorRepository.findById(Id_Trabajador).get());
         }
     }
 
