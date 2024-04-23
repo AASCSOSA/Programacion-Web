@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,12 +36,14 @@ public class FertilizacionController {
     private FertilizanteRepository fertilizanteRepository;
 
     // Buscar todos
+    @CrossOrigin
     @GetMapping()
     public ResponseEntity<Iterable<Fertilizacion>> findAll() {
         return ResponseEntity.ok(fertilizacionRepository.findAll());
     }
 
     // Buscar por ID
+    @CrossOrigin
     @GetMapping("/{Id_Fertilizacion}")
     public ResponseEntity<Fertilizacion> findById(@PathVariable Integer Id_Fertilizacion) {
         Optional<Fertilizacion> fertilizacionOptional = fertilizacionRepository.findById(Id_Fertilizacion);
@@ -51,6 +54,7 @@ public class FertilizacionController {
     }
 
     // Crear
+    @CrossOrigin
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody Fertilizacion newFertilizacion, UriComponentsBuilder ucb) {
         Optional<Rancho> ranchoOptional = ranchoRepository.findById(newFertilizacion.getRancho().getId_Rancho());
@@ -69,6 +73,7 @@ public class FertilizacionController {
     }
 
     // Actualizar
+    @CrossOrigin
     @PutMapping("/{Id_Fertilizacion}")
     public ResponseEntity<Void> update(@PathVariable Integer Id_Fertilizacion, @RequestBody Fertilizacion fertilizacionAct) {
         Fertilizacion fertilizacionAnt = fertilizacionRepository.findById(Id_Fertilizacion).get();
@@ -81,6 +86,7 @@ public class FertilizacionController {
     }
 
     // Eliminar
+    @CrossOrigin
     @DeleteMapping("/{Id_Fertiliacion}")
     public ResponseEntity<Void> delete(@PathVariable Integer Id_Fertiliacion) {
         if (fertilizacionRepository.findById(Id_Fertiliacion).get() != null) {
