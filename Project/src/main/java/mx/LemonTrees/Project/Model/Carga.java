@@ -39,6 +39,7 @@ public class Carga {
     @Column(nullable = false)
     private Float Total_PesoLimonTercera;
 
+//Relación muchos a muchos
     @ManyToOne (fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "Id_Rancho")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
