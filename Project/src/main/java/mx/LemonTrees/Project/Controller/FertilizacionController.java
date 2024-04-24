@@ -81,10 +81,10 @@ public class FertilizacionController {
     }
 
     // Eliminar
-    @DeleteMapping("/{Id_Fertiliacion}")
-    public ResponseEntity<Void> delete(@PathVariable Integer Id_Fertiliacion) {
-        if (fertilizacionRepository.findById(Id_Fertiliacion).get() != null) {
-            fertilizacionRepository.deleteById(Id_Fertiliacion);
+    @DeleteMapping("/{Id_Fertilizacion}")
+    public ResponseEntity<Void> delete(@PathVariable Integer Id_Fertilizacion) {
+        if (fertilizacionRepository.findById(Id_Fertilizacion).get() != null) {
+            fertilizacionRepository.deleteById(Id_Fertilizacion);
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();

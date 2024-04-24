@@ -1,9 +1,9 @@
 package mx.LemonTrees.Project.Model;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Generated;
 import jakarta.persistence.*;
 
 @Entity
@@ -30,16 +30,15 @@ public class Herramienta {
     @Column (nullable = false)
     private Date Fecha_Adquisicion;
 
-    @OneToOne
-    @JoinColumn(name = "Id_Trabajador")
-    private Trabajador trabajador;
-
+    @OneToMany(mappedBy = "herramienta", cascade = CascadeType.ALL)
+    private List<Trabajador> trabajador;
 
     public Herramienta() {
+
     }
 
-    public Herramienta(Integer id_Herramienta, String modelo, String marca, int cantidad, String color, float costo, Date fecha_Adquisicion) {
-        //Id_Herramienta = id_Herramienta;
+    public Herramienta(String modelo, String marca, int cantidad, String color, float costo, Date fecha_Adquisicion) {
+
         Modelo = modelo;
         Marca = marca;
         Cantidad = cantidad;
@@ -47,6 +46,7 @@ public class Herramienta {
         Costo = costo;
         Fecha_Adquisicion = fecha_Adquisicion;
     }
+
 
     public Integer getId_Herramienta() {
         return Id_Herramienta;
@@ -104,4 +104,11 @@ public class Herramienta {
         Fecha_Adquisicion = fecha_Adquisicion;
     }
 
+    public List<Trabajador> getTrabajador() {
+        return trabajador;
+    }
+
+    public void setTrabajador(List<Trabajador> trabajador) {
+        this.trabajador = trabajador;
+    }
 }
