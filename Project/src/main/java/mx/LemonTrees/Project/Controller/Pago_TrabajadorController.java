@@ -3,17 +3,12 @@ package mx.LemonTrees.Project.Controller;
 import java.net.URI;
 import java.util.Optional;
 import mx.LemonTrees.Project.Model.Pago_Trabajador;
+import mx.LemonTrees.Project.Model.Trabajador;
 import mx.LemonTrees.Project.Repository.Pago_TrabajadorRepository;
+import mx.LemonTrees.Project.Repository.TrabajadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
@@ -23,16 +18,21 @@ public class Pago_TrabajadorController {
     @Autowired
     Pago_TrabajadorRepository pago_trabajadorRepository;
 
+    @Autowired
+    TrabajadorRepository trabajadorRepository;
+
     //BUSCAR TODOS
     @GetMapping()
+    @CrossOrigin
     public ResponseEntity<Iterable<Pago_Trabajador>> findAll() {
         return ResponseEntity.ok(pago_trabajadorRepository.findAll());
     }
 
     //BUSCAR ID
     @GetMapping("/{Id_Pago_Trabajador}")
-    public ResponseEntity<Pago_Trabajador> findById(@PathVariable Integer idPago_Trabajador) {
-        Optional<Pago_Trabajador> pago_trabajadorOptional = pago_trabajadorRepository.findById(idPago_Trabajador);
+    @CrossOrigin
+    public ResponseEntity<Pago_Trabajador> findById(@PathVariable Integer Id_Pago_Trabajador) {
+        Optional<Pago_Trabajador> pago_trabajadorOptional = pago_trabajadorRepository.findById(Id_Pago_Trabajador);
         if (pago_trabajadorOptional.isPresent()) {
             return ResponseEntity.ok(pago_trabajadorOptional.get());
         } else {
@@ -42,7 +42,13 @@ public class Pago_TrabajadorController {
 
     //CREAR
     @PostMapping
+    @CrossOrigin
     public ResponseEntity<Void> create(@RequestBody Pago_Trabajador newPago_Trabajador, UriComponentsBuilder ucb) {
+        Optional<Trabajador> trabajadorOptional = trabajadorRepository.findById(newPago_Trabajador.getTrabajador().getId_Trabajador());
+        if(!trabajadorOptional.isPresent()){
+            return ResponseEntity.unprocessableEntity().build();
+        }
+        newPago_Trabajador.setTrabajador(trabajadorOptional.get());
         Pago_Trabajador savedPago_Trabajador = pago_trabajadorRepository.save(newPago_Trabajador);
         URI uri = ucb
                 .path("pago_trabajador/{Id_Pago_Trabajador}")
@@ -53,6 +59,7 @@ public class Pago_TrabajadorController {
 
     //UPDATE
     @PutMapping("/{Id_Pago_Trabajador}")
+    @CrossOrigin
     public ResponseEntity<Void> update(@PathVariable Integer Id_Pago_Trabajador, @RequestBody Pago_Trabajador pago_trabajadorAct) {
         Pago_Trabajador pago_trabajadorAnt = pago_trabajadorRepository.findById(Id_Pago_Trabajador).get();
         if (pago_trabajadorAnt != null) {
@@ -65,6 +72,7 @@ public class Pago_TrabajadorController {
 
     //ELIMINAR
     @DeleteMapping("/{Id_Pago_Trabajador}")
+    @CrossOrigin
     public ResponseEntity<Void> delete(@PathVariable Integer Id_Pago_Trabajador) {
         if (pago_trabajadorRepository.findById(Id_Pago_Trabajador).get() != null) {
             pago_trabajadorRepository.deleteById(Id_Pago_Trabajador);

@@ -1,15 +1,10 @@
 package mx.LemonTrees.Project.Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Trabajador {
@@ -33,30 +28,27 @@ public class Trabajador {
     @Column(nullable = false, length = 50)
     private String Direccion;
 
-    @Column(nullable = false)
-    private float Sueldo;
+//    @Column(nullable = false)
+//    private float Sueldo;
 
-    
-    //HOLA A TODOS
-    @OneToOne(mappedBy = "trabajador", cascade = CascadeType.ALL) 
-    private Carga carga;
-
-    @OneToOne(mappedBy = "trabajador")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "Id_Herramienta")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Herramienta herramienta;
-
+    @OneToMany(mappedBy = "trabajador", cascade = CascadeType.ALL)
+    private List<Pago_Trabajador> Pago = new ArrayList<>();
 
     public Trabajador() {
         
     }
-
-    public Trabajador(String Nombre, String Apellido_pat, String Apellido_mat, String Telefono, String Direccion, float Sueldo) {
+    public Trabajador(String Nombre, String Apellido_Pat, String Apellido_Mat, String Telefono, String Direccion, float Sueldo) {
         
         this.Nombre = Nombre;
-        this.Apellido_Pat = Apellido_pat;
-        this.Apellido_Mat = Apellido_mat;
+        this.Apellido_Pat = Apellido_Pat;
+        this.Apellido_Mat = Apellido_Mat;
         this.Telefono = Telefono;
         this.Direccion = Direccion;
-        this.Sueldo = Sueldo;
+//        this.Sueldo = Sueldo;
     }
 
     public Integer getId_Trabajador() {
@@ -75,20 +67,20 @@ public class Trabajador {
         this.Nombre = Nombre;
     }
 
-    public String getApellido_pat() {
+    public String getApellido_Pat() {
         return Apellido_Pat;
     }
 
-    public void setApellido_pat(String Apellido_pat) {
-        this.Apellido_Pat = Apellido_pat;
+    public void setApellido_Pat(String Apellido_Pat) {
+        this.Apellido_Pat = Apellido_Pat;
     }
 
-    public String getApellido_mat() {
+    public String getApellido_Mat() {
         return Apellido_Mat;
     }
 
-    public void setApellido_mat(String Apellido_mat) {
-        this.Apellido_Mat = Apellido_mat;
+    public void setApellido_Mat(String Apellido_Mat) {
+        this.Apellido_Mat = Apellido_Mat;
     }
 
     public String getTelefono() {
@@ -107,12 +99,27 @@ public class Trabajador {
         this.Direccion = Direccion;
     }
 
-    public float getSueldo() {
-        return Sueldo;
+//    public float getSueldo() {
+//        return Sueldo;
+//    }
+//
+//    public void setSueldo(float Sueldo) {
+//        this.Sueldo = Sueldo;
+//    }
+
+    public List<Pago_Trabajador> getPago() {
+        return Pago;
     }
 
-    public void setSueldo(float Sueldo) {
-        this.Sueldo = Sueldo;
+    public void setPago(List<Pago_Trabajador> pagos) {
+        this.Pago = Pago;
     }
-    
+
+    public Herramienta getHerramienta() {
+        return herramienta;
+    }
+
+    public void setHerramienta(Herramienta herramienta) {
+        this.herramienta = herramienta;
+    }
 }

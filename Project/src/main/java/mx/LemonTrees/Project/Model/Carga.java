@@ -44,10 +44,6 @@ public class Carga {
     @JoinColumn(name = "Id_Rancho")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Rancho rancho;
-    
-    @OneToOne
-    @JoinColumn(name = "Id_Trabajador")
-    private Trabajador trabajador;
 
     public Carga() {
     }

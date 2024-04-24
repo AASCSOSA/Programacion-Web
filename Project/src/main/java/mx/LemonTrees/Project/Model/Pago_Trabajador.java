@@ -1,12 +1,9 @@
 
 package mx.LemonTrees.Project.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
+
 import java.sql.Date;
 
 @Entity
@@ -21,6 +18,11 @@ public class Pago_Trabajador {
 
     @Column(nullable = false)
     private Date Fecha_Pago;
+    
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_Trabajador")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Trabajador trabajador;
 
     public Pago_Trabajador() {
         
@@ -55,8 +57,12 @@ public class Pago_Trabajador {
     public void setFecha_Pago(Date Fecha_Pago) {
         this.Fecha_Pago = Fecha_Pago;
     }
-    
-    
-    
-    
+
+    public Trabajador getTrabajador() {
+        return trabajador;
+    }
+
+    public void setTrabajador(Trabajador trabajador) {
+        this.trabajador = trabajador;
+    }
 }

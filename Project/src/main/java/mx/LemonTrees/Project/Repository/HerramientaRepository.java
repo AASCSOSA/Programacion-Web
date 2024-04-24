@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import mx.LemonTrees.Project.Model.Herramienta;
 
 @Repository
-public interface HerramientaRepository extends CrudRepository<Herramienta, Long> {
+public interface HerramientaRepository extends CrudRepository<Herramienta, Integer> {
 
 }
