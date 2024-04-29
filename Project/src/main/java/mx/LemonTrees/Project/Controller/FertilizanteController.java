@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +34,7 @@ public class FertilizanteController {
     }
 
     // Buscar por ID
+    @CrossOrigin
     @GetMapping("/{Id_Fertilizante}")
     public ResponseEntity<Fertilizante> findById(@PathVariable Integer Id_Fertilizante) {
         Optional<Fertilizante> fertilizanteOptional = fertilizanteRepository.findById(Id_Fertilizante);
@@ -43,6 +45,7 @@ public class FertilizanteController {
         }
     }
     // Crear
+    @CrossOrigin
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody Fertilizante newFertilizante, UriComponentsBuilder ucb) {
         Fertilizante savedFertilizante = fertilizanteRepository.save(newFertilizante);
@@ -54,6 +57,7 @@ public class FertilizanteController {
     }
 
     // Actualizar
+    @CrossOrigin
     @PutMapping("/{Id_Fertilizante}")
     public ResponseEntity<Void> update(@PathVariable Integer Id_Fertilizante, @RequestBody Fertilizante fertilizanteAct) {
         Fertilizante fertilizanteAnt = fertilizanteRepository.findById(Id_Fertilizante).get();
@@ -66,6 +70,7 @@ public class FertilizanteController {
     }
 
     // Eliminar
+    @CrossOrigin
     @DeleteMapping("/{Id_Fertilizante}")
     public ResponseEntity<Void> delete(@PathVariable Integer Id_Fertilizante) {
         if (fertilizanteRepository.findById(Id_Fertilizante).get() != null) {
@@ -76,6 +81,7 @@ public class FertilizanteController {
     }
     
     //Obtener la fertilización de un terreno
+    @CrossOrigin
     @GetMapping("/{Id_Fertilizante}/fertilizacion")
     public ResponseEntity<Iterable<Fertilizacion>> getFertilizacion(@PathVariable Integer Id_Fertilizante) {
         Optional <Fertilizante> fertilizanteOptional = fertilizanteRepository.findById(Id_Fertilizante);

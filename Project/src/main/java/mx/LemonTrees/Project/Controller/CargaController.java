@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,12 +33,14 @@ public class CargaController {
     private RanchoRepository ranchoRepository;
 
     // Buscar todos
+    @CrossOrigin
     @GetMapping()
     public ResponseEntity<Iterable<Carga>> findAll() {
         return ResponseEntity.ok(cargaRepository.findAll());
     }
 
     // Buscar por ID
+    @CrossOrigin
     @GetMapping("/{Id_Carga}")
     public ResponseEntity<Carga> findById(@PathVariable Integer Id_Carga) {
         Optional<Carga> cargaOptional = cargaRepository.findById(Id_Carga);
@@ -48,6 +51,7 @@ public class CargaController {
     }
 
     // Crear
+    @CrossOrigin
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody Carga newCarga, UriComponentsBuilder ucb) {
         Optional<Rancho> ranchoOptional = ranchoRepository.findById(newCarga.getRancho().getId_Rancho());
@@ -64,6 +68,7 @@ public class CargaController {
     }
 
     // Actualizar
+    @CrossOrigin
     @PutMapping("/{Id_Carga}")
     public ResponseEntity<Void> update(@PathVariable Integer Id_Carga, @RequestBody Carga cargaAct) {
         Carga cargaAnt = cargaRepository.findById(Id_Carga).get();
@@ -76,6 +81,7 @@ public class CargaController {
     }
 
     // Eliminar
+    @CrossOrigin
     @DeleteMapping("/{Id_Carga}")
     public ResponseEntity<Void> delete(@PathVariable Integer Id_Carga) {
         if (cargaRepository.findById(Id_Carga).get() != null) {

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import mx.LemonTrees.Project.Model.Rancho;
 import mx.LemonTrees.Project.Repository.RanchoRepository;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,12 +28,15 @@ public class RanchoController {
     private RanchoRepository ranchoRepository;
 
     // Buscar todos
-    @GetMapping()
+
+    @CrossOrigin
+     @GetMapping()
     public ResponseEntity<Iterable<Rancho>> findAll() {
         return ResponseEntity.ok(ranchoRepository.findAll());
     }
 
     // Buscar por ID
+    @CrossOrigin
     @GetMapping("/{Id_Rancho}")
     public ResponseEntity<Rancho> findById(@PathVariable Integer Id_Rancho) {
         Optional<Rancho> ranchoOptional = ranchoRepository.findById(Id_Rancho);
@@ -44,12 +48,14 @@ public class RanchoController {
     }
 
     // Buscar por ID
+    @CrossOrigin
     @GetMapping("/search")
     public ResponseEntity<Iterable<Rancho>> findByRancho(@RequestParam String Rancho) {
         return ResponseEntity.ok(ranchoRepository.findAll());
     }
 
     // Crear
+    @CrossOrigin
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody Rancho newRancho, UriComponentsBuilder ucb) {
         Rancho savedRancho = ranchoRepository.save(newRancho);
@@ -61,6 +67,7 @@ public class RanchoController {
     }
 
     // Actualizar
+    @CrossOrigin
     @PutMapping("/{Id_Rancho}")
     public ResponseEntity<Void> update(@PathVariable Integer Id_Rancho, @RequestBody Rancho ranchoAct) {
         Rancho ranchoAnt = ranchoRepository.findById(Id_Rancho).get();
@@ -73,6 +80,7 @@ public class RanchoController {
     }
 
     // Eliminar
+    @CrossOrigin
     @DeleteMapping("/{Id_Rancho}")
     public ResponseEntity<Void> delete(@PathVariable Integer Id_Rancho) {
         if (ranchoRepository.findById(Id_Rancho).get() != null) {
