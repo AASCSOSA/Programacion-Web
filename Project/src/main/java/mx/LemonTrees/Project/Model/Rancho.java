@@ -11,7 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.Objects;
-
+//HOLI
 @Entity
 public class Rancho {
     @Id
