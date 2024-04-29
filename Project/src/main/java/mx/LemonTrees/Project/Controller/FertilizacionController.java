@@ -91,6 +91,7 @@ public class FertilizacionController {
     public ResponseEntity<Void> delete(@PathVariable Integer Id_Fertiliacion) {
         if (fertilizacionRepository.findById(Id_Fertiliacion).get() != null) {
             fertilizacionRepository.deleteById(Id_Fertiliacion);
+
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
