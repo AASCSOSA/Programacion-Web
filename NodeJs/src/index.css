@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#buttonsUp{
+ margin-left: 24rem;
+ margin-top: 12rem;
+}
+#buttonsDown{
+  margin-top: 23rem;
+  margin-left:-51.3rem;
+}
+button.btn-primary{
+  margin: 10px;
+  width: 9rem;
+  height: 7rem;
+  font-size: 1.3rem;
+  display: inline-block;
+  position: sticky;
+  text-align: center;
+}
+
+#title-footer{
+  text-align: center;
+  font-size: 3rem;
+}
