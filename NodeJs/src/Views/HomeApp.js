@@ -4,8 +4,8 @@ export default function HomeApp() {
             <div class="btn-group" role="group" aria-label="Basic example">
                 <center><div id="buttonsUp">
                     <Link to='/venta'><button type="button" class="btn btn-primary" >Venta</button></Link>
-                    <button type="button" class="btn btn-primary">Rancho</button>
-                    <button type="button" class="btn btn-primary">Carga</button>
+                    <Link to='/rancho'><button type="button" class="btn btn-primary">Rancho</button></Link>
+                    <Link to='/carga'><button type="button" class="btn btn-primary">Carga</button></Link>
                     <button type="button" class="btn btn-primary">Herramienta</button>
                     <button type="button" class="btn btn-primary">Trabajador</button><br />
                 </div></center>

@@ -2,6 +2,8 @@ import './App.css';
 import HomeApp from './Views/HomeApp';
 import VentaApp from './Views/VentaApp';
 import HeadComponent from './Views/Components/HeadComponent';
+import RanchoApp from './Views/RanchoApp';
+import CargaApp from './Views/CargaApp';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -12,6 +14,8 @@ function App() {
         <Routes>
           <Route exact path="/" element={<HomeApp />} />
           <Route path="/venta" element={<VentaApp />} />
+          <Route path="/rancho" element={<RanchoApp />} />
+          <Route path="/carga" element={<CargaApp />} />
         </Routes>
       </BrowserRouter>
 
