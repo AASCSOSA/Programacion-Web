@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 export default function HomeApp() {
     return (
+        <div>
+            <h1 id="title-footer">Lemon Tree´s</h1>
         <div class="btn-group" role="group" aria-label="Basic example">
             <center><div id="buttonsUp">
                 <Link to='/venta'><button type="button" class="btn btn-primary" >Venta</button></Link>
@@ -17,6 +19,7 @@ export default function HomeApp() {
                 <button type="button" class="btn btn-primary">Reporte</button>
             </div>
         </div >
+        </div>
 
     )
 }

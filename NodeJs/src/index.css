@@ -1,3 +1,20 @@
+
+@font-face {
+  font-family: 'Dancing Script';
+  src: url('./Fonts/DancingScript-VariableFont_wght.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Jersey';
+  src: url('./Fonts/Jersey20-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Permanent Marker';
+  src: url('./Fonts/PermanentMarker-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Poetsen One';
+  src: url('./Fonts/PoetsenOne-Regular.ttf') format('truetype');
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +22,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 code {
@@ -12,15 +31,17 @@ code {
     monospace;
 }
 
-#buttonsUp{
- margin-left: 24rem;
- margin-top: 12rem;
+#buttonsUp {
+  margin-left: 22.5rem;
+  margin-top: 8rem;
 }
-#buttonsDown{
-  margin-top: 23rem;
-  margin-left:-51.3rem;
+
+#buttonsDown {
+  margin-top: 20rem;
+  margin-left: -51.3rem;
 }
-button.btn-primary{
+
+button.btn-primary {
   margin: 10px;
   width: 9rem;
   height: 7rem;
@@ -28,9 +49,78 @@ button.btn-primary{
   display: inline-block;
   position: sticky;
   text-align: center;
+  color: black;
+  border-color: brown;
+  background-color: #88C150;
 }
-
-#title-footer{
+#title-footer {
   text-align: center;
   font-size: 3rem;
+  font-family: 'Poetsen One', sans-serif;
+margin-top: 3rem;
+}
+
+@media screen and (max-width: 1200px) {
+
+  #buttonsUp {
+    margin-left: 10rem;
+    margin-top: 6rem;
+  }
+
+  #buttonsDown {
+    margin-top: 15rem;
+    margin-left: -51.3rem;
+  }
+}
+
+@media screen and (max-width: 800px) {
+
+  #buttonsUp {
+    margin-left: 5rem;
+    margin-top: 8rem;
+  }
+
+  #buttonsDown {
+    margin-top: 17rem;
+    margin-left: -36rem;
+  }
+
+  button.btn-primary {
+    margin: 10px;
+    width: 6rem;
+    height: 5rem;
+    font-size: 0.9rem;
+    display: inline-block;
+    position: sticky;
+    text-align: center;
+    color: black;
+    border-color: brown;
+    background-color: #88C150;
+  }
+}
+
+@media screen and (max-width: 600px) {
+
+  #buttonsUp {
+    margin-left: 3.8rem;
+    margin-top: 2rem;
+  }
+
+  #buttonsDown {
+    margin-top: 10rem;
+    margin-left: -26.3rem;
+  }
+
+  button.btn-primary {
+    margin: 10px;
+    width: 4rem;
+    height: 5rem;
+    font-size: 0.5rem;
+    display: inline-block;
+    position: sticky;
+    text-align: center;
+    color: black;
+    border-color: #88C150;
+    background-color: #88C150;
+  }
 }
