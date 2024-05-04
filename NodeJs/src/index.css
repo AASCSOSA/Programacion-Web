@@ -1,19 +1,25 @@
-
 @font-face {
   font-family: 'Dancing Script';
   src: url('./Fonts/DancingScript-VariableFont_wght.ttf') format('truetype');
 }
+
 @font-face {
   font-family: 'Jersey';
   src: url('./Fonts/Jersey20-Regular.ttf') format('truetype');
 }
+
 @font-face {
   font-family: 'Permanent Marker';
   src: url('./Fonts/PermanentMarker-Regular.ttf') format('truetype');
 }
+
 @font-face {
   font-family: 'Poetsen One';
   src: url('./Fonts/PoetsenOne-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Bricolage';
+  src: url('../src/Fonts/BricolageGrotesque-VariableFont_opsz\,wdth\,wght.ttf') format('truetype');
 }
 body {
   margin: 0;
@@ -26,6 +32,14 @@ body {
   box-sizing: border-box;
 }
 
+#imgLogoHome {
+  border-radius: 80%;
+  width: 5%;
+  display: block;
+  margin-top: -5.4rem;
+  margin-right: auto;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -33,7 +47,7 @@ code {
 
 #buttonsUp {
   margin-left: 22.5rem;
-  margin-top: 8rem;
+  margin-top: 9rem;
 }
 
 #buttonsDown {
@@ -52,12 +66,24 @@ button.btn-primary {
   color: black;
   border-color: brown;
   background-color: #88C150;
+  margin-top: 1rem;
+  font-family: 'Bricolage';
+}
+footer{
+  background-color: #3b3b3b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 #title-footer {
   text-align: center;
   font-size: 3rem;
   font-family: 'Poetsen One', sans-serif;
-margin-top: 3rem;
+  margin-top: 1rem;
+  height: 4rem;
 }
 
 @media screen and (max-width: 1200px) {
@@ -70,6 +96,20 @@ margin-top: 3rem;
   #buttonsDown {
     margin-top: 15rem;
     margin-left: -51.3rem;
+  }
+  #imgLogoHome {
+    border-radius: 80%;
+    width: 7%;
+    display: block;
+    margin-top: -5.4rem;
+    margin-right: auto;
+  }
+  #title-footer {
+    text-align: center;
+    font-size: 3rem;
+    font-family: 'Poetsen One', sans-serif;
+    margin-top: 1rem;
+    height: 4rem;
   }
 }
 
@@ -123,4 +163,19 @@ margin-top: 3rem;
     border-color: #88C150;
     background-color: #88C150;
   }
+  #imgLogoHome {
+    border-radius: 80%;
+    width: 11%;
+    display: block;
+    margin-top: -4.4rem;
+    margin-right: auto;
+  }
+  #title-footer {
+    text-align: center;
+    font-size: 3rem;
+    font-family: 'Poetsen One', sans-serif;
+    margin-top: 1rem;
+    height: 3.2rem;
+  }
+
 }

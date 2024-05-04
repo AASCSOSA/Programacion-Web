@@ -1,7 +1,8 @@
 export default function VentaApp(){
     return (
         <div>
-            <h1>hola</h1>
+            <footer className="footerVenta">Ventas</footer>
+           
         </div>
     )
 }
