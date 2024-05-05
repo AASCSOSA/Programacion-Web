@@ -69,6 +69,12 @@ button.btn-primary {
   margin-top: 1rem;
   font-family: 'Bricolage';
 }
+.tittleFrm{
+  font-size: 1.5rem;
+}
+#formRancho{
+  margin-top: 1rem;
+}
 footer{
   background-color: #3b3b3b;
   display: flex;

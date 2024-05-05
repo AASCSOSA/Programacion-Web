@@ -1,21 +1,21 @@
 import axios from "axios";
-const URL_BASE= "http://localhost:8080/rancho";
+const URL_BASE = "http://localhost:8080/rancho";
 
 class RanchoService {
-    findAll(){
+    findAll() {
         return axios.get(URL_BASE);
     }
     create(rancho) {
         return axios.post(URL_BASE, rancho);
     }
-    findById(Id_Rancho) {
-        return axios.get(URL_BASE + "/" + Id_Rancho);
+    findById(id) {
+        return axios.get(URL_BASE + "/" + id);
     }
-    delete(Id_Rancho) {
-        return axios.delete(URL_BASE + "/" + Id_Rancho);
+    update(id, rancho) {
+        return axios.put(URL_BASE + "/" + id, rancho);
     }
-    update(rancho) {
-        return axios.put(URL_BASE + "/" + rancho.Id_Rancho, rancho);
+    delete(id) {
+        return axios.delete(URL_BASE + "/" + id);
     }
 }
 export default new RanchoService();
