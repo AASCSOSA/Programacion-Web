@@ -5,6 +5,7 @@ import HeadComponent from './Views/Components/HeadComponent';
 import RanchoApp from './Views/RanchoApp';
 import CargaApp from './Views/CargaApp';
 import FormularioRanchoComponent  from './Views/Components/FormularioRanchoComponent';
+import FormularioCargaComponent from './Views/Components/FormularioCargaComponent';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
           <Route path="/carga" element={<CargaApp />} />
           <Route path="/form-rancho" element={<FormularioRanchoComponent />} />
           <Route path="/edit-rancho/:id" element={<FormularioRanchoComponent />} />
+          <Route path="/form-carga" element={<FormularioCargaComponent />} />
+          <Route path="/edit-carga/:id" element={<FormularioCargaComponent />} />
         </Routes>
       </BrowserRouter>
 
