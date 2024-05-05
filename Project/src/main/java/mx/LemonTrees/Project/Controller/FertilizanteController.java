@@ -5,20 +5,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import mx.LemonTrees.Project.Model.Fertilizacion;
 import mx.LemonTrees.Project.Model.Fertilizante;
 import mx.LemonTrees.Project.Repository.FertilizanteRepository;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -26,13 +18,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class FertilizanteController {
     @Autowired
     private FertilizanteRepository fertilizanteRepository;
-    
+
+    @CrossOrigin
     @GetMapping()
     public ResponseEntity<Iterable<Fertilizante>> findAll() {
         return ResponseEntity.ok(fertilizanteRepository.findAll());
     }
 
     // Buscar por ID
+    @CrossOrigin
     @GetMapping("/{Id_Fertilizante}")
     public ResponseEntity<Fertilizante> findById(@PathVariable Integer Id_Fertilizante) {
         Optional<Fertilizante> fertilizanteOptional = fertilizanteRepository.findById(Id_Fertilizante);
@@ -42,7 +36,10 @@ public class FertilizanteController {
             return ResponseEntity.ok(fertilizanteRepository.findById(Id_Fertilizante).get());
         }
     }
+
+
     // Crear
+    @CrossOrigin
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody Fertilizante newFertilizante, UriComponentsBuilder ucb) {
         Fertilizante savedFertilizante = fertilizanteRepository.save(newFertilizante);
@@ -54,6 +51,7 @@ public class FertilizanteController {
     }
 
     // Actualizar
+    @CrossOrigin
     @PutMapping("/{Id_Fertilizante}")
     public ResponseEntity<Void> update(@PathVariable Integer Id_Fertilizante, @RequestBody Fertilizante fertilizanteAct) {
         Fertilizante fertilizanteAnt = fertilizanteRepository.findById(Id_Fertilizante).get();
@@ -66,6 +64,7 @@ public class FertilizanteController {
     }
 
     // Eliminar
+    @CrossOrigin
     @DeleteMapping("/{Id_Fertilizante}")
     public ResponseEntity<Void> delete(@PathVariable Integer Id_Fertilizante) {
         if (fertilizanteRepository.findById(Id_Fertilizante).get() != null) {
@@ -76,6 +75,7 @@ public class FertilizanteController {
     }
     
     //Obtener la fertilización de un terreno
+    @CrossOrigin
     @GetMapping("/{Id_Fertilizante}/fertilizacion")
     public ResponseEntity<Iterable<Fertilizacion>> getFertilizacion(@PathVariable Integer Id_Fertilizante) {
         Optional <Fertilizante> fertilizanteOptional = fertilizanteRepository.findById(Id_Fertilizante);

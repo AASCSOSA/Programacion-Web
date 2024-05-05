@@ -1,5 +1,6 @@
 package mx.LemonTrees.Project.Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
@@ -20,8 +21,10 @@ public class Venta {
     @Column(nullable = false)
     private float Precio_Total;
 
-    @ManyToOne
+    //Relaciones
+    @ManyToOne (fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "Id_Comprador")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Comprador comprador;
 
     public Venta() {

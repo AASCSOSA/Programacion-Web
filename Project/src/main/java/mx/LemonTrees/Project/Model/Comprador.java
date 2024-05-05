@@ -2,7 +2,9 @@ package mx.LemonTrees.Project.Model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,8 +28,8 @@ public class Comprador {
     @Column(nullable = false, length = 50)
     private String Nombre_Empresa;
 
-    @OneToMany(mappedBy = "comprador")
-    private Set<Venta> ventas = new HashSet<>();
+    @OneToMany(mappedBy = "comprador", cascade = CascadeType.ALL)
+    private List<Venta> ventas = new ArrayList<>();
 
     public Comprador() {
     }
