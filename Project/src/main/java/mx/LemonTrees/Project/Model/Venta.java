@@ -77,4 +77,5 @@ public class Venta {
     public void setComprador(Comprador comprador) {
         this.comprador = comprador;
     }
+
 }
