@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import HerramientaService from '../Controllers/HerramientaService';
 import { Link } from 'react-router-dom';
 
-
 export default function HerramientaApp() {
     const [herramienta, setHerramienta] = useState([]);
     const listarCarga = () => {
@@ -71,6 +70,7 @@ export default function HerramientaApp() {
                     </table>
                 </div>
                 <Link to='/form-herramienta'><button type="button" class="btn btn-success" >Insertar</button></Link>
+                <Link to='/form-herramienta'><button type="button" class="btn btn-success" >Consular</button></Link>
             </div>
         </div>
     )
