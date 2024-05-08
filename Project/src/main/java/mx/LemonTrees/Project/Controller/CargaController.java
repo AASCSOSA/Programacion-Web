@@ -54,6 +54,7 @@ public class CargaController {
     public ResponseEntity<Void> create(@RequestBody Carga newCarga, UriComponentsBuilder ucb) {
         Optional<Rancho> ranchoOptional = ranchoRepository.findById(newCarga.getRancho().getId_Rancho());
         if (!ranchoOptional.isPresent()) {
+            System.out.println("No hay");
             return ResponseEntity.unprocessableEntity().build();
         }
         newCarga.setRancho(ranchoOptional.get());

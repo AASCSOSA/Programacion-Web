@@ -28,8 +28,8 @@ public class RanchoController {
     @Autowired
     private RanchoRepository ranchoRepository;
 
-    // Buscar todos
 
+    // Buscar todos
      @GetMapping()
     public ResponseEntity<Iterable<Rancho>> findAll() {
         return ResponseEntity.ok(ranchoRepository.findAll());
@@ -39,19 +39,11 @@ public class RanchoController {
     @GetMapping("/{Id_Rancho}")
     public ResponseEntity<Rancho> findById(@PathVariable Integer Id_Rancho) {
         Optional<Rancho> ranchoOptional = ranchoRepository.findById(Id_Rancho);
-        if (ranchoOptional.isPresent()) {
+        if (!ranchoOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        } 
             return ResponseEntity.ok(ranchoOptional.get());
-        } else {
-            return ResponseEntity.ok(ranchoRepository.findById(Id_Rancho).get());
-        }
     }
-
-    // Buscar por ID
-    @GetMapping("/search")
-    public ResponseEntity<Iterable<Rancho>> findByRancho(@RequestParam String Rancho) {
-        return ResponseEntity.ok(ranchoRepository.findAll());
-    }
-
     // Crear
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody Rancho newRancho, UriComponentsBuilder ucb) {
