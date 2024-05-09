@@ -1,3 +1,28 @@
+@font-face {
+  font-family: 'Dancing Script';
+  src: url('./Fonts/DancingScript-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Jersey';
+  src: url('./Fonts/Jersey20-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Permanent Marker';
+  src: url('./Fonts/PermanentMarker-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poetsen One';
+  src: url('./Fonts/PoetsenOne-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Bricolage';
+  src: url('../src/Fonts/BricolageGrotesque-VariableFont_opsz\,wdth\,wght.ttf') format('truetype');
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +30,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#imgLogoHome {
+  border-radius: 80%;
+  width: 5%;
+  display: block;
+  margin-top: -5.4rem;
+  margin-right: auto;
 }
 
 code {
@@ -12,15 +47,17 @@ code {
     monospace;
 }
 
-#buttonsUp{
- margin-left: 24rem;
- margin-top: 12rem;
+#buttonsUp {
+  margin-left: 22.5rem;
+  margin-top: 9rem;
 }
-#buttonsDown{
-  margin-top: 23rem;
-  margin-left:-51.3rem;
+
+#buttonsDown {
+  margin-top: 20rem;
+  margin-left: -51.3rem;
 }
-button.btn-primary{
+
+button.btn-primary {
   margin: 10px;
   width: 9rem;
   height: 7rem;
@@ -28,9 +65,314 @@ button.btn-primary{
   display: inline-block;
   position: sticky;
   text-align: center;
+  color: black;
+  border-color: brown;
+  background-color: #88C150;
+  margin-top: 1rem;
+  font-family: 'Bricolage';
 }
 
-#title-footer{
+.tittleFrm {
+  font-size: 1.5rem;
+}
+
+#formRancho {
+  margin-top: 1rem;
+}
+
+footer {
+  background-color: #3b3b3b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.table-container {
+  margin-top: 1rem;
+  max-height: 35rem;
+  /* Altura máxima del contenedor de la tabla */
+  overflow-y: auto;
+  /* Añade scroll vertical cuando el contenido excede la altura máxima */
+  border-collapse: collapse;
+
+}
+
+#title-footer {
   text-align: center;
   font-size: 3rem;
+  font-family: 'Poetsen One', sans-serif;
+  margin-top: 1rem;
+  height: 4rem;
+}
+
+@media screen and (max-width: 1200px) {
+
+  #buttonsUp {
+    margin-left: 10rem;
+    margin-top: 6rem;
+  }
+
+  #buttonsDown {
+    margin-top: 15rem;
+    margin-left: -51.3rem;
+  }
+
+  #imgLogoHome {
+    border-radius: 80%;
+    width: 7%;
+    display: block;
+    margin-top: -5.4rem;
+    margin-right: auto;
+  }
+
+  #title-footer {
+    text-align: center;
+    font-size: 3rem;
+    font-family: 'Poetsen One', sans-serif;
+    margin-top: 1rem;
+    height: 4rem;
+  }
+}
+
+@media screen and (max-width: 1920px) {
+
+  #buttonsUp {
+    margin-left: 34rem;
+    margin-top: 8rem;
+  }
+
+  #buttonsDown {
+    margin-top: 20rem;
+    margin-left: -54.5rem;
+  }
+
+  button.btn-primary {
+    margin: 15px;
+    width: 9rem;
+    height: 8rem;
+    font-size: 1.2rem;
+    display: inline-block;
+    position: sticky;
+    text-align: center;
+    color: black;
+    border-color: brown;
+    background-color: #88C150;
+  }
+
+  #imgLogoHome {
+    border-radius: 80%;
+    width: 5%;
+    display: block;
+    margin-top: -6.2rem;
+    margin-right: auto;
+  }
+
+  #title-footer {
+    text-align: center;
+    font-size: 3rem;
+    font-family: 'Poetsen One', sans-serif;
+    margin-top: 2rem;
+    height: 4rem;
+  }
+}
+
+@media screen and (max-width: 800px) {
+
+  #buttonsUp {
+    margin-left: 5rem;
+    margin-top: 8rem;
+  }
+
+  #buttonsDown {
+    margin-top: 17rem;
+    margin-left: -36rem;
+  }
+
+  button.btn-primary {
+    margin: 10px;
+    width: 6rem;
+    height: 5rem;
+    font-size: 0.9rem;
+    display: inline-block;
+    position: sticky;
+    text-align: center;
+    color: black;
+    border-color: brown;
+    background-color: #88C150;
+  }
+}
+
+@media screen and (max-width: 600px) {
+
+  #buttonsUp {
+    margin-left: 3.8rem;
+    margin-top: 2rem;
+  }
+
+  #buttonsDown {
+    margin-top: 10rem;
+    margin-left: -26.3rem;
+  }
+
+  button.btn-primary {
+    margin: 10px;
+    width: 4rem;
+    height: 5rem;
+    font-size: 0.5rem;
+    display: inline-block;
+    position: sticky;
+    text-align: center;
+    color: black;
+    border-color: #88C150;
+    background-color: #88C150;
+  }
+
+  #imgLogoHome {
+    border-radius: 80%;
+    width: 11%;
+    display: block;
+    margin-top: -4.4rem;
+    margin-right: auto;
+  }
+
+  #title-footer {
+    text-align: center;
+    font-size: 3rem;
+    font-family: 'Poetsen One', sans-serif;
+    margin-top: 1rem;
+    height: 3.2rem;
+  }
+
+}
+
+@media screen and (max-width: 480px) and (min-width: 300px) {
+  footer {
+    background-color: #3b3b3b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    margin-right: -1.54rem;
+  }
+
+  #buttonsUp {
+    margin-left: 1rem;
+    margin-top: 5rem;
+  }
+
+  #buttonsDown {
+    margin-top: 12rem;
+    margin-left: -25rem;
+  }
+
+  button.btn-primary {
+    margin: 5px;
+    width: 4.4rem;
+    height: 5rem;
+    font-size: 9px;
+    display: inline-block;
+    position: sticky;
+    text-align: center;
+    color: black;
+    border-color: #88C150;
+    background-color: #88C150;
+
+  }
+
+  #imgLogoHome {
+    border-radius: 80%;
+    width: 15%;
+    display: block;
+    margin-top: -4.4rem;
+    margin-right: auto;
+  }
+
+  #title-footer {
+    text-align: center;
+    font-size: 3rem;
+    font-family: 'Poetsen One', sans-serif;
+    margin-top: 1rem;
+    height: 3.2rem;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+
+  #buttonsUp {
+    margin-left: 10rem;
+    margin-top: 6rem;
+  }
+
+  #buttonsDown {
+    margin-top: 15rem;
+    margin-left: -51.3rem;
+  }
+
+  #imgLogoHome {
+    border-radius: 80%;
+    width: 7%;
+    display: block;
+    margin-top: -5.4rem;
+    margin-right: auto;
+  }
+
+  #title-footer {
+    text-align: center;
+    font-size: 3rem;
+    font-family: 'Poetsen One', sans-serif;
+    margin-top: 1rem;
+    height: 4rem;
+  }
+}
+
+@media screen and (max-width: 960px) {
+
+  #buttonsUp {
+    margin-left: 5rem;
+    margin-top: 6rem;
+  }
+
+  button.btn-primary {
+    margin: 15px;
+    width: 7rem;
+    height: 6rem;
+    font-size: 1rem;
+    display: inline-block;
+    position: sticky;
+    text-align: center;
+    color: black;
+    border-color: brown;
+    background-color: #88C150;
+  }
+
+  #buttonsDown {
+    margin-top: 15rem;
+    margin-left: -44.3rem;
+  }
+
+  #imgLogoHome {
+    border-radius: 80%;
+    width: 8%;
+    display: block;
+    margin-top: -5.4rem;
+    margin-right: auto;
+  }
+
+  #title-footer {
+    text-align: center;
+    font-size: 3rem;
+    font-family: 'Poetsen One', sans-serif;
+    margin-top: 1rem;
+    height: 4rem;
+  }
+}
+
+.table-container{
+  margin-left: -18rem;
+  width: 118rem;
 }
