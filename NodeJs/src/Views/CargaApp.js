@@ -93,7 +93,6 @@ export default function CargaApp() {
                       Editar
                     </Link>
                     <button
-                      style={{ marginLeft: "10px" }}
                       className="btn btn-danger"
                       onClick={() => deleteCarga(cargaItem.id_Carga)}
                     >
@@ -106,12 +105,12 @@ export default function CargaApp() {
           </table>
         </div>
         <Link to="/form-carga">
-          <button type="button" className="btn btn-success">
+          <button type="button" className="btn btn-success" >
             Insertar
           </button>
         </Link>
         <Link to="/form-carga">
-          <button type="button" className="btn btn-success">
+          <button type="button" className="btn btn-success" >
             Consultar
           </button>
         </Link>
