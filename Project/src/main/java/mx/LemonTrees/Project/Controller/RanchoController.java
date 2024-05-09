@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import mx.LemonTrees.Project.Model.Rancho;
 import mx.LemonTrees.Project.Repository.RanchoRepository;
 
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,9 +29,8 @@ public class RanchoController {
     private RanchoRepository ranchoRepository;
 
     // Buscar todos
-
     @CrossOrigin
-     @GetMapping()
+    @GetMapping()
     public ResponseEntity<Iterable<Rancho>> findAll() {
         return ResponseEntity.ok(ranchoRepository.findAll());
     }
