@@ -96,6 +96,8 @@ footer {
   /* Altura máxima del contenedor de la tabla */
   overflow-y: auto;
   /* Añade scroll vertical cuando el contenido excede la altura máxima */
+  border-collapse: collapse;
+
 }
 
 #title-footer {
@@ -368,4 +370,9 @@ footer {
     margin-top: 1rem;
     height: 4rem;
   }
+}
+
+.table-container{
+  margin-left: -18rem;
+  width: 118rem;
 }

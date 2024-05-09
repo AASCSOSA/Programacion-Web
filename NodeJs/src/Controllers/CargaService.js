@@ -17,5 +17,8 @@ class CargaService {
     delete(id) {
         return axios.delete(URL_BASE + "/" + id);
     }
+    findByIdRancho(id) {
+        return axios.get(URL_BASE + "/rancho/" + id);
+    }
 }
 export default new CargaService();
