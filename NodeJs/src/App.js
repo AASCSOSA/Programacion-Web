@@ -1,23 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import HomeApp from './Views/HomeApp';
+import VentaApp from './Views/VentaApp';
+import HeadComponent from './Views/Components/HeadComponent';
+import RanchoApp from './Views/RanchoApp';
+import CargaApp from './Views/CargaApp';
+import FormularioRanchoComponent  from './Views/Components/FormularioRanchoComponent';
+import FormularioCargaComponent from './Views/Components/FormularioCargaComponent';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+      <HeadComponent />
+        <Routes>
+          <Route exact path="/" element={<HomeApp />} />
+          <Route path="/venta" element={<VentaApp />} />
+          <Route path="/rancho" element={<RanchoApp />} />
+          <Route path="/carga" element={<CargaApp />} />
+          <Route path="/form-rancho" element={<FormularioRanchoComponent />} />
+          <Route path="/edit-rancho/:id" element={<FormularioRanchoComponent />} />
+          <Route path="/form-carga" element={<FormularioCargaComponent />} />
+          <Route path="/edit-carga/:id" element={<FormularioCargaComponent />} />
+        </Routes>
+      </BrowserRouter>
+
     </div>
   );
 }
