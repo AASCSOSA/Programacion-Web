@@ -20,7 +20,6 @@ import mx.LemonTrees.Project.Model.Carga;
 import mx.LemonTrees.Project.Model.Rancho;
 import mx.LemonTrees.Project.Repository.CargaRepository;
 import mx.LemonTrees.Project.Repository.RanchoRepository;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
