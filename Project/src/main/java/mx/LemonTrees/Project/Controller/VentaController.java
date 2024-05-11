@@ -43,7 +43,6 @@ public class VentaController {
         }
         return ResponseEntity.ok(ventaOptional.get());
     }
-
      //Crear
      @CrossOrigin
      @PostMapping

@@ -21,13 +21,13 @@ public class Venta {
     @Column(nullable = false)
     private float Precio_Total;
 
-    //Relaciones
-    @ManyToOne (fetch = FetchType.LAZY, optional = false)
+    // Relaciones
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "Id_Comprador")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Comprador comprador;
 
-    @ManyToOne (fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "Id_Carga")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Carga carga;
@@ -81,6 +81,14 @@ public class Venta {
 
     public void setComprador(Comprador comprador) {
         this.comprador = comprador;
+    }
+
+    public Carga getCarga() {
+        return carga;
+    }
+
+    public void setCarga(Carga carga) {
+        this.carga = carga;
     }
 
 }
