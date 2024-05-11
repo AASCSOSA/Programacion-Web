@@ -17,19 +17,19 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class Carga {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id_Carga;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private Integer Rejas_LimonVerde;
-    @Column (nullable = false)
+    @Column(nullable = false)
     private Integer Rejas_LimonSegunda;
-    @Column (nullable = false)
+    @Column(nullable = false)
     private Integer Rejas_LimonTercera;
-    @Column (nullable = false)
+    @Column(nullable = false)
     private Date Fecha;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private Integer Total_Trabajadores;
 
     @Column(nullable = false)
@@ -38,12 +38,12 @@ public class Carga {
     private Float Total_PesoLimonSegunda;
     @Column(nullable = false)
     private Float Total_PesoLimonTercera;
-//Relación muchos a muchos
-    @ManyToOne (fetch = FetchType.LAZY, optional = false)
+    // Relación muchos a muchos
+    @ManyToOne
     @JoinColumn(name = "Id_Rancho")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Rancho rancho;
-    
+
     @OneToOne
     @JoinColumn(name = "Id_Trabajador")
     private Trabajador trabajador;
@@ -51,7 +51,9 @@ public class Carga {
     public Carga() {
     }
 
-    public Carga( Integer Rejas_LimonVerde, Integer Rejas_LimonSegunda, Integer Rejas_LimonTercera, Date Fecha, Integer Total_Trabajadores, Float Total_PesoLimonVerde, Float Total_PesoLimonSegunda, Float Total_PesoLimonTercera) {
+    public Carga(Integer Rejas_LimonVerde, Integer Rejas_LimonSegunda, Integer Rejas_LimonTercera, Date Fecha,
+            Integer Total_Trabajadores, Float Total_PesoLimonVerde, Float Total_PesoLimonSegunda,
+            Float Total_PesoLimonTercera) {
         this.Rejas_LimonVerde = Rejas_LimonVerde;
         this.Rejas_LimonSegunda = Rejas_LimonSegunda;
         this.Rejas_LimonTercera = Rejas_LimonTercera;
@@ -141,7 +143,5 @@ public class Carga {
     public void setRancho(Rancho rancho) {
         this.rancho = rancho;
     }
-
-   
 
 }

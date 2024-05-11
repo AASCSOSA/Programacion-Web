@@ -17,5 +17,8 @@ class RanchoService {
     delete(id) {
         return axios.delete(URL_BASE + "/" + id);
     }
+    getNameRancho(id){
+        return axios.get(URL_BASE + "/carga/" + id);
+    }
 }
 export default new RanchoService();

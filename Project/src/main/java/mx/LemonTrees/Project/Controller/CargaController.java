@@ -21,6 +21,7 @@ import mx.LemonTrees.Project.Model.Rancho;
 import mx.LemonTrees.Project.Repository.CargaRepository;
 import mx.LemonTrees.Project.Repository.RanchoRepository;
 
+
 @RestController
 @RequestMapping("/carga")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -48,7 +49,17 @@ public class CargaController {
         }
         return ResponseEntity.ok(cargaOptional.get());
     }
-
+    //Buscar rancho por carga
+    @GetMapping("/rancho/{Id_Carga}")
+    public ResponseEntity<Rancho> findByIdRancho (@PathVariable Integer Id_Carga) {
+        Optional<Carga> cargaOptional=cargaRepository.findById(Id_Carga);
+        if(!cargaOptional.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+        Rancho rancho= cargaOptional.get().getRancho();
+        return ResponseEntity.ok(rancho);
+    }
+    
     // Crear
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody Carga newCarga, UriComponentsBuilder ucb) {

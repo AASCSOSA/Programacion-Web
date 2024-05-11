@@ -1,14 +1,19 @@
 package mx.LemonTrees.Project.Controller;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
+import mx.LemonTrees.Project.Model.Carga;
 import mx.LemonTrees.Project.Model.Rancho;
+import mx.LemonTrees.Project.Repository.CargaRepository;
 import mx.LemonTrees.Project.Repository.RanchoRepository;
 
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
+
 @RestController
 @RequestMapping("/rancho")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -29,8 +35,11 @@ public class RanchoController {
     private RanchoRepository ranchoRepository;
 
     // Buscar todos
+    @Autowired
+    private CargaRepository cargaRepository;
 
-     @GetMapping()
+
+    @GetMapping()
     public ResponseEntity<Iterable<Rancho>> findAll() {
         return ResponseEntity.ok(ranchoRepository.findAll());
     }
@@ -39,20 +48,13 @@ public class RanchoController {
     @GetMapping("/{Id_Rancho}")
     public ResponseEntity<Rancho> findById(@PathVariable Integer Id_Rancho) {
         Optional<Rancho> ranchoOptional = ranchoRepository.findById(Id_Rancho);
-        if (ranchoOptional.isPresent()) {
-            return ResponseEntity.ok(ranchoOptional.get());
-        } else {
-            return ResponseEntity.ok(ranchoRepository.findById(Id_Rancho).get());
+        if (!ranchoOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(ranchoOptional.get());
     }
 
-    // Buscar por ID
-    @GetMapping("/search")
-    public ResponseEntity<Iterable<Rancho>> findByRancho(@RequestParam String Rancho) {
-        return ResponseEntity.ok(ranchoRepository.findAll());
-    }
-
-    // Crear
+       // Crear
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody Rancho newRancho, UriComponentsBuilder ucb) {
         Rancho savedRancho = ranchoRepository.save(newRancho);
@@ -62,6 +64,20 @@ public class RanchoController {
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @GetMapping("/carga/{Id_Carga}")
+    public ResponseEntity<String> getNameRancho(@PathVariable Integer Id_Carga) {
+        Optional<Carga> cargaOptional= cargaRepository.findById(Id_Carga);
+        if(!cargaOptional.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+        Optional<Rancho> ranchOptional= ranchoRepository.findById(cargaOptional.get().getRancho().getId_Rancho());
+        if(!ranchOptional.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(ranchOptional.get().getNombre_Rancho());
+    }
+    
 
     // Actualizar
     @PutMapping("/{Id_Rancho}")

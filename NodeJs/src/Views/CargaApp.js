@@ -1,82 +1,120 @@
-import React, { useState, useEffect } from 'react';
-import CargaService from '../Controllers/CargaService';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import CargaService from "../Controllers/CargaService";
+import RanchoService from "../Controllers/RanchoService";
+import { Link } from "react-router-dom";
 
 export default function CargaApp() {
+  const [carga, setCarga] = useState([]);
+  const [ranchos, setRanchos] = useState([]);
 
-    const [carga, setCarga] = useState([]);
-   
-    const listarCarga = () => {
-        CargaService.findAll().then((response) => {
-            setCarga(response.data);
-            console.log(response.data);
-        }).catch((error) => {
-            console.log(error);
-        });
+  const listarCarga = () => {
+    CargaService.findAll()
+      .then((response) => {
+        setCarga(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    listarCarga();
+  }, []);
+
+  useEffect(() => {
+    const obtenerNombresRanchos = async () => {
+      try {
+        const nombresRanchos = await Promise.all(
+          carga.map(async (cargaItem) => {
+            const response = await RanchoService.getNameRancho(cargaItem.id_Carga);
+            return response.data;
+          })
+        );
+        setRanchos(nombresRanchos);
+        console.log("Nombres de ranchos obtenidos:", nombresRanchos);
+      } catch (error) {
+        console.log("Error al obtener los nombres de los ranchos:", error);
+      }
+    };
+  
+    if (carga.length > 0) {
+      obtenerNombresRanchos();
     }
-    useEffect(() => {
+  }, [carga]);
+
+  const deleteCarga = (id) => {
+    CargaService.delete(id)
+      .then((response) => {
         listarCarga();
-    }, []);
-    useEffect(() => {
-        CargaService.findAll().then((response) => {
-            setCarga(response.data);
-        }).catch((error) => {
-            console.log(error);
-        });
-    }, []);
-    const deleteCarga = (id) => {
-        CargaService.delete(id).then((response) => {
-            listarCarga();
-        }).catch((error) => {
-            console.log(error);
-        });
-    }
-    return (
-        <div>
-            <footer className="tittleFrm">Carga</footer>
-            <div className='container'>
-                <div className="table-container">
-                    <table class="table" id="tableCarga">
-                        <thead class="table-dark">
-                            <tr>
-                                <th id="id_IdCarga">Id Carga</th>
-                                <th >Fecha</th>
-                                <th >Rejas de limón verde</th>
-                                <th >Rejas de limón segunda</th>
-                                <th >Rejas de limón tercera</th>
-                                <th >Total peso de limón verde</th>
-                                <th >Total peso de limón segunda</th>
-                                <th >Total peso de limón tercera</th>
-                                <th >Trabajadores</th>
-                                <th >Id Rancho</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {carga.map((carga) => (
-                                <tr key={carga.id_Carga}>
-                                    <td>{carga.id_Carga}</td>
-                                    <td>{carga.fecha}</td>
-                                    <td>{carga.rejas_LimonVerde}</td>
-                                    <td>{carga.rejas_LimonSegunda}</td>
-                                    <td>{carga.rejas_LimonTercera}</td>
-                                    <td>{carga.total_PesoLimonVerde}</td>
-                                    <td>{carga.total_PesoLimonSegunda}</td>
-                                    <td>{carga.total_PesoLimonTercera}</td>
-                                    <td>{carga.total_Trabajadores}</td>
-                                    <td>{carga.Id_Rancho}</td>
-                                    <td>
-                                        <Link className='btn btn-info' to={`/edit-carga/${carga.id_Carga}`}>Editar</Link>
-                                        <button style={{ marginLeft: "10px" }} className='btn btn-danger' onClick={() => deleteCarga(carga.id_Carga)}>Eliminar</button>
-                                    </td>
-                                </tr>
-                                
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-                <Link to='/form-carga'><button type="button" class="btn btn-success" >Insertar</button></Link>
-                <Link to='/form-carga'><button type="button" class="btn btn-success" >Consular</button></Link>
-            </div>
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  return (
+    <div >
+      <footer className="tittleFrm">Carga</footer>
+      <div className="container">
+        <div className="table-container">
+          <table className="table" id="tableCarga">
+            <thead className="table-dark">
+              <tr>
+                <th id="id_IdCarga">Id Carga</th>
+                <th>Fecha</th>
+                <th>Rejas de limón verde</th>
+                <th>Rejas de limón segunda</th>
+                <th>Rejas de limón tercera</th>
+                <th>Total peso de limón verde</th>
+                <th>Total peso de limón segunda</th>
+                <th>Total peso de limón tercera</th>
+                <th>Trabajadores</th>
+                <th>Nombre del Rancho</th>
+              </tr>
+            </thead>
+            <tbody>
+              {carga.map((cargaItem, index) => (
+                <tr key={cargaItem.id_Carga}>
+                  <td>{cargaItem.id_Carga}</td>
+                  <td>{cargaItem.fecha}</td>
+                  <td>{cargaItem.rejas_LimonVerde}</td>
+                  <td>{cargaItem.rejas_LimonSegunda}</td>
+                  <td>{cargaItem.rejas_LimonTercera}</td>
+                  <td>{cargaItem.total_PesoLimonVerde}</td>
+                  <td>{cargaItem.total_PesoLimonSegunda}</td>
+                  <td>{cargaItem.total_PesoLimonTercera}</td>
+                  <td>{cargaItem.total_Trabajadores}</td>
+                  <td>{ranchos[index]}</td>
+                  <td>
+                    <Link
+                      className="btn btn-info"
+                      to={`/edit-carga/${cargaItem.id_Carga}`}
+                    >
+                      Editar
+                    </Link>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => deleteCarga(cargaItem.id_Carga)}
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-    )
+        <Link to="/form-carga">
+          <button type="button" className="btn btn-success" >
+            Insertar
+          </button>
+        </Link>
+        <Link to="/form-carga">
+          <button type="button" className="btn btn-success" >
+            Consultar
+          </button>
+        </Link>
+      </div>
+    </div>
+  );
 }
