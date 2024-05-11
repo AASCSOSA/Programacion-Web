@@ -27,6 +27,11 @@ public class Venta {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Comprador comprador;
 
+    @ManyToOne (fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "Id_Carga")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Carga carga;
+
     public Venta() {
     }
 
