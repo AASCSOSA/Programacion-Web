@@ -8,7 +8,6 @@ export default function HomeApp() {
                     <Link to='/carga'><button type="button" class="btn btn-primary">Carga</button></Link>
                     <Link to='/herramienta'><button type="button" class="btn btn-primary">Herramienta</button></Link>
                     <Link to='/trabajador'><button type="button" class="btn btn-primary">Trabajador</button></Link>
-                </div></center>
                     <button type="button" class="btn btn-primary">Herramienta</button>
                     <button type="button" class="btn btn-primary">Trabajador</button><br />
                 </div>
