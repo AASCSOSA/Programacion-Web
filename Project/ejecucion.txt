@@ -1,4 +1,6 @@
 Para poder ejecutar node js y spring boot se debe de hacer lo siguiente:
+sudo apt install maven  /*Solo para linux*/
+mvn clean install
 1.- Ingresar al archivo de package.json en el proyecto de Node JS y hacer lo siguiente:
 "scripts": {
   "start": "react-scripts start",
