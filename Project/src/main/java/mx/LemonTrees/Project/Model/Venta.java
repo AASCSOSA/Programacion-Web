@@ -1,5 +1,6 @@
 package mx.LemonTrees.Project.Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
@@ -20,50 +21,61 @@ public class Venta {
     @Column(nullable = false)
     private float Precio_Total;
 
-    @ManyToOne
+    //Relaciones
+    @ManyToOne (fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "Id_Comprador")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Comprador comprador;
 
     public Venta() {
     }
 
     public Integer getId_Venta() {
-        return Id_Venta;
+        return this.Id_Venta;
     }
 
     public void setId_Venta(Integer id_Venta) {
-        Id_Venta = id_Venta;
+        this.Id_Venta = id_Venta;
     }
 
     public float getPrecio_LimonVerde() {
-        return Precio_LimonVerde;
+        return this.Precio_LimonVerde;
     }
 
     public void setPrecio_LimonVerde(float precio_LimonVerde) {
-        Precio_LimonVerde = precio_LimonVerde;
+        this.Precio_LimonVerde = precio_LimonVerde;
     }
 
     public float getPrecio_LimonSegunda() {
-        return Precio_LimonSegunda;
+        return this.Precio_LimonSegunda;
     }
 
     public void setPrecio_LimonSegunda(float precio_LimonSegunda) {
-        Precio_LimonSegunda = precio_LimonSegunda;
+        this.Precio_LimonSegunda = precio_LimonSegunda;
     }
 
     public float getPrecio_LimonTercera() {
-        return Precio_LimonTercera;
+        return this.Precio_LimonTercera;
     }
 
     public void setPrecio_LimonTercera(float precio_LimonTercera) {
-        Precio_LimonTercera = precio_LimonTercera;
+        this.Precio_LimonTercera = precio_LimonTercera;
     }
 
     public float getPrecio_Total() {
-        return Precio_Total;
+        return this.Precio_Total;
     }
 
     public void setPrecio_Total(float precio_Total) {
-        Precio_Total = precio_Total;
+        this.Precio_Total = precio_Total;
     }
+
+    public Comprador getComprador() {
+        return this.comprador;
+    }
+
+    public void setComprador(Comprador comprador) {
+        this.comprador = comprador;
+    }
+
 }

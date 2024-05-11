@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import mx.LemonTrees.Project.Model.Fertilizacion;
 import mx.LemonTrees.Project.Model.Fertilizante;
 import mx.LemonTrees.Project.Repository.FertilizanteRepository;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -27,7 +26,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class FertilizanteController {
     @Autowired
     private FertilizanteRepository fertilizanteRepository;
-    
+
+    @CrossOrigin
     @GetMapping()
     public ResponseEntity<Iterable<Fertilizante>> findAll() {
         return ResponseEntity.ok(fertilizanteRepository.findAll());
@@ -44,6 +44,8 @@ public class FertilizanteController {
             return ResponseEntity.ok(fertilizanteRepository.findById(Id_Fertilizante).get());
         }
     }
+
+
     // Crear
     @CrossOrigin
     @PostMapping
