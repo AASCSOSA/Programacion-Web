@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import HerramientaService from '../../Controllers/HerramientaService';
 
-
 export const FormularioHerramientaComponent = () => {
     const [modelo, setModelo] = useState('');
     const [marca, setMarca] = useState('');
@@ -10,12 +9,15 @@ export const FormularioHerramientaComponent = () => {
     const [color, setColor] = useState('');
     const [costo, setCosto] = useState('');
     const [fecha_Adquisicion, setFecha_Adquisicion] = useState('');
-    const [warning, setWarning] = useState(false); // Validar que no sean negativos
     const [emptyFieldsWarning, setEmptyFieldsWarning] = useState(false); //Validar que se llenen todos los datos
+    const [warning, setWarning] = useState(false);
+    const [negativoWarning, setNegativoWarning] = useState({
+        cantidad: false,
+        costo: false,
+    });
 
     const navigate = useNavigate();
     const { id_Herramienta } = useParams();
-    const [herramienta, setHerramienta] = useState([]);
 
     useEffect(() => {
         HerramientaService.findById(id_Herramienta).then(response => {
@@ -32,6 +34,31 @@ export const FormularioHerramientaComponent = () => {
 
     const saveHerramienta = (e) => {
         e.preventDefault();
+
+        // Validar que el campo de costo no sea negativo
+        if (
+            cantidad < 0 ||
+            costo < 0
+        ) {
+            setNegativoWarning({
+                cantidad: cantidad < 0,
+                costo: costo < 0,
+            });
+            return;
+        }
+        // Validar que todos los campos estén llenos
+        if (
+            !modelo ||
+            !marca ||
+            !cantidad ||
+            !color ||
+            !costo ||
+            !fecha_Adquisicion
+        ) {
+            setEmptyFieldsWarning(true);
+            return;
+        }
+
         const herramienta = { modelo, marca, cantidad, color, costo, fecha_Adquisicion };
         if (id_Herramienta) {
             HerramientaService.update(id_Herramienta, herramienta).then(response => {
@@ -71,11 +98,16 @@ export const FormularioHerramientaComponent = () => {
             <div className='container' id="formHerramienta">
                 <div className='row'>
                     <div className='card col-md-6 offset-md-3 offset-md-3'>
-                        <h2 classsName="text-center">
+                        <h2 className="text-center">
                             {titulo()}
                         </h2>
                         <h2 className='text-center'>Gestión de Herramientas</h2>
                         <div className='card-body'>
+                            {emptyFieldsWarning && (
+                                <div className="alert alert-warning" role="alert">
+                                    Por favor, complete todos los campos.
+                                </div>
+                            )}
                             <form>
                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Modelo</label>
@@ -104,10 +136,22 @@ export const FormularioHerramientaComponent = () => {
                                     <input type='number'
                                         placeholder='Ingrese la cantidad de la herramienta'
                                         name='cantidadHerramienta'
-                                        className='form-control'
+                                        className={`form-control ${negativoWarning.cantidad ? "is-invalid" : ""
+                                            }`}
                                         value={cantidad}
-                                        onChange={(e) => setCantidad(e.target.value)}>
-                                    </input>
+                                        onChange={(e) => {
+                                            setCantidad(e.target.value);
+                                            setNegativoWarning({
+                                                ...negativoWarning,
+                                                cantidad: e.target.value < 0,
+                                            });
+                                        }}
+                                    ></input>
+                                    {negativoWarning.cantidad && (
+                                        <div className="invalid-feedback">
+                                            No se permiten valores negativos
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className='form-group mb-2'>
@@ -131,23 +175,34 @@ export const FormularioHerramientaComponent = () => {
                                     <input type='number' step="0.01"
                                         placeholder='Ingrese el costo de la herramienta'
                                         name='costoHerramienta'
-                                        className='form-control'
+                                        className={`form-control ${negativoWarning.costo ? "is-invalid" : ""
+                                            }`}
                                         value={costo}
-                                        onChange={(e) => setCosto(e.target.value)}>
-                                    </input>
+                                        onChange={(e) => {
+                                            setCosto(e.target.value);
+                                            setNegativoWarning({
+                                                ...negativoWarning,
+                                                costo: e.target.value < 0,
+                                            });
+                                        }}
+                                    ></input>
+                                    {negativoWarning.costo && (
+                                        <div className="invalid-feedback">
+                                            No se permiten valores negativos
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Fecha de Adquisición</label>
                                     <input type='date'
-                                        placeholder='Ingrese la fecha de adquisicion de la herramienta'
+                                        placeholder='Ingrese la fecha de adquisición de la herramienta'
                                         name='fecha_AdquisicionHerramienta'
                                         className='form-control'
                                         value={fecha_Adquisicion}
                                         onChange={(e) => setFecha_Adquisicion(e.target.value)}>
                                     </input>
                                 </div>
-
                                 <button className='btn btn-success' onClick={(e) => saveHerramienta(e)}>Guardar</button>
                                 &nbsp;&nbsp;
                                 <Link to='/herramienta' className='btn btn-danger'>Cancelar</Link>

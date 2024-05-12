@@ -3,16 +3,19 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import TrabajadorService from '../../Controllers/TrabajadorService';
 import HerramientaService from '../../Controllers/HerramientaService';
 
-
 export const FormularioTrabajadorComponent = () => {
     const [nombre, setNombre] = useState('');
-    const [apellido_Pat,setApellido_Pat] = useState('');
-    const [apellido_Mat,setApellido_Mat] = useState('');
-    const [telefono,setTelefono] = useState('');
-    const [direccion,setDireccion] = useState('');
-    const [sueldo,setSueldo] = useState('');
+    const [nombreError, setNombreError] = useState(false);
+    const [apellido_Pat, setApellido_Pat] = useState('');
+    const [apellidoPatError, setApellidoPatError] = useState(false);
+    const [apellido_Mat, setApellido_Mat] = useState('');
+    const [apellidoMatError, setApellidoMatError] = useState(false);
+    const [telefono, setTelefono] = useState('');
+    const [telefonoError, setTelefonoError] = useState(false);
+    const [direccion, setDireccion] = useState('');
     const [id_Herramienta, setId_Herramienta] = useState('');
     const [herramientas, setHerramientas] = useState([]); // Lista de herramientas
+    const [emptyFieldsWarning, setEmptyFieldsWarning] = useState(false); //Validar que se llenen todos los datos
 
     const navigate = useNavigate();
     const { id_Trabajador } = useParams();
@@ -29,34 +32,45 @@ export const FormularioTrabajadorComponent = () => {
 
     useEffect(() => {
         if (id_Trabajador) {
-        TrabajadorService.findById(id_Trabajador).then(response => {
-            setNombre(response.data.nombre);
-            setApellido_Pat(response.data.apellido_Pat);
-            setApellido_Mat(response.data.apellido_Mat);
-            setTelefono(response.data.telefono);
-            setDireccion(response.data.direccion);
-            setSueldo(response.data.sueldo);
-       // Buscar el ID de la herrmaienta asociado a este trabajador
-       TrabajadorService.findByIdHerramienta(id_Trabajador)
-       .then((response2) => {
-           const herramienta = response2.data;
-           setId_Herramienta(herramienta.id_Herramienta); // Actualiza el estado id_Herrmaienta con el ID de la herrmaienta encontrado
-       })
-       .catch((error) => {
-           console.log(error);
-       });
-})
-   .catch((error) => {
-       console.error("Error al obtener la herramienta:", error);
-   });
-}
-}, [id_Trabajador]);
+            TrabajadorService.findById(id_Trabajador).then(response => {
+                setNombre(response.data.nombre);
+                setApellido_Pat(response.data.apellido_Pat);
+                setApellido_Mat(response.data.apellido_Mat);
+                setTelefono(response.data.telefono);
+                setDireccion(response.data.direccion);
+                // Buscar el ID de la herramienta asociado a este trabajador
+                TrabajadorService.findByIdHerramienta(id_Trabajador)
+                    .then((response2) => {
+                        const herramienta = response2.data;
+                        setId_Herramienta(herramienta.id_Herramienta); // Actualiza el estado id_Herramienta con el ID de la herramienta encontrado
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            })
+                .catch((error) => {
+                    console.error("Error al obtener la herramienta:", error);
+                });
+        }
+    }, [id_Trabajador]);
 
     const saveTrabajador = (e) => {
         e.preventDefault();
 
-        const herramienta = { id_Herramienta };
-        const trabajador = { nombre, apellido_Pat, apellido_Mat, telefono, direccion, sueldo, herramienta };
+        // Validar que todos los campos estén llenos
+        if (
+            !nombre ||
+            !apellido_Pat ||
+            !apellido_Mat ||
+            !telefono ||
+            !direccion ||
+            !id_Herramienta
+        ) {
+            setEmptyFieldsWarning(true);
+            return;
+        }
+
+        const trabajador = { nombre, apellido_Pat, apellido_Mat, telefono, direccion, id_Herramienta };
         if (id_Trabajador) {
             TrabajadorService.update(id_Trabajador, trabajador).then(response => {
                 navigate('/trabajador');
@@ -79,26 +93,77 @@ export const FormularioTrabajadorComponent = () => {
             return <h2 className="text-center">Agregar Trabajador</h2>
         }
     }
+
+    const handleNombreChange = (e) => {
+        const inputValue = e.target.value;
+        if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+            setNombre(inputValue);
+            setNombreError(false);
+        } else {
+            setNombreError(true);
+        }
+    };
+
+    const handleApellidoPatChange = (e) => {
+        const inputValue = e.target.value;
+        if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+            setApellido_Pat(inputValue);
+            setApellidoPatError(false);
+        } else {
+            setApellidoPatError(true);
+        }
+    };
+
+    const handleApellidoMatChange = (e) => {
+        const inputValue = e.target.value;
+        if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+            setApellido_Mat(inputValue);
+            setApellidoMatError(false);
+        } else {
+            setApellidoMatError(true);
+        }
+    };
+
+    const handleTelefonoChange = (e) => {
+        const inputValue = e.target.value;
+        if (/^\d*$/.test(inputValue)) {
+            setTelefono(inputValue);
+            setTelefonoError(false);
+        } else {
+            setTelefonoError(true);
+        }
+    };
+
     return (
         <div>
             <div className='container' id="formTrabajador">
                 <div className='row'>
                     <div className='card col-md-6 offset-md-3 offset-md-3'>
-                        <h2 classsName="text-center">
+                        <h2 className="text-center">
                             {titulo()}
                         </h2>
                         <h2 className='text-center'>Gestión de Trabajadores</h2>
                         <div className='card-body'>
+                            {emptyFieldsWarning && (
+                                <div className="alert alert-warning" role="alert">
+                                    Por favor, complete todos los campos.
+                                </div>
+                            )}
                             <form>
                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Nombre</label>
                                     <input type='text'
                                         placeholder='Ingrese el nombre del trabajador'
                                         name='nombreTrabajador'
-                                        className='form-control'
+                                        className={`form-control ${nombreError ? 'is-invalid' : ''}`}
                                         value={nombre}
-                                        onChange={(e) => setNombre(e.target.value)}>
+                                        onChange={handleNombreChange}>
                                     </input>
+                                    {nombreError && (
+                                        <div className="alert alert-warning" role="alert">
+                                            El nombre no debe contener números.
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className='form-group mb-2'>
@@ -106,10 +171,15 @@ export const FormularioTrabajadorComponent = () => {
                                     <input type='text'
                                         placeholder='Ingrese el apellido paterno del trabajador'
                                         name='apellido_PatTrabajador'
-                                        className='form-control'
+                                        className={`form-control ${apellidoPatError ? 'is-invalid' : ''}`}
                                         value={apellido_Pat}
-                                        onChange={(e) => setApellido_Pat(e.target.value)}>
+                                        onChange={handleApellidoPatChange}>
                                     </input>
+                                    {apellidoPatError && (
+                                        <div className="alert alert-warning" role="alert">
+                                            El apellido paterno no debe contener números.
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className='form-group mb-2'>
@@ -117,10 +187,15 @@ export const FormularioTrabajadorComponent = () => {
                                     <input type='text'
                                         placeholder='Ingrese el apellido materno del trabajador'
                                         name='apellido_MatTrabajador'
-                                        className='form-control'
+                                        className={`form-control ${apellidoMatError ? 'is-invalid' : ''}`}
                                         value={apellido_Mat}
-                                        onChange={(e) => setApellido_Mat(e.target.value)}>
+                                        onChange={handleApellidoMatChange}>
                                     </input>
+                                    {apellidoMatError && (
+                                        <div className="alert alert-warning" role="alert">
+                                            El apellido materno no debe contener números.
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className='form-group mb-2'>
@@ -128,10 +203,15 @@ export const FormularioTrabajadorComponent = () => {
                                     <input type='text'
                                         placeholder='Ingrese el teléfono del trabajador'
                                         name='telefonoTrabajador'
-                                        className='form-control'
+                                        className={`form-control ${telefonoError ? 'is-invalid' : ''}`}
                                         value={telefono}
-                                        onChange={(e) => setTelefono(e.target.value)}>
+                                        onChange={handleTelefonoChange}>
                                     </input>
+                                    {telefonoError && (
+                                        <div className="alert alert-warning" role="alert">
+                                            El teléfono solo debe contener números.
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className='form-group mb-2'>
@@ -172,4 +252,5 @@ export const FormularioTrabajadorComponent = () => {
         </div>
     )
 }
+
 export default FormularioTrabajadorComponent;
