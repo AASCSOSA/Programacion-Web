@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import VentaService from "../../Controllers/VentaService";
 import CompradorService from "../../Controllers/CompradorService";
-import CargaService from "../../Controllers/CargaService";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 export const FormularioVentaComponent = () => {
@@ -14,7 +13,6 @@ export const FormularioVentaComponent = () => {
   const [id_Comprador, setIdComprador] = useState("");
   const [fecha, setFecha] = useState('');
   const [compradores, setCompradores] = useState([]);
-  const [cargas, setCargas] = useState([]); // Lista de ranchos
 
   const navigate = useNavigate();
 
@@ -29,6 +27,7 @@ export const FormularioVentaComponent = () => {
         console.log(error);
       });
   }, []);
+
   useEffect(() => {
     if (id) {
       VentaService.findById(id)
@@ -78,6 +77,7 @@ export const FormularioVentaComponent = () => {
       comprador,
       fecha
     };
+    console.log(venta);
     if (id) {
       VentaService.update(venta, id)
         .then((response) => {

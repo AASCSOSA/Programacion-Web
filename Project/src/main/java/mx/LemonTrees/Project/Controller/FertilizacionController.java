@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -60,7 +59,8 @@ public class FertilizacionController {
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody Fertilizacion newFertilizacion, UriComponentsBuilder ucb) {
         Optional<Rancho> ranchoOptional = ranchoRepository.findById(newFertilizacion.getRancho().getId_Rancho());
-        Optional<Fertilizante> fertilizanteOptional = fertilizanteRepository.findById(newFertilizacion.getFertilizante().getId_Fertilizante());
+        Optional<Fertilizante> fertilizanteOptional = fertilizanteRepository
+                .findById(newFertilizacion.getFertilizante().getId_Fertilizante());
         if (!ranchoOptional.isPresent() && !fertilizanteOptional.isPresent()) {
             return ResponseEntity.unprocessableEntity().build();
         }
@@ -77,7 +77,8 @@ public class FertilizacionController {
     // Actualizar
     @CrossOrigin
     @PutMapping("/{Id_Fertilizacion}")
-    public ResponseEntity<Void> update(@PathVariable Integer Id_Fertilizacion, @RequestBody Fertilizacion fertilizacionAct) {
+    public ResponseEntity<Void> update(@PathVariable Integer Id_Fertilizacion,
+            @RequestBody Fertilizacion fertilizacionAct) {
         Fertilizacion fertilizacionAnt = fertilizacionRepository.findById(Id_Fertilizacion).get();
         if (fertilizacionAct != null) {
             fertilizacionAct.setId_Fertilizacion(fertilizacionAnt.getId_Fertilizacion());
@@ -98,6 +99,27 @@ public class FertilizacionController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    // Obtener la marca del fertilziante de un terreno
+    @GetMapping("/fertilizante/{Id_Fertilizacion}")
+    public ResponseEntity<String> getFertilizacion(@PathVariable Integer Id_Fertilizacion) {
+        Optional<Fertilizacion> fertilizacionOptional = fertilizacionRepository.findById(Id_Fertilizacion);
+        if (!fertilizacionOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        Fertilizante fertilizante = fertilizacionOptional.get().getFertilizante();
+
+        return ResponseEntity.ok(fertilizante.getMarca());
+    }
+
+    @GetMapping("/rancho/{Id_Fertilziacion}")
+    public ResponseEntity<String> getNameRancho(@PathVariable Integer Id_Fertilizacion) {
+        Optional<Fertilizacion> fertilizacionOptional = fertilizacionRepository.findById(Id_Fertilizacion);
+        if(!fertilizacionOptional.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+        Rancho rancho=fertilizacionOptional.get().getRancho();
+        return ResponseEntity.ok(rancho.getNombre_Rancho());
+    }
+
 }
-
-

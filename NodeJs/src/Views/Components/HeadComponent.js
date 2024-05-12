@@ -6,7 +6,7 @@ export default function HeadComponent() {
             <div>
                 <footer>
                     <div>
-                        <h1 id="title-footer" alt="Logotipo">Lemon Tree´sa</h1>
+                        <h1 id="title-footer" alt="Logotipo">Lemon Tree´s</h1>
                     </div>
                 </footer>
             </div>

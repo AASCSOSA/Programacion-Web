@@ -80,7 +80,7 @@ export default function VentaApp(){
                   <th>Precio Limón Tercera</th>
                   <th>Peso Total</th>
                   <th>Pago Total</th>
-                  <th>Fecha</th>
+                  <th>Fec</th>
                   <th>Id Carga</th>
                   <th>Nombre Comprador</th>
                 </tr>

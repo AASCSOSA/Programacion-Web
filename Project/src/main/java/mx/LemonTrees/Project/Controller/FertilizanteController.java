@@ -21,7 +21,6 @@ import mx.LemonTrees.Project.Model.Fertilizante;
 import mx.LemonTrees.Project.Repository.FertilizacionRepository;
 import mx.LemonTrees.Project.Repository.FertilizanteRepository;
 
-
 @RestController
 @RequestMapping("/fertilizante")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -47,7 +46,6 @@ public class FertilizanteController {
         }
     }
 
-
     // Crear
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody Fertilizante newFertilizante, UriComponentsBuilder ucb) {
@@ -61,7 +59,8 @@ public class FertilizanteController {
 
     // Actualizar
     @PutMapping("/{Id_Fertilizante}")
-    public ResponseEntity<Void> update(@PathVariable Integer Id_Fertilizante, @RequestBody Fertilizante fertilizanteAct) {
+    public ResponseEntity<Void> update(@PathVariable Integer Id_Fertilizante,
+            @RequestBody Fertilizante fertilizanteAct) {
         Fertilizante fertilizanteAnt = fertilizanteRepository.findById(Id_Fertilizante).get();
         if (fertilizanteAnt != null) {
             fertilizanteAct.setId_Fertilizante(fertilizanteAnt.getId_Fertilizante());
@@ -80,17 +79,5 @@ public class FertilizanteController {
         }
         return ResponseEntity.notFound().build();
     }
-    
-    //Obtener la fertilización de un terreno
-    @GetMapping("/fertilizacion/{Id_Fertilizacion}")
-    public ResponseEntity<Date> getFertilizacion(@PathVariable Integer Id_Fertilizacion) {
-        Optional <Fertilizacion> fertilizacionOptional = fertilizacionRepository.findById(Id_Fertilizacion);
-        if (!fertilizacionOptional.isPresent()) {
-            return ResponseEntity.notFound().build();
-        } 
 
-
-            return ResponseEntity.ok(fertilizanteOptional.get().getFertilizacion());
-    }
-    
 }

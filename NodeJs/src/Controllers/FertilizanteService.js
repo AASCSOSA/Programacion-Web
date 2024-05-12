@@ -14,12 +14,8 @@ class CompradorService {
   update(id, fertilizante) {
     return axios.put(URL_BASE + "/" + id, fertilizante);
   }
-  delete(id){
-    return axios.delete(URL_BASE+"/"+id);
+  delete(id) {
+    return axios.delete(URL_BASE + "/" + id);
   }
-  getFertilizacion(id){
-    
-  }
-
 }
 export default new CompradorService();

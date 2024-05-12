@@ -48,7 +48,7 @@ export default function Pago_TrabajadorApp() {
                             </tr>
                         </thead>
                         <tbody>
-                            {pago_Trabajador.map((pago_Trabajador) => (
+                            {pago_Trabajador.map((pago_Trabajador,index) => (
                                 <tr key={pago_Trabajador.id_Pago_Trabajador}>
                                     <td>{pago_Trabajador.id_Pago_Trabajador}</td>
                                     <td>{pago_Trabajador.monto}</td>
