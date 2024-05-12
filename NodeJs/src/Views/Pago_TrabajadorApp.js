@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Pago_TrabajadorService from '../Controllers/Pago_TrabajadorService';
+import TrabajadorService from '../Controllers/TrabajadorService';
 
 export default function Pago_TrabajadorApp() {
     const [pago_Trabajador, setPago_Trabajador] = useState([]);
-    const listarCarga = () => {
+    const [trabajadores, setTrabajadores] = useState([]);
+
+    const listarPago = () => {
         Pago_TrabajadorService.findAll().then((response) => {
             setPago_Trabajador(response.data);
             console.log(response.data);
@@ -13,21 +16,34 @@ export default function Pago_TrabajadorApp() {
         });
     }
     useEffect(() => {
-        listarCarga();
+        listarPago();
     }, []);
 
     useEffect(() => {
-        Pago_TrabajadorService.findAll().then((response) => {
-            setPago_Trabajador(response.data);
-            console.log(response.data);
-        }).catch((error) => {
-            console.log(error);
-        });
+        const obtenerNombresTrabajadores = async () => {
+          try {
+            const nombresTrabajadores = await Promise.all(
+              pago_Trabajador.map(async (pago_TrabajadorItem) => {
+                const response = await TrabajadorService.getNameTrabajador(pago_TrabajadorItem.id_Pago_Trabajador);
+                return response.data;
+              })
+            );
+            setTrabajadores(nombresTrabajadores);
+            console.log("Nombres de trabajadores obtenidos:", nombresTrabajadores);
+          } catch (error) {
+            console.log("Error al obtener los nombres de los trabajadores:", error);
+          }
+        };
+      
+        if (pago_Trabajador.length > 0) {
+            obtenerNombresTrabajadores();
+        }
+      }, [pago_Trabajador]);
+    
 
-    }, []);
     const deletePago_Trabajador = (id_Pago_Trabajador) => {
         Pago_TrabajadorService.delete(id_Pago_Trabajador).then((response) => {
-            listarCarga();
+            listarPago();
             console.log(response.data);
         }).catch((error) => {
             console.log(error);
@@ -44,7 +60,7 @@ export default function Pago_TrabajadorApp() {
                                 <th id="id_IdPago_Trabajador">Id Pago Trabajador</th>
                                 <th >Monto</th>
                                 <th >Fecha de Pago</th>
-                                <th >Id Trabajador</th>
+                                <th >Nombre del trabajador</th>
                             </tr>
                         </thead>
                         <tbody>
