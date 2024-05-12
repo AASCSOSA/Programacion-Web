@@ -246,6 +246,7 @@ export const FormularioRanchoComponent = () => {
                     onChange={(e) => setTrabajadores(e.target.value)}
                   ></input>
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Seleccione el Rancho</label>
                   <select

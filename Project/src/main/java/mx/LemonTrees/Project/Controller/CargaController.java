@@ -18,8 +18,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import mx.LemonTrees.Project.Model.Carga;
 import mx.LemonTrees.Project.Model.Rancho;
+import mx.LemonTrees.Project.Model.Venta;
 import mx.LemonTrees.Project.Repository.CargaRepository;
 import mx.LemonTrees.Project.Repository.RanchoRepository;
+import mx.LemonTrees.Project.Repository.VentaRepository;
 
 
 @RestController
@@ -33,6 +35,9 @@ public class CargaController {
 
     @Autowired
     private RanchoRepository ranchoRepository;
+
+    @Autowired
+    private VentaRepository ventaRepository;
 
     // Buscar todos
     @GetMapping()
@@ -97,5 +102,16 @@ public class CargaController {
         }
         return ResponseEntity.notFound().build();
     }
-
+    @GetMapping("/venta/{Id_Venta}")
+    public ResponseEntity<Integer> getIdCarga(@PathVariable Integer Id_Venta) {
+        Optional<Venta> ventaOptional= ventaRepository.findById(Id_Venta);
+        if(!ventaOptional.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+        Optional<Carga> cargaOptional= cargaRepository.findById(ventaOptional.get().getCarga().getId_Carga());
+        if(!cargaOptional.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(cargaOptional.get().getId_Carga());
+    }
 }

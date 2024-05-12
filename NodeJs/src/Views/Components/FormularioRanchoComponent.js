@@ -9,7 +9,6 @@ export const FormularioRanchoComponent = () => {
 
     const navigate = useNavigate();
     const { id } = useParams();
-    const [rancho, setRancho] = useState([]);
 
     useEffect(() => {
         RanchoService.findById(id).then(response => {

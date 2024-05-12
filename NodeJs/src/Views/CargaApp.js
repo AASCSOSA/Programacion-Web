@@ -31,9 +31,7 @@ export default function CargaApp() {
           })
         );
         setRanchos(nombresRanchos);
-        console.log("Nombres de ranchos obtenidos:", nombresRanchos);
       } catch (error) {
-        console.log("Error al obtener los nombres de los ranchos:", error);
       }
     };
   

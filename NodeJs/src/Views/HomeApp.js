@@ -11,10 +11,10 @@ export default function HomeApp() {
                 </div>
                 <div id="buttonsDown">
                 <Link to='/pago_trabajador'><button type="button" class="btn btn-primary">Pago de Trabajador</button></Link>
-                    <button type="button" class="btn btn-primary">Fertilizante</button>
-                    <button type="button" class="btn btn-primary">Fertilización</button>
-                    <button type="button" class="btn btn-primary">Comprador</button>
-                    <button type="button" class="btn btn-primary">Reporte</button>
+                <Link to='/fertilizante'><button type="button" class="btn btn-primary">Fertilizante</button></Link>
+                <Link to='/fertilizacion'><button type="button" class="btn btn-primary">Fertilización</button></Link>
+                <Link to='/comprador'><button type="button" class="btn btn-primary">Comprador</button></Link>
+                <Link to='/reporte'><button type="button" class="btn btn-primary">Reporte</button></Link>
                 </div>
             </div>
     )

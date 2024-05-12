@@ -20,5 +20,8 @@ class CargaService {
     findByIdRancho(id) {
         return axios.get(URL_BASE + "/rancho/" + id);
     }
+    getIdCarga(id){
+        return axios.get(URL_BASE+"/venta/"+id)
+    }
 }
 export default new CargaService();
