@@ -20,6 +20,7 @@ class Pago_TrabajadorService {
 
     findByIdTrabajador(id_Trabajador) {
         return axios.get(URL_BASE + "/trabajador/" + id_Trabajador);
+    }
 
     getNameTrabajador(id_Pago_Trabajador){
         return axios.get(URL_BASE+"/trabajador/"+id_Pago_Trabajador)
