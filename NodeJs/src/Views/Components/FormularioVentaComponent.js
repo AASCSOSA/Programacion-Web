@@ -13,11 +13,10 @@ export const FormularioVentaComponent = () => {
   const [id_Comprador, setIdComprador] = useState("");
   const [fecha, setFecha] = useState('');
   const [compradores, setCompradores] = useState([]);
-=======
+
   const [cargas, setCargas] = useState([]); // Lista de cargas
   const [warning, setWarning] = useState(false); // Validar que no sean negativos
   const [emptyFieldsWarning, setEmptyFieldsWarning] = useState(false); //Validar que se llenen todos los datos
->>>>>>> origin/Felipe
 
   const navigate = useNavigate();
 
