@@ -19,7 +19,7 @@ public class Pago_Trabajador {
     @Column(nullable = false)
     private Date Fecha_Pago;
     
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "id_Trabajador")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Trabajador trabajador;

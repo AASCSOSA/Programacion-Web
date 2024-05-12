@@ -13,7 +13,9 @@ export const FormularioVentaComponent = () => {
   const [id_Carga, setIdCarga] = useState("");
   const [id_Comprador, setIdComprador] = useState("");
   const [compradores, setCompradores] = useState([]);
-  const [cargas, setCargas] = useState([]); // Lista de ranchos
+  const [cargas, setCargas] = useState([]); // Lista de cargas
+  const [warning, setWarning] = useState(false); // Validar que no sean negativos
+  const [emptyFieldsWarning, setEmptyFieldsWarning] = useState(false); //Validar que se llenen todos los datos
 
   const navigate = useNavigate();
 
@@ -64,6 +66,34 @@ export const FormularioVentaComponent = () => {
 
   const saveVenta = (e) => {
     e.preventDefault();
+
+     // Validar que no se ingresen valores negativos
+     if (
+      pago_Total < 0 ||
+      peso_Total < 0 ||
+      precio_LimonVerde < 0 ||
+      precio_LimonSegunda < 0 ||
+      precio_LimonTercera < 0 ||
+      carga < 0
+    ) {
+      setWarning(true);
+      return;
+    }
+
+     // Validar que todos los campos estén llenos
+     if (
+      !pago_Total||
+      !peso_Total||
+      !precio_LimonVerde||
+      !precio_LimonSegunda||
+      !precio_LimonTercera||
+      !carga||
+      !comprador
+    ) {
+      setEmptyFieldsWarning(true);
+      return;
+    }
+
     const carga = { id_Carga };
     const comprador = { id_Comprador };
     const venta = {
@@ -109,6 +139,16 @@ export const FormularioVentaComponent = () => {
             <h2 classsName="text-center">{titulo()}</h2>
             <h2 className="text-center">Gestión de Ventas</h2>
             <div className="card-body">
+            {warning && (
+                <div className="alert alert-warning" role="alert">
+                  No se permiten valores negativos en los campos.
+                </div>
+              )}
+              {emptyFieldsWarning && (
+                <div className="alert alert-warning" role="alert">
+                  Por favor, complete todos los campos.
+                </div>
+              )}
               <form>
                 <div className="form-group mb-2">
                   <label className="form-label">Precio Limón Verde</label>
