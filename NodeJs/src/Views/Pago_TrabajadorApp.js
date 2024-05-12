@@ -64,12 +64,12 @@ export default function Pago_TrabajadorApp() {
                             </tr>
                         </thead>
                         <tbody>
-                            {pago_Trabajador.map((pago_TrabajadorItem, index) => (
-                                <tr key={pago_TrabajadorItem.id_Pago_Trabajador}>
-                                    <td>{pago_TrabajadorItem.id_Pago_Trabajador}</td>
-                                    <td>{pago_TrabajadorItem.monto}</td>
-                                    <td>{pago_TrabajadorItem.fecha_Pago}</td>
-                                    <td>{trabajadores[index]}</td>
+                            {pago_Trabajador.map((pago_Trabajador,index) => (
+                                <tr key={pago_Trabajador.id_Pago_Trabajador}>
+                                    <td>{pago_Trabajador.id_Pago_Trabajador}</td>
+                                    <td>{pago_Trabajador.monto}</td>
+                                    <td>{pago_Trabajador.fecha_Pago}</td>
+                                    <td>{pago_Trabajador.id_Trabajador}</td>
                                     <td>
                                         <Link className='btn btn-info' to={`/edit-pago_trabajador/${pago_Trabajador.id_Pago_Trabajador}`}>Editar</Link>
                                         <button style={{ marginLeft: "10px" }} className='btn btn-danger' onClick={() => deletePago_Trabajador(pago_Trabajador.id_Pago_Trabajador)}>Eliminar</button>

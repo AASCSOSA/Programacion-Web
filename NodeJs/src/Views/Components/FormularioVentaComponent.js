@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import VentaService from "../../Controllers/VentaService";
 import CompradorService from "../../Controllers/CompradorService";
-import CargaService from "../../Controllers/CargaService";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 export const FormularioVentaComponent = () => {
@@ -12,10 +11,12 @@ export const FormularioVentaComponent = () => {
   const [precio_LimonTercera, setPrecioLimonTercera] = useState("");
   const [id_Carga, setIdCarga] = useState("");
   const [id_Comprador, setIdComprador] = useState("");
+  const [fecha, setFecha] = useState('');
   const [compradores, setCompradores] = useState([]);
   const [cargas, setCargas] = useState([]); // Lista de cargas
   const [warning, setWarning] = useState(false); // Validar que no sean negativos
   const [emptyFieldsWarning, setEmptyFieldsWarning] = useState(false); //Validar que se llenen todos los datos
+
 
   const navigate = useNavigate();
 
@@ -30,6 +31,7 @@ export const FormularioVentaComponent = () => {
         console.log(error);
       });
   }, []);
+
   useEffect(() => {
     if (id) {
       VentaService.findById(id)
@@ -40,6 +42,7 @@ export const FormularioVentaComponent = () => {
           setPrecioLimonVerde(venta.precio_LimonVerde);
           setPrecioLimonSegunda(venta.precio_LimonSegunda);
           setPrecioLimonTercera(venta.precio_LimonTercera);
+          setFecha(venta.fecha);
           VentaService.findByIdCarga(id)
             .then((response2) => {
               const carga = response2.data;
@@ -104,7 +107,9 @@ export const FormularioVentaComponent = () => {
       precio_LimonTercera,
       carga,
       comprador,
+      fecha
     };
+    console.log(venta);
     if (id) {
       VentaService.update(venta, id)
         .then((response) => {
@@ -210,6 +215,17 @@ export const FormularioVentaComponent = () => {
                     onChange={(e) => setPagoTotal(e.target.value)}
                   ></input>
                 </div>
+                <div className="form-group mb-2">
+                  <label className="form-label">Fecha</label>
+                  <input
+                    type="date"
+                    name="fechaVenta"
+                    className="form-control"
+                    value={fecha}
+                    onChange={(e) => setFecha(e.target.value)}
+                  ></input>
+                </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Id de la carga</label>
                   <input
