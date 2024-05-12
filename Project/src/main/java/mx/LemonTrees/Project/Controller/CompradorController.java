@@ -1,23 +1,37 @@
 package mx.LemonTrees.Project.Controller;
 
+import mx.LemonTrees.Project.Model.Carga;
 import mx.LemonTrees.Project.Model.Comprador;
+import mx.LemonTrees.Project.Model.Rancho;
+import mx.LemonTrees.Project.Model.Venta;
 import mx.LemonTrees.Project.Repository.CompradorRepository;
+import mx.LemonTrees.Project.Repository.VentaRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponents;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import java.net.URI;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/comprador")
+@CrossOrigin(origins = "http://localhost:3000")
 
 public class CompradorController {
 
     @Autowired
     private CompradorRepository compradorRepository;
+    @Autowired
+    private VentaRepository ventaRepository;
 
     // Buscar todos
     @GetMapping()
@@ -25,7 +39,7 @@ public class CompradorController {
         return ResponseEntity.ok(compradorRepository.findAll());
     }
 
-    //Buscar por ID
+    // Buscar por ID
     @GetMapping("/{Id_Comprador}")
     public ResponseEntity<Comprador> findById(@PathVariable Integer Id_Comprador) {
         Optional<Comprador> compradorOptional = compradorRepository.findById(Id_Comprador);
@@ -35,7 +49,7 @@ public class CompradorController {
         return ResponseEntity.ok(compradorOptional.get());
     }
 
-    //Crear
+    // Crear
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody Comprador newComprador, UriComponentsBuilder ucb) {
         Comprador savedComprador = compradorRepository.save(newComprador);
@@ -46,7 +60,7 @@ public class CompradorController {
         return ResponseEntity.created(uri).build();
     }
 
-    //Actualizar
+    // Actualizar
     @PutMapping("/{Id_Comprador}")
     public ResponseEntity<Comprador> update(@PathVariable Integer Id_Comprador, @RequestBody Comprador comprador) {
         Optional<Comprador> compradorOptional = compradorRepository.findById(Id_Comprador);
@@ -57,7 +71,7 @@ public class CompradorController {
         return ResponseEntity.ok(compradorRepository.save(comprador));
     }
 
-    //Eliminar
+    // Eliminar
     @DeleteMapping("/{Id_Comprador}")
     public ResponseEntity<Void> delete(@PathVariable Integer Id_Comprador) {
         Optional<Comprador> compradorOptional = compradorRepository.findById(Id_Comprador);
@@ -66,5 +80,19 @@ public class CompradorController {
         }
         compradorRepository.deleteById(Id_Comprador);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/venta/{Id_Venta}")
+    public ResponseEntity<String> getNameComprador(@PathVariable Integer Id_Venta) {
+        Optional<Venta> ventaOptional = ventaRepository.findById(Id_Venta);
+        if (!ventaOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        Optional<Comprador> compradorOptional = compradorRepository.findById(ventaOptional.get().getComprador().getId_Comprador());
+        if (!ventaOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        String nombreComleto= compradorOptional.get().getNombre()+" "+compradorOptional.get().getApellido_Pat();
+        return ResponseEntity.ok(nombreComleto);
     }
 }

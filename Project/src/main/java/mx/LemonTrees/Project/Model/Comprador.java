@@ -2,10 +2,7 @@ package mx.LemonTrees.Project.Model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Comprador {
@@ -29,7 +26,7 @@ public class Comprador {
     private String Nombre_Empresa;
 
     @OneToMany(mappedBy = "comprador", cascade = CascadeType.ALL)
-    private List<Venta> ventas = new ArrayList<>();
+    private List<Venta> ventas;
 
     public Comprador() {
     }
@@ -89,4 +86,13 @@ public class Comprador {
     public void setNombre_Empresa(String nombre_Empresa) {
         Nombre_Empresa = nombre_Empresa;
     }
+
+    public List<Venta> getVentas() {
+        return ventas;
+    }
+
+    public void setVentas(List<Venta> ventas) {
+        this.ventas = ventas;
+    }
+    
 }

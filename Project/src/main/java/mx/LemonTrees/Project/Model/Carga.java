@@ -1,9 +1,11 @@
 package mx.LemonTrees.Project.Model;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,7 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Carga {
@@ -37,12 +39,16 @@ public class Carga {
     private Float Total_PesoLimonSegunda;
     @Column(nullable = false)
     private Float Total_PesoLimonTercera;
+
     // Relación muchos a muchos
     @ManyToOne
     @JoinColumn(name = "Id_Rancho")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Rancho rancho;
 
+    // Relacion con Venta
+    @OneToMany(mappedBy = "carga", cascade = CascadeType.ALL)
+    private List<Venta> venta;
 
     public Carga() {
     }
@@ -140,4 +146,13 @@ public class Carga {
         this.rancho = rancho;
     }
 
+    public List<Venta> getVenta() {
+        return venta;
+    }
+
+    public void setVenta(List<Venta> venta) {
+        this.venta = venta;
+    }
+
+    
 }
