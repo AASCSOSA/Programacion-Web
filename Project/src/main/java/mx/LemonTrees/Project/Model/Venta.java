@@ -1,5 +1,7 @@
 package mx.LemonTrees.Project.Model;
 
+import java.sql.Date;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
@@ -24,8 +26,11 @@ public class Venta {
     @Column(nullable = false)
     private float Peso_Total;
 
+    @Column(nullable = false)
+    private Date Fecha;
+
     // Relaciones
-@ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Id_Comprador")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Comprador comprador;
@@ -37,16 +42,19 @@ public class Venta {
 
     public Venta() {
     }
-    
+
+   
 
     public Venta(float precio_LimonVerde, float precio_LimonSegunda, float precio_LimonTercera, float pago_Total,
-            float peso_Total) {
+            float peso_Total, Date fecha) {
         Precio_LimonVerde = precio_LimonVerde;
         Precio_LimonSegunda = precio_LimonSegunda;
         Precio_LimonTercera = precio_LimonTercera;
         Pago_Total = pago_Total;
         Peso_Total = peso_Total;
+        Fecha = fecha;
     }
+
 
 
     public Integer getId_Venta() {
@@ -111,6 +119,18 @@ public class Venta {
 
     public void setCarga(Carga carga) {
         this.carga = carga;
+    }
+
+
+
+    public Date getFecha() {
+        return Fecha;
+    }
+
+
+
+    public void setFecha(Date fecha) {
+        Fecha = fecha;
     }
 
 }
