@@ -12,6 +12,7 @@ export const FormularioVentaComponent = () => {
   const [precio_LimonTercera, setPrecioLimonTercera] = useState("");
   const [id_Carga, setIdCarga] = useState("");
   const [id_Comprador, setIdComprador] = useState("");
+  const [fecha, setFecha] = useState('');
   const [compradores, setCompradores] = useState([]);
   const [cargas, setCargas] = useState([]); // Lista de ranchos
 
@@ -38,6 +39,7 @@ export const FormularioVentaComponent = () => {
           setPrecioLimonVerde(venta.precio_LimonVerde);
           setPrecioLimonSegunda(venta.precio_LimonSegunda);
           setPrecioLimonTercera(venta.precio_LimonTercera);
+          setFecha(venta.fecha);
           VentaService.findByIdCarga(id)
             .then((response2) => {
               const carga = response2.data;
@@ -74,6 +76,7 @@ export const FormularioVentaComponent = () => {
       precio_LimonTercera,
       carga,
       comprador,
+      fecha
     };
     if (id) {
       VentaService.update(venta, id)
@@ -170,6 +173,17 @@ export const FormularioVentaComponent = () => {
                     onChange={(e) => setPagoTotal(e.target.value)}
                   ></input>
                 </div>
+                <div className="form-group mb-2">
+                  <label className="form-label">Fecha</label>
+                  <input
+                    type="date"
+                    name="fechaVenta"
+                    className="form-control"
+                    value={fecha}
+                    onChange={(e) => setFecha(e.target.value)}
+                  ></input>
+                </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Id de la carga</label>
                   <input
