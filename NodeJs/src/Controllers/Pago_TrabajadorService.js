@@ -17,5 +17,8 @@ class Pago_TrabajadorService {
     delete(id_Pago_Trabajador) {
         return axios.delete(URL_BASE + "/" + id_Pago_Trabajador);
     }
+    getNameTrabajador(id_Pago_Trabajador){
+        return axios.get(URL_BASE+"/trabajador/"+id_Pago_Trabajador)
+    }
 }
 export default new Pago_TrabajadorService();
