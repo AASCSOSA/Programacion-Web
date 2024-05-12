@@ -44,7 +44,7 @@ function App() {
           <Route path='/form-trabajador' element={<FormularioTrabajadorComponent />} />
           <Route path='/edit-trabajador/:id_Trabajador' element={<FormularioTrabajadorComponent />} />
           <Route path='/form-pago_trabajador' element={<FormularioPago_TrabajadorComponent />} />
-          <Route path='/edit-pago_trabajador/:id_Trabajador' element={<FormularioPago_TrabajadorComponent />} />
+          <Route path='/edit-pago_trabajador/:id_Pago_Trabajador' element={<FormularioPago_TrabajadorComponent />} />
           <Route path='/form-comprador' element={<FormularioCompradorComponent />} />
           <Route path='/edit-comprador/:id' element={<FormularioCompradorComponent  />} />
           <Route path='/form-venta' element={<FormularioVentaComponent />} />

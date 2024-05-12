@@ -14,9 +14,18 @@ export const FormularioRanchoComponent = () => {
   const [total_Trabajadores, setTrabajadores] = useState("");
   const [id_Rancho, setId_Rancho] = useState("");
   const [ranchos, setRanchos] = useState([]); // Lista de ranchos
+  const [warnings, setWarnings] = useState({
+    rejas_LimonVerde: false,
+    rejas_LimonSegunda: false,
+    rejas_LimonTercera: false,
+    total_PesoLimonVerde: false,
+    total_PesoLimonSegunda: false,
+    total_PesoLimonTercera: false,
+    total_Trabajadores: false,
+  }); // Advertencias de valores negativos
+  const [emptyFieldsWarning, setEmptyFieldsWarning] = useState(false); //Validar que se llenen todos los datos
 
   const navigate = useNavigate();
-
   const { id } = useParams();
 
   useEffect(() => {
@@ -42,26 +51,56 @@ export const FormularioRanchoComponent = () => {
           setPesoTLimonSegunda(carga.total_PesoLimonSegunda);
           setPesoTLimonTercera(carga.total_PesoLimonTercera);
           setTrabajadores(carga.total_Trabajadores);
-          // Buscar el ID del rancho asociado a esta carga
-        CargaService.findByIdRancho(id)
-        .then((response2) => {
-          const rancho = response2.data;
-          setId_Rancho(rancho.id_Rancho); // Actualiza el estado id_Rancho con el ID del rancho encontrado
+          setId_Rancho(carga.rancho.id_Rancho);
         })
         .catch((error) => {
-          console.log(error);
+          console.error("Error al obtener la carga:", error);
         });
-    })
-    .catch((error) => {
-      console.error("Error al obtener la carga:", error);
-    });
-}
-}, [id]);
-
- 
+    }
+  }, [id]);
 
   const saveCarga = (e) => {
     e.preventDefault();
+    const warningsCopy = { ...warnings };
+
+    // Validar que no se ingresen valores negativos
+    if (
+      rejas_LimonVerde < 0 ||
+      rejas_LimonSegunda < 0 ||
+      rejas_LimonTercera < 0 ||
+      total_PesoLimonVerde < 0 ||
+      total_PesoLimonSegunda < 0 ||
+      total_PesoLimonTercera < 0 ||
+      total_Trabajadores < 0
+    ) {
+      setWarnings({
+        rejas_LimonVerde: rejas_LimonVerde < 0,
+        rejas_LimonSegunda: rejas_LimonSegunda < 0,
+        rejas_LimonTercera: rejas_LimonTercera < 0,
+        total_PesoLimonVerde: total_PesoLimonVerde < 0,
+        total_PesoLimonSegunda: total_PesoLimonSegunda < 0,
+        total_PesoLimonTercera: total_PesoLimonTercera < 0,
+        total_Trabajadores: total_Trabajadores < 0,
+      });
+      return;
+    }
+
+    // Validar que todos los campos estén llenos
+    if (
+      !fecha ||
+      !rejas_LimonVerde ||
+      !rejas_LimonSegunda ||
+      !rejas_LimonTercera ||
+      !total_PesoLimonVerde ||
+      !total_PesoLimonSegunda ||
+      !total_PesoLimonTercera ||
+      !total_Trabajadores ||
+      !id_Rancho
+    ) {
+      setEmptyFieldsWarning(true);
+      return;
+    }
+
     const rancho = { id_Rancho };
     const carga = {
       fecha,
@@ -100,14 +139,20 @@ export const FormularioRanchoComponent = () => {
       return <h2 className="text-center">Agregar Carga</h2>;
     }
   };
+
   return (
     <div>
       <div className="container" id="formCarga">
         <div className="row">
           <div className="card col-md-6 offset-md-3 offset-md-3">
-            <h2 classsName="text-center">{titulo()}</h2>
+            <h2 className="text-center">{titulo()}</h2>
             <h2 className="text-center">Gestión de Cargas</h2>
             <div className="card-body">
+              {emptyFieldsWarning && (
+                <div className="alert alert-warning" role="alert">
+                  Por favor, complete todos los campos.
+                </div>
+              )}
               <form>
                 <div className="form-group mb-2">
                   <label className="form-label">Fecha</label>
@@ -123,81 +168,189 @@ export const FormularioRanchoComponent = () => {
                   <label className="form-label">Rejas de limón Verde</label>
                   <input
                     type="number"
+                    min="0" // No permite números negativos
                     placeholder="Ingrese las rejas de limón verde"
                     name="rejasLimonVerde"
-                    className="form-control"
+                    className={`form-control ${
+                      warnings.rejas_LimonVerde ? "is-invalid" : ""
+                    }`}
                     value={rejas_LimonVerde}
-                    onChange={(e) => setRejasVerde(e.target.value)}
+                    onChange={(e) => {
+                      setRejasVerde(e.target.value);
+                      setWarnings({
+                        ...warnings,
+                        rejas_LimonVerde: e.target.value < 0,
+                      });
+                    }}
                   ></input>
+                  {warnings.rejas_LimonVerde && (
+                    <div className="invalid-feedback">
+                      No se permiten valores negativos
+                    </div>
+                  )}
                 </div>
                 <div className="form-group mb-2">
-                  <label className="form-label">Rejas de limón Segunda</label>
+                  <label className="form-label">
+                    Rejas de limón Segunda
+                  </label>
                   <input
                     type="number"
+                    min="0" // No permite números negativos
                     placeholder="Ingrese las rejas de limón segunda"
                     name="rejasLimonSegunda"
-                    className="form-control"
+                    className={`form-control ${
+                      warnings.rejas_LimonSegunda ? "is-invalid" : ""
+                    }`}
                     value={rejas_LimonSegunda}
-                    onChange={(e) => setRejasSegunda(e.target.value)}
+                    onChange={(e) => {
+                      setRejasSegunda(e.target.value);
+                      setWarnings({
+                        ...warnings,
+                        rejas_LimonSegunda: e.target.value < 0,
+                      });
+                    }}
                   ></input>
+                  {warnings.rejas_LimonSegunda && (
+                    <div className="invalid-feedback">
+                      No se permiten valores negativos
+                    </div>
+                  )}
                 </div>
                 <div className="form-group mb-2">
-                  <label className="form-label">Rejas de limón Tercera</label>
+                  <label className="form-label">
+                    Rejas de limón Tercera
+                  </label>
                   <input
                     type="number"
+                    min="0" // No permite números negativos
                     placeholder="Ingrese las rejas de limón tercera"
                     name="rejasLimonTercera"
-                    className="form-control"
+                    className={`form-control ${
+                      warnings.rejas_LimonTercera ? "is-invalid" : ""
+                    }`}
                     value={rejas_LimonTercera}
-                    onChange={(e) => setRejasTercera(e.target.value)}
+                    onChange={(e) => {
+                      setRejasTercera(e.target.value);
+                      setWarnings({
+                        ...warnings,
+                        rejas_LimonTercera: e.target.value < 0,
+                      });
+                    }}
                   ></input>
+                  {warnings.rejas_LimonTercera && (
+                    <div className="invalid-feedback">
+                      No se permiten valores negativos
+                    </div>
+                  )}
                 </div>
                 <div className="form-group mb-2">
-                  <label className="form-label">Total peso Limón Verde</label>
+                  <label className="form-label">
+                    Total peso Limón Verde
+                  </label>
                   <input
                     type="number"
+                    min="0" // No permite números negativos
                     step="0.01"
                     placeholder="Ingrese el total del peso del limón verde"
                     name="pesoLimónVerde"
-                    className="form-control"
+                    className={`form-control ${
+                      warnings.total_PesoLimonVerde ? "is-invalid" : ""
+                    }`}
                     value={total_PesoLimonVerde}
-                    onChange={(e) => setPesoTLimonVerde(e.target.value)}
+                    onChange={(e) => {
+                      setPesoTLimonVerde(e.target.value);
+                      setWarnings({
+                        ...warnings,
+                        total_PesoLimonVerde: e.target.value < 0,
+                      });
+                    }}
                   ></input>
+                  {warnings.total_PesoLimonVerde && (
+                    <div className="invalid-feedback">
+                      No se permiten valores negativos
+                    </div>
+                  )}
                 </div>
                 <div className="form-group mb-2">
-                  <label className="form-label">Total peso Limón Segunda</label>
+                  <label className="form-label">
+                    Total peso Limón Segunda
+                  </label>
                   <input
                     type="number"
+                    min="0" // No permite números negativos
                     step="0.01"
                     placeholder="Ingrese el total del peso del limón segunda"
                     name="pesoLimónsegunda"
-                    className="form-control"
+                    className={`form-control ${
+                      warnings.total_PesoLimonSegunda ? "is-invalid" : ""
+                    }`}
                     value={total_PesoLimonSegunda}
-                    onChange={(e) => setPesoTLimonSegunda(e.target.value)}
+                    onChange={(e) => {
+                      setPesoTLimonSegunda(e.target.value);
+                      setWarnings({
+                        ...warnings,
+                        total_PesoLimonSegunda: e.target.value < 0,
+                      });
+                    }}
                   ></input>
+                  {warnings.total_PesoLimonSegunda && (
+                    <div className="invalid-feedback">
+                      No se permiten valores negativos
+                    </div>
+                  )}
                 </div>
                 <div className="form-group mb-2">
-                  <label className="form-label">Total peso Limón Tercera</label>
+                  <label className="form-label">
+                    Total peso Limón Tercera
+                  </label>
                   <input
                     type="number"
+                    min="0" // No permite números negativos
                     step="0.01"
                     placeholder="Ingrese el total del peso del limón tercera"
                     name="pesoLimóntercera"
-                    className="form-control"
+                    className={`form-control ${
+                      warnings.total_PesoLimonTercera ? "is-invalid" : ""
+                    }`}
                     value={total_PesoLimonTercera}
-                    onChange={(e) => setPesoTLimonTercera(e.target.value)}
+                    onChange={(e) => {
+                      setPesoTLimonTercera(e.target.value);
+                      setWarnings({
+                        ...warnings,
+                        total_PesoLimonTercera: e.target.value < 0,
+                      });
+                    }}
                   ></input>
+                  {warnings.total_PesoLimonTercera && (
+                    <div className="invalid-feedback">
+                      No se permiten valores negativos
+                    </div>
+                  )}
                 </div>
                 <div className="form-group mb-2">
                   <label className="form-label">Total de trabajadores</label>
                   <input
                     type="number"
+                    min="0" // No permite números negativos
                     placeholder="Ingrese el total de trabajadores"
                     name="totalTrabajadores"
-                    className="form-control"
+                    className={`form-control ${
+                      warnings.total_Trabajadores ? "is-invalid" : ""
+                    }`}
                     value={total_Trabajadores}
-                    onChange={(e) => setTrabajadores(e.target.value)}
+                    onChange={(e) => {
+                      setTrabajadores(e.target.value);
+                      setWarnings({
+                        ...warnings,
+                        total_Trabajadores: e.target.value < 0,
+                      });
+                    }}
                   ></input>
+                  {warnings.total_Trabajadores && (
+                    <div className="invalid-feedback">
+                      No se permiten valores negativos
+                    </div>
+                  )}
                 </div>
 
                 <div className="form-group mb-2">
