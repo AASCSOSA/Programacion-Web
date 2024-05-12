@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import TrabajadorService from '../../Controllers/TrabajadorService';
+import HerramientaService from '../../Controllers/HerramientaService';
 
 
 export const FormularioTrabajadorComponent = () => {
@@ -8,16 +9,26 @@ export const FormularioTrabajadorComponent = () => {
     const [apellido_Pat,setApellido_Pat] = useState('');
     const [apellido_Mat,setApellido_Mat] = useState('');
     const [telefono,setTelefono] = useState('');
-    const[direccion,setDireccion] = useState('');
-    const[sueldo,setSueldo] = useState('');
-    const[id_Herramienta,setId_Herramienta] = useState('');
-
+    const [direccion,setDireccion] = useState('');
+    const [sueldo,setSueldo] = useState('');
+    const [id_Herramienta, setId_Herramienta] = useState('');
+    const [herramientas, setHerramientas] = useState([]); // Lista de herramientas
 
     const navigate = useNavigate();
     const { id_Trabajador } = useParams();
-    const [trabajador, setTrabajador] = useState([]);
 
     useEffect(() => {
+        HerramientaService.findAll()
+            .then((response) => {
+                setHerramientas(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+
+    useEffect(() => {
+        if (id_Trabajador) {
         TrabajadorService.findById(id_Trabajador).then(response => {
             setNombre(response.data.nombre);
             setApellido_Pat(response.data.apellido_Pat);
@@ -25,15 +36,27 @@ export const FormularioTrabajadorComponent = () => {
             setTelefono(response.data.telefono);
             setDireccion(response.data.direccion);
             setSueldo(response.data.sueldo);
-            setId_Herramienta(response.data.id_Herramienta)
-        }).catch(e => {
-            console.log(e);
-        })
-    }, []);
+       // Buscar el ID de la herrmaienta asociado a este trabajador
+       TrabajadorService.findByIdHerramienta(id_Trabajador)
+       .then((response2) => {
+           const herramienta = response2.data;
+           setId_Herramienta(herramienta.id_Herramienta); // Actualiza el estado id_Herrmaienta con el ID de la herrmaienta encontrado
+       })
+       .catch((error) => {
+           console.log(error);
+       });
+})
+   .catch((error) => {
+       console.error("Error al obtener la herramienta:", error);
+   });
+}
+}, [id_Trabajador]);
 
     const saveTrabajador = (e) => {
         e.preventDefault();
-        const trabajador = { nombre, apellido_Pat, apellido_Mat, telefono, direccion, sueldo, id_Herramienta };
+
+        const herramienta = { id_Herramienta };
+        const trabajador = { nombre, apellido_Pat, apellido_Mat, telefono, direccion, sueldo, herramienta };
         if (id_Trabajador) {
             TrabajadorService.update(id_Trabajador, trabajador).then(response => {
                 navigate('/trabajador');
@@ -123,25 +146,19 @@ export const FormularioTrabajadorComponent = () => {
                                 </div>
 
                                 <div className='form-group mb-2'>
-                                    <label className='form-label'>Sueldo</label>
-                                    <input type='number'step="0.01"
-                                        placeholder='Ingrese el sueldo del trabajador'
-                                        name='sueldoTrabajador'
-                                        className='form-control'
-                                        value={sueldo}
-                                        onChange={(e) => setSueldo(e.target.value)}>
-                                    </input>
-                                </div>
-
-                                <div className='form-group mb-2'>
-                                    <label className='form-label'>Id Herramienta</label>
-                                    <input type='number'
-                                        placeholder='Ingrese el Id de la herramienta'
-                                        name='id_HerramientaTrabajador'
-                                        className='form-control'
+                                    <label className='form-label'>Selecciona la herramienta</label>
+                                    <select
+                                        className="form-select"
                                         value={id_Herramienta}
-                                        onChange={(e) => setId_Herramienta(e.target.value)}>
-                                    </input>
+                                        onChange={(e) => setId_Herramienta(e.target.value)}
+                                    >
+                                        <option value="">Seleccionar Herramienta</option>
+                                        {herramientas.map((herramienta) => (
+                                            <option key={herramienta.id_Herramienta} value={herramienta.id_Herramienta}>
+                                                {herramienta.modelo_Herramienta}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
 
                                 <button className='btn btn-success' onClick={(e) => saveTrabajador(e)}>Guardar</button>

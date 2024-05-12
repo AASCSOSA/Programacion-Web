@@ -14,9 +14,10 @@ export const FormularioRanchoComponent = () => {
   const [total_Trabajadores, setTrabajadores] = useState("");
   const [id_Rancho, setId_Rancho] = useState("");
   const [ranchos, setRanchos] = useState([]); // Lista de ranchos
+  const [warning, setWarning] = useState(false); // Validar que no sean negativos
+  const [emptyFieldsWarning, setEmptyFieldsWarning] = useState(false); //Validar que se llenen todos los datos
 
   const navigate = useNavigate();
-
   const { id } = useParams();
 
   useEffect(() => {
@@ -43,25 +44,53 @@ export const FormularioRanchoComponent = () => {
           setPesoTLimonTercera(carga.total_PesoLimonTercera);
           setTrabajadores(carga.total_Trabajadores);
           // Buscar el ID del rancho asociado a esta carga
-        CargaService.findByIdRancho(id)
-        .then((response2) => {
-          const rancho = response2.data;
-          setId_Rancho(rancho.id_Rancho); // Actualiza el estado id_Rancho con el ID del rancho encontrado
+          CargaService.findByIdRancho(id)
+            .then((response2) => {
+              const rancho = response2.data;
+              setId_Rancho(rancho.id_Rancho); // Actualiza el estado id_Rancho con el ID del rancho encontrado
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         })
         .catch((error) => {
-          console.log(error);
+          console.error("Error al obtener la carga:", error);
         });
-    })
-    .catch((error) => {
-      console.error("Error al obtener la carga:", error);
-    });
-}
-}, [id]);
-
- 
+    }
+  }, [id]);
 
   const saveCarga = (e) => {
     e.preventDefault();
+    // Validar que no se ingresen valores negativos
+    if (
+      rejas_LimonVerde < 0 ||
+      rejas_LimonSegunda < 0 ||
+      rejas_LimonTercera < 0 ||
+      total_PesoLimonVerde < 0 ||
+      total_PesoLimonSegunda < 0 ||
+      total_PesoLimonTercera < 0 ||
+      total_Trabajadores < 0
+    ) {
+      setWarning(true);
+      return;
+    }
+
+    // Validar que todos los campos estén llenos
+    if (
+      !fecha ||
+      !rejas_LimonVerde ||
+      !rejas_LimonSegunda ||
+      !rejas_LimonTercera ||
+      !total_PesoLimonVerde ||
+      !total_PesoLimonSegunda ||
+      !total_PesoLimonTercera ||
+      !total_Trabajadores ||
+      !id_Rancho
+    ) {
+      setEmptyFieldsWarning(true);
+      return;
+    }
+
     const rancho = { id_Rancho };
     const carga = {
       fecha,
@@ -100,6 +129,7 @@ export const FormularioRanchoComponent = () => {
       return <h2 className="text-center">Agregar Carga</h2>;
     }
   };
+
   return (
     <div>
       <div className="container" id="formCarga">
@@ -108,6 +138,16 @@ export const FormularioRanchoComponent = () => {
             <h2 classsName="text-center">{titulo()}</h2>
             <h2 className="text-center">Gestión de Cargas</h2>
             <div className="card-body">
+              {warning && (
+                <div className="alert alert-warning" role="alert">
+                  No se permiten valores negativos en los campos.
+                </div>
+              )}
+              {emptyFieldsWarning && (
+                <div className="alert alert-warning" role="alert">
+                  Por favor, complete todos los campos.
+                </div>
+              )}
               <form>
                 <div className="form-group mb-2">
                   <label className="form-label">Fecha</label>
@@ -123,6 +163,7 @@ export const FormularioRanchoComponent = () => {
                   <label className="form-label">Rejas de limón Verde</label>
                   <input
                     type="number"
+                    min="0" // No permite números negativos
                     placeholder="Ingrese las rejas de limón verde"
                     name="rejasLimonVerde"
                     className="form-control"
@@ -134,6 +175,7 @@ export const FormularioRanchoComponent = () => {
                   <label className="form-label">Rejas de limón Segunda</label>
                   <input
                     type="number"
+                    min="0" // No permite números negativos
                     placeholder="Ingrese las rejas de limón segunda"
                     name="rejasLimonSegunda"
                     className="form-control"
@@ -145,6 +187,7 @@ export const FormularioRanchoComponent = () => {
                   <label className="form-label">Rejas de limón Tercera</label>
                   <input
                     type="number"
+                    min="0" // No permite números negativos
                     placeholder="Ingrese las rejas de limón tercera"
                     name="rejasLimonTercera"
                     className="form-control"
@@ -156,6 +199,7 @@ export const FormularioRanchoComponent = () => {
                   <label className="form-label">Total peso Limón Verde</label>
                   <input
                     type="number"
+                    min="0" // No permite números negativos
                     step="0.01"
                     placeholder="Ingrese el total del peso del limón verde"
                     name="pesoLimónVerde"
@@ -168,6 +212,7 @@ export const FormularioRanchoComponent = () => {
                   <label className="form-label">Total peso Limón Segunda</label>
                   <input
                     type="number"
+                    min="0" // No permite números negativos
                     step="0.01"
                     placeholder="Ingrese el total del peso del limón segunda"
                     name="pesoLimónsegunda"
@@ -180,6 +225,7 @@ export const FormularioRanchoComponent = () => {
                   <label className="form-label">Total peso Limón Tercera</label>
                   <input
                     type="number"
+                    min="0" // No permite números negativos
                     step="0.01"
                     placeholder="Ingrese el total del peso del limón tercera"
                     name="pesoLimóntercera"
@@ -192,6 +238,7 @@ export const FormularioRanchoComponent = () => {
                   <label className="form-label">Total de trabajadores</label>
                   <input
                     type="number"
+                    min="0" // No permite números negativos
                     placeholder="Ingrese el total de trabajadores"
                     name="totalTrabajadores"
                     className="form-control"

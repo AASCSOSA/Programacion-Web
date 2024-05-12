@@ -2,7 +2,10 @@ package mx.LemonTrees.Project.Controller;
 
 import java.net.URI;
 import java.util.Optional;
+
+import mx.LemonTrees.Project.Model.Carga;
 import mx.LemonTrees.Project.Model.Pago_Trabajador;
+import mx.LemonTrees.Project.Model.Rancho;
 import mx.LemonTrees.Project.Model.Trabajador;
 import mx.LemonTrees.Project.Repository.Pago_TrabajadorRepository;
 import mx.LemonTrees.Project.Repository.TrabajadorRepository;
@@ -13,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/pago_trabajador")
+@CrossOrigin(origins = "http://localhost:3000")
 public class Pago_TrabajadorController {
     
     @Autowired
@@ -38,6 +42,17 @@ public class Pago_TrabajadorController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    //Buscar trabajador por pago_trabajador
+    @GetMapping("/trabajador/{Id_Trabajador}")
+    public ResponseEntity<Trabajador> findByIdTrabajador (@PathVariable Integer Id_Pago_Trabajador) {
+        Optional<Pago_Trabajador> pago_trabajadorOptional=pago_trabajadorRepository.findById(Id_Pago_Trabajador);
+        if(!pago_trabajadorOptional.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+        Trabajador trabajador= pago_trabajadorOptional.get().getTrabajador();
+        return ResponseEntity.ok(trabajador);
     }
 
     //CREAR

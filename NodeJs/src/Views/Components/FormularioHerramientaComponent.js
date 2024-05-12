@@ -5,11 +5,13 @@ import HerramientaService from '../../Controllers/HerramientaService';
 
 export const FormularioHerramientaComponent = () => {
     const [modelo, setModelo] = useState('');
-    const [marca,setMarca] = useState('');
-    const [cantidad,setCantidad] = useState('');
-    const [color,setColor] = useState('');
-    const[costo,setCosto] = useState('');
-    const[fecha_Adquisicion,setFecha_Adquisicion] = useState('');
+    const [marca, setMarca] = useState('');
+    const [cantidad, setCantidad] = useState('');
+    const [color, setColor] = useState('');
+    const [costo, setCosto] = useState('');
+    const [fecha_Adquisicion, setFecha_Adquisicion] = useState('');
+    const [warning, setWarning] = useState(false); // Validar que no sean negativos
+    const [emptyFieldsWarning, setEmptyFieldsWarning] = useState(false); //Validar que se llenen todos los datos
 
     const navigate = useNavigate();
     const { id_Herramienta } = useParams();
@@ -53,6 +55,17 @@ export const FormularioHerramientaComponent = () => {
             return <h2 className="text-center">Agregar Herramienta</h2>
         }
     }
+
+    const handleColorChange = (e) => {
+        const inputValue = e.target.value;
+        if (/^[a-zA-Z]*$/.test(inputValue)) {
+            setColor(inputValue);
+            setWarning(false); // Desactiva la advertencia si el valor es solo letras
+        } else {
+            setWarning(true); // Activa la advertencia si el valor contiene números o caracteres especiales
+        }
+    };
+
     return (
         <div>
             <div className='container' id="formHerramienta">
@@ -104,13 +117,18 @@ export const FormularioHerramientaComponent = () => {
                                         name='colorHerramienta'
                                         className='form-control'
                                         value={color}
-                                        onChange={(e) => setColor(e.target.value)}>
+                                        onChange={handleColorChange}>
                                     </input>
+                                    {warning && (
+                                        <div className="alert alert-warning" role="alert">
+                                            El color no debe contener números ni caracteres especiales.
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Costo</label>
-                                    <input type='number'step="0.01"
+                                    <input type='number' step="0.01"
                                         placeholder='Ingrese el costo de la herramienta'
                                         name='costoHerramienta'
                                         className='form-control'
