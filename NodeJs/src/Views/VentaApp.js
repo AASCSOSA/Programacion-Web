@@ -80,6 +80,7 @@ export default function VentaApp(){
                   <th>Precio Limón Tercera</th>
                   <th>Peso Total</th>
                   <th>Pago Total</th>
+                  <th>Fec</th>
                   <th>Id Carga</th>
                   <th>Nombre Comprador</th>
                 </tr>
@@ -93,6 +94,7 @@ export default function VentaApp(){
                     <td>{venta.precio_LimonTercera}</td>
                     <td>{venta.peso_Total}</td>
                     <td>{venta.pago_Total}</td>
+                    <td>{venta.fecha}</td>
                     <td>{cargas[index]}</td>
                     <td>{compradores[index]}</td>
                     <td>
