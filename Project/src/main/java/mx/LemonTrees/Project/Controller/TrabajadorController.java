@@ -3,9 +3,7 @@ package mx.LemonTrees.Project.Controller;
 import java.net.URI;
 import java.util.Optional;
 
-import mx.LemonTrees.Project.Model.Herramienta;
-import mx.LemonTrees.Project.Model.Pago_Trabajador;
-import mx.LemonTrees.Project.Model.Trabajador;
+import mx.LemonTrees.Project.Model.*;
 import mx.LemonTrees.Project.Repository.HerramientaRepository;
 import mx.LemonTrees.Project.Repository.Pago_TrabajadorRepository;
 import mx.LemonTrees.Project.Repository.TrabajadorRepository;
@@ -16,6 +14,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/trabajador")
+@CrossOrigin(origins = "http://localhost:3000")
+
 public class TrabajadorController {
 
     @Autowired
@@ -47,6 +47,17 @@ public class TrabajadorController {
         }
     }
 
+    //Buscar herrmaienta por trabajador
+    @GetMapping("/herramienta/{Id_Trabajador}")
+    public ResponseEntity<Herramienta> findByIdHerramienta (@PathVariable Integer Id_Trabajador) {
+        Optional<Trabajador>trabajadorOptional=trabajadorRepository.findById(Id_Trabajador);
+        if(!trabajadorOptional.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+        Herramienta herramienta= trabajadorOptional.get().getHerramienta();
+        return ResponseEntity.ok(herramienta);
+    }
+
     //CREAR
     @PostMapping
     @CrossOrigin
@@ -57,19 +68,6 @@ public class TrabajadorController {
         }
         newTrabajador.setHerramienta(herramientaOptional.get());
         Trabajador savedTrabajador = trabajadorRepository.save(newTrabajador);
-        //ID
-        for (Pago_Trabajador pago : newTrabajador.getPago()) {
-            Optional<Pago_Trabajador> pagoOptional = pago_trabajadorRepository.findById(pago.getId_Pago_Trabajador());
-            pagoOptional.ifPresent(p -> {
-                p.setTrabajador(savedTrabajador);
-                pago_trabajadorRepository.save(p);
-            });
-        }
-        //LISTA DE ARRAY
-//        for (Pago_Trabajador pago : newTrabajador.getPago()) {
-//            pago.setTrabajador(savedTrabajador);
-//            pago_trabajadorRepository.save(pago);
-//        }
         URI uri = ucb
                 .path("trabajador/{Id_Trabajador}")
                 .buildAndExpand(savedTrabajador.getId_Trabajador())

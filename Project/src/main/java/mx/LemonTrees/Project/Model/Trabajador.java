@@ -28,10 +28,7 @@ public class Trabajador {
     @Column(nullable = false, length = 50)
     private String Direccion;
 
-//    @Column(nullable = false)
-//    private float Sueldo;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "Id_Herramienta")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Herramienta herramienta;
@@ -41,14 +38,13 @@ public class Trabajador {
     public Trabajador() {
         
     }
-    public Trabajador(String Nombre, String Apellido_Pat, String Apellido_Mat, String Telefono, String Direccion, float Sueldo) {
+    public Trabajador(String Nombre, String Apellido_Pat, String Apellido_Mat, String Telefono, String Direccion) {
         
         this.Nombre = Nombre;
         this.Apellido_Pat = Apellido_Pat;
         this.Apellido_Mat = Apellido_Mat;
         this.Telefono = Telefono;
         this.Direccion = Direccion;
-//        this.Sueldo = Sueldo;
     }
 
     public Integer getId_Trabajador() {
@@ -99,14 +95,6 @@ public class Trabajador {
         this.Direccion = Direccion;
     }
 
-//    public float getSueldo() {
-//        return Sueldo;
-//    }
-//
-//    public void setSueldo(float Sueldo) {
-//        this.Sueldo = Sueldo;
-//    }
-
     public List<Pago_Trabajador> getPago() {
         return Pago;
     }
@@ -116,7 +104,7 @@ public class Trabajador {
     }
 
     public Herramienta getHerramienta() {
-        return herramienta;
+        return this.herramienta;
     }
 
     public void setHerramienta(Herramienta herramienta) {
