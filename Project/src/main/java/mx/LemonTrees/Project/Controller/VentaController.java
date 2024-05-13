@@ -2,7 +2,6 @@ package mx.LemonTrees.Project.Controller;
 
 import mx.LemonTrees.Project.Model.Carga;
 import mx.LemonTrees.Project.Model.Comprador;
-import mx.LemonTrees.Project.Model.Rancho;
 import mx.LemonTrees.Project.Model.Venta;
 import mx.LemonTrees.Project.Repository.CargaRepository;
 import mx.LemonTrees.Project.Repository.CompradorRepository;

@@ -2,15 +2,12 @@ import React, {useState,useEffect} from 'react';
 import VentaService from '../../src/Controllers/VentaService'
 import CargaService from '../Controllers/CargaService';
 import CompradorService from '../Controllers/CompradorService';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 export default function VentaApp(){
     const [venta,setVenta]=useState([]);
     const [cargas,setCargas]=useState([]);
     const [compradores,setCompradores]=useState([]);
 
-    const navigate = useNavigate();
-    const { id } = useParams();
-  
     const listarVenta = () => {
       VentaService.findAll()
         .then((response) => {
@@ -80,7 +77,7 @@ export default function VentaApp(){
                   <th>Precio Limón Tercera</th>
                   <th>Peso Total</th>
                   <th>Pago Total</th>
-                  <th>Fec</th>
+                  <th>Fecha</th>
                   <th>Id Carga</th>
                   <th>Nombre Comprador</th>
                 </tr>

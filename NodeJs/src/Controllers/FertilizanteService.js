@@ -1,15 +1,15 @@
 import axios from "axios";
-const URL_BASE = "http://localhost:8080/Fertilizante";
+const URL_BASE = "http://localhost:8080/fertilizante";
 
-class CompradorService {
+class FertilizanteService {
   findAll() {
     return axios.get(URL_BASE);
   }
-  findByAll(id) {
+  findById(id) {
     return axios.get(URL_BASE + "/" + id);
   }
   create(fertilizante) {
-    return axios.post(URL_BASE + "/" + fertilizante);
+    return axios.post(URL_BASE ,fertilizante);
   }
   update(id, fertilizante) {
     return axios.put(URL_BASE + "/" + id, fertilizante);
@@ -18,4 +18,4 @@ class CompradorService {
     return axios.delete(URL_BASE + "/" + id);
   }
 }
-export default new CompradorService();
+export default new FertilizanteService();

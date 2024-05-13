@@ -5,11 +5,11 @@ class FertilizacionService {
   findAll() {
     return axios.get(URL_BASE);
   }
-  findByAll(id) {
+  findById(id) {
     return axios.get(URL_BASE + "/" + id);
   }
   create(fertilizacion) {
-    return axios.post(URL_BASE + "/" + fertilizacion);
+    return axios.post(URL_BASE, fertilizacion);
   }
   update(id, fertilizacion) {
     return axios.put(URL_BASE + "/" + id, fertilizacion);
@@ -22,6 +22,13 @@ class FertilizacionService {
   }
   getNameRancho(id) {
     return axios.get(URL_BASE + "/rancho/" + id);
+  }
+  findByIdRancho(id){
+    return axios.get(URL_BASE + "/ranchos/" + id);
+  }
+
+  findByIdFertilizante(id){
+    return axios.get(URL_BASE + "/fertilizantes/" + id);
   }
 }
 export default new FertilizacionService();

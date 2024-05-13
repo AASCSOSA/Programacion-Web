@@ -8,6 +8,8 @@ import HerramientaApp from './Views/HerramientaApp';
 import TrabajadorApp from './Views/TrabajadorApp';
 import Pago_TrabajadorApp from './Views/Pago_TrabajadorApp';
 import CompradorApp from './Views/CompradorApp';
+import FertilizanteApp from './Views/FertilizanteApp';
+import FertilizacionApp from './Views/FertilizacionApp';
 
 import FormularioRanchoComponent  from './Views/Components/FormularioRanchoComponent';
 import FormularioCargaComponent from './Views/Components/FormularioCargaComponent';
@@ -16,6 +18,8 @@ import FormularioTrabajadorComponent from './Views/Components/FormularioTrabajad
 import FormularioPago_TrabajadorComponent from './Views/Components/FormularioPago_TrabajadorComponent';
 import FormularioCompradorComponent from './Views/Components/FormularioCompradorComponent';
 import FormularioVentaComponent from './Views/Components/FormularioVentaComponent';
+import FormularioFertilizanteComponent from './Views/Components/FormularioFertilizanteComponent';
+import FormularioFertilizacionComponent from './Views/Components/FormularioFertilizacionComponent';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
@@ -34,6 +38,8 @@ function App() {
           <Route path='/trabajador' element={<TrabajadorApp />} />
           <Route path='/pago_trabajador' element={<Pago_TrabajadorApp />} />
           <Route path='/comprador'element={<CompradorApp />} />
+          <Route path='/fertilizante'element={<FertilizanteApp />} />
+          <Route path='/fertilizacion'element={<FertilizacionApp />} />
 
           <Route path='/form-rancho'element={<FormularioRanchoComponent />} />
           <Route path='/edit-rancho/:id' element={<FormularioRanchoComponent />} />
@@ -49,6 +55,10 @@ function App() {
           <Route path='/edit-comprador/:id' element={<FormularioCompradorComponent  />} />
           <Route path='/form-venta' element={<FormularioVentaComponent />} />
           <Route path='/edit-venta/:id' element={<FormularioVentaComponent  />} />
+          <Route path='/form-fertilizante' element={<FormularioFertilizanteComponent />} />
+          <Route path='/edit-fertilizante/:id_Fertilizante' element={<FormularioFertilizanteComponent  />} />
+          <Route path='/form-fertilizacion' element={<FormularioFertilizacionComponent />} />
+          <Route path='/edit-fertilizacion/:id_Fertilizacion' element={<FormularioFertilizacionComponent  />} />
         </Routes>
       </BrowserRouter>
 
