@@ -95,7 +95,7 @@ footer {
   max-height: 35rem;
   /* Altura máxima del contenedor de la tabla */
   overflow-y: auto;
-  width: 76rem;
+  width: 90rem;
   /* Añade scroll vertical cuando el contenido excede la altura máxima */
   border-collapse: collapse;
 

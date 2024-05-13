@@ -88,11 +88,12 @@ public class CompradorController {
         if (!ventaOptional.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        Optional<Comprador> compradorOptional = compradorRepository.findById(ventaOptional.get().getComprador().getId_Comprador());
+        Optional<Comprador> compradorOptional = compradorRepository
+                .findById(ventaOptional.get().getComprador().getId_Comprador());
         if (!ventaOptional.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        String nombreComleto= compradorOptional.get().getNombre()+" "+compradorOptional.get().getApellido_Pat();
+        String nombreComleto = compradorOptional.get().getNombre() + " " + compradorOptional.get().getApellido_Pat();
         return ResponseEntity.ok(nombreComleto);
     }
 }

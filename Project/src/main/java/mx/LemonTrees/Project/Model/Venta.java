@@ -43,8 +43,6 @@ public class Venta {
     public Venta() {
     }
 
-   
-
     public Venta(float precio_LimonVerde, float precio_LimonSegunda, float precio_LimonTercera, float pago_Total,
             float peso_Total, LocalDate fecha) {
         Precio_LimonVerde = precio_LimonVerde;
@@ -54,8 +52,6 @@ public class Venta {
         Peso_Total = peso_Total;
         Fecha = fecha;
     }
-
-
 
     public Integer getId_Venta() {
         return this.Id_Venta;
@@ -121,13 +117,9 @@ public class Venta {
         this.carga = carga;
     }
 
-
-
     public LocalDate getFecha() {
         return Fecha;
     }
-
-
 
     public void setFecha(LocalDate fecha) {
         Fecha = fecha;
