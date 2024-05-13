@@ -1,6 +1,6 @@
 package mx.LemonTrees.Project.Model;
 
-import java.sql.Date;
+import java.time.*;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -39,7 +39,7 @@ public class Fertilizante {
     private Float Costo_Unitario;
 
     @Column(nullable = false)
-    private Date Fecha_Caducidad;
+    private LocalDate Fecha_Caducidad;
 
     @OneToMany(mappedBy = "fertilizante", cascade = CascadeType.ALL)
     private List<Fertilizacion> Fertilizacion;
@@ -49,7 +49,7 @@ public class Fertilizante {
     
 
     public Fertilizante(String marca, String domicilio_Distribuidora, Float cantidad, String clasificacion,
-            Integer lote, Float costo_Total, Float costo_Unitario, Date fecha_Caducidad) {
+            Integer lote, Float costo_Total, Float costo_Unitario, LocalDate fecha_Caducidad) {
         Marca = marca;
         Domicilio_Distribuidora = domicilio_Distribuidora;
         Cantidad = cantidad;
@@ -125,11 +125,11 @@ public class Fertilizante {
         Costo_Unitario = costo_Unitario;
     }
 
-    public Date getFecha_Caducidad() {
+    public LocalDate getFecha_Caducidad() {
         return Fecha_Caducidad;
     }
 
-    public void setFecha_Caducidad(Date fecha_Caducidad) {
+    public void setFecha_Caducidad(LocalDate fecha_Caducidad) {
         Fecha_Caducidad = fecha_Caducidad;
     }
 

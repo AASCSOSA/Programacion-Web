@@ -1,7 +1,6 @@
 package mx.LemonTrees.Project.Model;
 
-import java.sql.Date;
-
+import java.time.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
@@ -17,7 +16,7 @@ public class Fertilizacion {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer Id_Fertilizacion;
 
-    private Date Fecha_Aplicacion;
+    private LocalDate Fecha_Aplicacion;
 
     private Integer Cantidad_Aplicacion;
 
@@ -39,11 +38,11 @@ public class Fertilizacion {
         this.Id_Fertilizacion = Id_Fertilizacion;
     }
 
-    public Date getFecha_Aplicacion() {
+    public LocalDate getFecha_Aplicacion() {
         return this.Fecha_Aplicacion;
     }
 
-    public void setFecha_Aplicacion(Date Fecha_Aplicacion) {
+    public void setFecha_Aplicacion(LocalDate Fecha_Aplicacion) {
         this.Fecha_Aplicacion = Fecha_Aplicacion;
     }
 
@@ -71,7 +70,7 @@ public class Fertilizacion {
         this.rancho = rancho;
     }
 
-    public Fertilizacion(Date Fecha_Aplicacion, Integer Cantidad_Aplicacion) {
+    public Fertilizacion(LocalDate Fecha_Aplicacion, Integer Cantidad_Aplicacion) {
         this.Fecha_Aplicacion = Fecha_Aplicacion;
         this.Cantidad_Aplicacion = Cantidad_Aplicacion;
     }
