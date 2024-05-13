@@ -6,7 +6,7 @@ import HerramientaService from '../Controllers/HerramientaService';
 export default function TrabajadorApp() {
     const [trabajador, setTrabajador] = useState([]);
     const [herramientas, setHerramientas] = useState([]);
-
+    
     const listarTrabajador = () => {
         TrabajadorService.findAll().then((response) => {
             setTrabajador(response.data);
@@ -23,15 +23,13 @@ export default function TrabajadorApp() {
         const obtenerModelosHerramientas = async () => {
           try {
             const modelosHerramientas = await Promise.all(
-              trabajador.map(async (trabajadorItem) => {
-                const response = await HerramientaService.getModeloHerramienta(trabajadorItem.id_Trabajador);
+              trabajador.map(async (trabajador) => {
+                const response = await HerramientaService.getModeloHerramienta(trabajador.id_Trabajador);
                 return response.data;
               })
             );
             setHerramientas(modelosHerramientas);
-            console.log("Modelos de herramientas obtenidos:", modelosHerramientas);
           } catch (error) {
-            console.log("Error al obtener los modleos de las herramientas:", error);
           }
         };
       
@@ -56,24 +54,24 @@ export default function TrabajadorApp() {
                     <table class="table" id="tableTrabajador">
                         <thead class="table-dark">
                             <tr>
-                                <th id="id_IdTrabajador">Id Trabajador</th>
+                                <th>Id Trabajador</th>
                                 <th >Nombre</th>
                                 <th >Apellido Paterno</th>
-                                <th >Apellido Materno</th>
+                                <th >Apellido Materno</th>   
                                 <th >Teléfono</th>
                                 <th >Dirección</th>
                                 <th >Modelo de la herramienta</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {trabajador.map((trabajadorItem, index) => (
-                                <tr key={trabajadorItem.id_Trabajador}>
-                                    <td>{trabajadorItem.id_Trabajador}</td>
-                                    <td>{trabajadorItem.nombre}</td>
-                                    <td>{trabajadorItem.apellido_Pat}</td>
-                                    <td>{trabajadorItem.apellido_Mat}</td>
-                                    <td>{trabajadorItem.telefono}</td>
-                                    <td>{trabajadorItem.direccion}</td>
+                            {trabajador.map((trabajador, index) => (
+                                <tr key={trabajador.id_Trabajador}>
+                                    <td>{trabajador.id_Trabajador}</td>
+                                    <td>{trabajador.nombre}</td>
+                                    <td>{trabajador.apellido_Pat}</td>
+                                    <td>{trabajador.apellido_Mat}</td>
+                                    <td>{trabajador.telefono}</td>
+                                    <td>{trabajador.direccion}</td>
                                     <td>{herramientas[index]}</td>
                                     <td>
                                         <Link className='btn btn-info' to={`/edit-trabajador/${trabajador.id_Trabajador}`}>Editar</Link>

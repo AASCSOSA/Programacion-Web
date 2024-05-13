@@ -28,7 +28,7 @@ public class Trabajador {
     @Column(nullable = false, length = 50)
     private String Direccion;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Id_Herramienta")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Herramienta herramienta;

@@ -8,11 +8,15 @@ export const FormularioCompradorComponent = () => {
   const [apellido_Mat, setApellido_Mat] = useState("");
   const [telefono, setTelefono] = useState("");
   const [nombre_Empresa, setNombreEmpresa] = useState("");
+  
+  
+  //Validaciones
+  const [emptyFieldsWarning, setEmptyFieldsWarning] = useState(false); //Validar que se llenen todos los datos
+  const [telefonoError, setTelefonoError] = useState(false);
   const [nombreError, setNombreError] = useState(false);
   const [apellidoPatError, setApellidoPatError] = useState(false);
   const [apellidoMatError, setApellidoMatError] = useState(false);
-  const [telefonoError, setTelefonoError] = useState(false);
-  const [emptyFieldsWarning, setEmptyFieldsWarning] = useState(false); //Validar que se llenen todos los datos
+
 
   const navigate = useNavigate();
   const { id } = useParams();

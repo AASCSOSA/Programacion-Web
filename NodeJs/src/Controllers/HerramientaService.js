@@ -17,8 +17,8 @@ class HerramientaService {
     delete(id_Herramienta) {
         return axios.delete(URL_BASE + "/" + id_Herramienta);
     }
-    getModeloHerramienta(id_Trabajador){
-        return axios.get(URL_BASE + "/trabajador/" + id_Trabajador);
+    getModeloHerramienta(id_Herramienta){
+        return axios.get(URL_BASE + "/trabajador/" + id_Herramienta);
     }
 }
 export default new HerramientaService();

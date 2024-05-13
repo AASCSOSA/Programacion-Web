@@ -30,11 +30,11 @@ public class RanchoController {
     @Autowired
     private RanchoRepository ranchoRepository;
 
-    // Buscar todos
+
     @Autowired
     private CargaRepository cargaRepository;
 
-
+    // Buscar todos
     @GetMapping()
     public ResponseEntity<Iterable<Rancho>> findAll() {
         return ResponseEntity.ok(ranchoRepository.findAll());
