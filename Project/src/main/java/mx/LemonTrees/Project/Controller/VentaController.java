@@ -2,7 +2,6 @@ package mx.LemonTrees.Project.Controller;
 
 import mx.LemonTrees.Project.Model.Carga;
 import mx.LemonTrees.Project.Model.Comprador;
-import mx.LemonTrees.Project.Model.Rancho;
 import mx.LemonTrees.Project.Model.Venta;
 import mx.LemonTrees.Project.Repository.CargaRepository;
 import mx.LemonTrees.Project.Repository.CompradorRepository;
@@ -72,8 +71,7 @@ public class VentaController {
     @PutMapping("/{Id_Venta}")
     public ResponseEntity<Void> update(@PathVariable Integer Id_Venta, @RequestBody Venta ventaUpdate) {
         Optional<Carga> cargaOptional = cargaRepository.findById(ventaUpdate.getCarga().getId_Carga());
-        Optional<Comprador> compradorOptional = compradorRepository
-                .findById(ventaUpdate.getComprador().getId_Comprador());
+        Optional<Comprador> compradorOptional = compradorRepository.findById(ventaUpdate.getComprador().getId_Comprador());
         Optional<Venta> ventaOptional = ventaRepository.findById(Id_Venta);
         if (!(cargaOptional.isPresent() && compradorOptional.isPresent())) {
             return ResponseEntity.unprocessableEntity().build();

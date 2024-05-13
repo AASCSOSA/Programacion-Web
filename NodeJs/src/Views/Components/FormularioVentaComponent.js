@@ -10,13 +10,16 @@ export const FormularioVentaComponent = () => {
   const [precio_LimonSegunda, setPrecioLimonSegunda] = useState("");
   const [precio_LimonTercera, setPrecioLimonTercera] = useState("");
   const [id_Carga, setIdCarga] = useState("");
+  const [fecha, setFecha] = useState("");
   const [id_Comprador, setIdComprador] = useState("");
-  const [fecha, setFecha] = useState('');
   const [compradores, setCompradores] = useState([]);
+<<<<<<< HEAD
 
   const [cargas, setCargas] = useState([]); // Lista de cargas
   const [warning, setWarning] = useState(false); // Validar que no sean negativos
   const [emptyFieldsWarning, setEmptyFieldsWarning] = useState(false); //Validar que se llenen todos los datos
+=======
+>>>>>>> main
 
   const navigate = useNavigate();
 
@@ -43,10 +46,13 @@ export const FormularioVentaComponent = () => {
           setPrecioLimonSegunda(venta.precio_LimonSegunda);
           setPrecioLimonTercera(venta.precio_LimonTercera);
           setFecha(venta.fecha);
+
           VentaService.findByIdCarga(id)
             .then((response2) => {
               const carga = response2.data;
               setIdCarga(carga.id_Carga);
+              console.log(carga);
+              console.log(carga.id_Carga);
             })
             .catch((error) => {
               console.log(error);
@@ -69,34 +75,6 @@ export const FormularioVentaComponent = () => {
 
   const saveVenta = (e) => {
     e.preventDefault();
-
-     // Validar que no se ingresen valores negativos
-     if (
-      pago_Total < 0 ||
-      peso_Total < 0 ||
-      precio_LimonVerde < 0 ||
-      precio_LimonSegunda < 0 ||
-      precio_LimonTercera < 0 ||
-      carga < 0
-    ) {
-      setWarning(true);
-      return;
-    }
-
-     // Validar que todos los campos estén llenos
-     if (
-      !pago_Total||
-      !peso_Total||
-      !precio_LimonVerde||
-      !precio_LimonSegunda||
-      !precio_LimonTercera||
-      !carga||
-      !comprador
-    ) {
-      setEmptyFieldsWarning(true);
-      return;
-    }
-
     const carga = { id_Carga };
     const comprador = { id_Comprador };
     const venta = {
@@ -107,9 +85,8 @@ export const FormularioVentaComponent = () => {
       precio_LimonTercera,
       carga,
       comprador,
-      fecha
+      fecha,
     };
-    console.log(venta);
     if (id) {
       VentaService.update(venta, id)
         .then((response) => {
@@ -144,16 +121,6 @@ export const FormularioVentaComponent = () => {
             <h2 classsName="text-center">{titulo()}</h2>
             <h2 className="text-center">Gestión de Ventas</h2>
             <div className="card-body">
-            {warning && (
-                <div className="alert alert-warning" role="alert">
-                  No se permiten valores negativos en los campos.
-                </div>
-              )}
-              {emptyFieldsWarning && (
-                <div className="alert alert-warning" role="alert">
-                  Por favor, complete todos los campos.
-                </div>
-              )}
               <form>
                 <div className="form-group mb-2">
                   <label className="form-label">Precio Limón Verde</label>
@@ -225,7 +192,6 @@ export const FormularioVentaComponent = () => {
                     onChange={(e) => setFecha(e.target.value)}
                   ></input>
                 </div>
-
                 <div className="form-group mb-2">
                   <label className="form-label">Id de la carga</label>
                   <input

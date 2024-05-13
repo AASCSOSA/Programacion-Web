@@ -17,15 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import mx.LemonTrees.Project.Model.Carga;
+import mx.LemonTrees.Project.Model.Comprador;
 import mx.LemonTrees.Project.Model.Fertilizacion;
 import mx.LemonTrees.Project.Model.Fertilizante;
 import mx.LemonTrees.Project.Model.Rancho;
+import mx.LemonTrees.Project.Model.Venta;
 import mx.LemonTrees.Project.Repository.FertilizacionRepository;
 import mx.LemonTrees.Project.Repository.FertilizanteRepository;
 import mx.LemonTrees.Project.Repository.RanchoRepository;
 
 @RestController
 @RequestMapping("/fertilizacion")
+@CrossOrigin(origins = "http://localhost:3000")
 public class FertilizacionController {
     @Autowired
     private FertilizacionRepository fertilizacionRepository;
@@ -37,14 +41,12 @@ public class FertilizacionController {
     private FertilizanteRepository fertilizanteRepository;
 
     // Buscar todos
-    @CrossOrigin
     @GetMapping()
     public ResponseEntity<Iterable<Fertilizacion>> findAll() {
         return ResponseEntity.ok(fertilizacionRepository.findAll());
     }
 
     // Buscar por ID
-    @CrossOrigin
     @GetMapping("/{Id_Fertilizacion}")
     public ResponseEntity<Fertilizacion> findById(@PathVariable Integer Id_Fertilizacion) {
         Optional<Fertilizacion> fertilizacionOptional = fertilizacionRepository.findById(Id_Fertilizacion);
@@ -55,7 +57,6 @@ public class FertilizacionController {
     }
 
     // Crear
-    @CrossOrigin
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody Fertilizacion newFertilizacion, UriComponentsBuilder ucb) {
         Optional<Rancho> ranchoOptional = ranchoRepository.findById(newFertilizacion.getRancho().getId_Rancho());
@@ -75,7 +76,6 @@ public class FertilizacionController {
     }
 
     // Actualizar
-    @CrossOrigin
     @PutMapping("/{Id_Fertilizacion}")
     public ResponseEntity<Void> update(@PathVariable Integer Id_Fertilizacion,
             @RequestBody Fertilizacion fertilizacionAct) {
@@ -89,7 +89,6 @@ public class FertilizacionController {
     }
 
     // Eliminar
-    @CrossOrigin
     @DeleteMapping("/{Id_Fertiliacion}")
     public ResponseEntity<Void> delete(@PathVariable Integer Id_Fertiliacion) {
         if (fertilizacionRepository.findById(Id_Fertiliacion).get() != null) {
@@ -112,7 +111,7 @@ public class FertilizacionController {
         return ResponseEntity.ok(fertilizante.getMarca());
     }
 
-    @GetMapping("/rancho/{Id_Fertilziacion}")
+    @GetMapping("/rancho/{Id_Fertilizacion}")
     public ResponseEntity<String> getNameRancho(@PathVariable Integer Id_Fertilizacion) {
         Optional<Fertilizacion> fertilizacionOptional = fertilizacionRepository.findById(Id_Fertilizacion);
         if(!fertilizacionOptional.isPresent()){
@@ -121,5 +120,23 @@ public class FertilizacionController {
         Rancho rancho=fertilizacionOptional.get().getRancho();
         return ResponseEntity.ok(rancho.getNombre_Rancho());
     }
+    @GetMapping("/ranchos/{Id_Fertilizacion}")
+    public ResponseEntity<Rancho> findByIdRancho(@PathVariable Integer Id_Fertilizacion) {
+        Optional<Fertilizacion> fertilizacionOptional = fertilizacionRepository.findById(Id_Fertilizacion);
+        if (!fertilizacionOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        Rancho rancho = fertilizacionOptional.get().getRancho();
+        return ResponseEntity.ok(rancho);
+    }
 
+    @GetMapping("/fertilizantes/{Id_Fertilizacion}")
+    public ResponseEntity<Fertilizante> findByIdFertilizante(@PathVariable Integer Id_Fertilizacion) {
+        Optional<Fertilizacion> fertilizacionOptional = fertilizacionRepository.findById(Id_Fertilizacion);
+        if (!fertilizacionOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        Fertilizante fertilizante = fertilizacionOptional.get().getFertilizante();
+        return ResponseEntity.ok(fertilizante);
+    }
 }

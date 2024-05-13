@@ -24,14 +24,14 @@ export default function Pago_TrabajadorApp() {
           try {
             const nombresTrabajadores = await Promise.all(
               pago_Trabajador.map(async (pago_TrabajadorItem) => {
-                const response = await TrabajadorService.getNameTrabajador(pago_TrabajadorItem.id_Pago_Trabajador);
+                const response = await Pago_TrabajadorService.getNameTrabajador(pago_TrabajadorItem.id_Pago_Trabajador);
                 return response.data;
               })
             );
             setTrabajadores(nombresTrabajadores);
-            console.log("Nombres de trabajadores obtenidos:", nombresTrabajadores);
+            console.log("gdgd",nombresTrabajadores);
           } catch (error) {
-            console.log("Error al obtener los nombres de los trabajadores:", error);
+            console.log(error);
           }
         };
       
@@ -64,12 +64,20 @@ export default function Pago_TrabajadorApp() {
                             </tr>
                         </thead>
                         <tbody>
+<<<<<<< HEAD
                             {pago_Trabajador.map((pago_Trabajador) => (
+=======
+                            {pago_Trabajador.map((pago_Trabajador,index) => (
+>>>>>>> main
                                 <tr key={pago_Trabajador.id_Pago_Trabajador}>
                                     <td>{pago_Trabajador.id_Pago_Trabajador}</td>
                                     <td>{pago_Trabajador.monto}</td>
                                     <td>{pago_Trabajador.fecha_Pago}</td>
+<<<<<<< HEAD
                                     <td>{pago_Trabajador.id_Trabajador}</td>
+=======
+                                    <td>{trabajadores[index]}</td>
+>>>>>>> main
                                     <td>
                                         <Link className='btn btn-info' to={`/edit-pago_trabajador/${pago_Trabajador.id_Pago_Trabajador}`}>Editar</Link>
                                         <button style={{ marginLeft: "10px" }} className='btn btn-danger' onClick={() => deletePago_Trabajador(pago_Trabajador.id_Pago_Trabajador)}>Eliminar</button>

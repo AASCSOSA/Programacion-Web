@@ -4,8 +4,7 @@ package mx.LemonTrees.Project.Model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
-import java.sql.Date;
-
+import java.time.*;
 @Entity
 public class Pago_Trabajador {
     
@@ -17,7 +16,7 @@ public class Pago_Trabajador {
     private String Monto;
 
     @Column(nullable = false)
-    private Date Fecha_Pago;
+    private LocalDate Fecha_Pago;
     
     @ManyToOne
     @JoinColumn(name = "id_Trabajador")
@@ -28,7 +27,7 @@ public class Pago_Trabajador {
         
     }
 
-    public Pago_Trabajador(String Monto, Date Fecha_Pago) {
+    public Pago_Trabajador(String Monto, LocalDate Fecha_Pago) {
         this.Monto = Monto;
         this.Fecha_Pago = Fecha_Pago;
     }
@@ -50,11 +49,11 @@ public class Pago_Trabajador {
         this.Monto = Monto;
     }
 
-    public Date getFecha_Pago() {
+    public LocalDate getFecha_Pago() {
         return Fecha_Pago;
     }
 
-    public void setFecha_Pago(Date Fecha_Pago) {
+    public void setFecha_Pago(LocalDate Fecha_Pago) {
         this.Fecha_Pago = Fecha_Pago;
     }
 

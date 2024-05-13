@@ -37,30 +37,16 @@ public class TrabajadorController {
 
     //BUSCAR ID
     @GetMapping("/{Id_Trabajador}")
-    @CrossOrigin
     public ResponseEntity<Trabajador> findById(@PathVariable Integer Id_Trabajador) {
         Optional<Trabajador> trabajadorOptional = trabajadorRepository.findById(Id_Trabajador);
-        if (trabajadorOptional.isPresent()) {
-            return ResponseEntity.ok(trabajadorOptional.get());
+        if (!trabajadorOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(trabajadorOptional.get());
         }
     }
-
-    //Buscar herrmaienta por trabajador
-    @GetMapping("/herramienta/{Id_Trabajador}")
-    public ResponseEntity<Herramienta> findByIdHerramienta (@PathVariable Integer Id_Trabajador) {
-        Optional<Trabajador>trabajadorOptional=trabajadorRepository.findById(Id_Trabajador);
-        if(!trabajadorOptional.isPresent()){
-            return ResponseEntity.notFound().build();
-        }
-        Herramienta herramienta= trabajadorOptional.get().getHerramienta();
-        return ResponseEntity.ok(herramienta);
-    }
-
     //CREAR
     @PostMapping
-    @CrossOrigin
     public ResponseEntity<Void> create(@RequestBody Trabajador newTrabajador, UriComponentsBuilder ucb) {
         Optional<Herramienta> herramientaOptional = herramientaRepository.findById(newTrabajador.getHerramienta().getId_Herramienta());
         if (!herramientaOptional.isPresent()){
@@ -77,25 +63,32 @@ public class TrabajadorController {
 
     //UPDATE
     @PutMapping("/{Id_Trabajador}")
-    @CrossOrigin
     public ResponseEntity<Void> update(@PathVariable Integer Id_Trabajador, @RequestBody Trabajador trabajadorAct) {
         Trabajador trabajadorAnt = trabajadorRepository.findById(Id_Trabajador).get();
-        if (trabajadorAnt != null) {
+        if (trabajadorAct != null) {
             trabajadorAct.setId_Trabajador(trabajadorAnt.getId_Trabajador());
             trabajadorRepository.save(trabajadorAct);
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
     }
-
     //ELIMINAR
     @DeleteMapping("/{Id_Trabajador}")
-    @CrossOrigin
     public ResponseEntity<Void> delete(@PathVariable Integer Id_Trabajador) {
         if (trabajadorRepository.findById(Id_Trabajador).get() != null) {
             trabajadorRepository.deleteById(Id_Trabajador);
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/herramienta/{Id_Trabajador}")
+    public ResponseEntity<Herramienta> findByIdHerramienta(@PathVariable Integer Id_Trabajador) {
+        Optional<Trabajador> trabajadorOptional = trabajadorRepository.findById(Id_Trabajador);
+        if (!trabajadorOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        Herramienta herramienta = trabajadorOptional.get().getHerramienta();
+        return ResponseEntity.ok(herramienta);
     }
 }

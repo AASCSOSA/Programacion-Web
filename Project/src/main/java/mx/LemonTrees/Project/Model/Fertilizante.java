@@ -1,6 +1,6 @@
 package mx.LemonTrees.Project.Model;
 
-import java.sql.Date;
+import java.time.*;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -14,22 +14,19 @@ import jakarta.persistence.OneToMany;
 @Entity
 public class Fertilizante {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id_Fertilizante;
 
-    @Column (nullable = false,length = 30)
+    @Column(nullable = false, length = 30)
     private String Marca;
 
-    @Column (nullable = false,length = 30)
-    private String Presentacion;
-
-    @Column (nullable = false,length = 50)
+    @Column(nullable = false, length = 50)
     private String Domicilio_Distribuidora;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private Float Cantidad;
 
-    @Column (nullable = false,length = 30)
+    @Column(nullable = false, length = 30)
     private String Clasificacion;
 
     @Column(nullable = false)
@@ -42,113 +39,107 @@ public class Fertilizante {
     private Float Costo_Unitario;
 
     @Column(nullable = false)
-    private Date Fecha_Caducidad;
+    private LocalDate Fecha_Caducidad;
 
     @OneToMany(mappedBy = "fertilizante", cascade = CascadeType.ALL)
-    private List<Fertilizacion> Fertilizacion ;
+    private List<Fertilizacion> Fertilizacion;
 
     public Fertilizante() {
     }
+    
 
-    public Fertilizante(Integer Id_Fertilizante, String Marca, String Presentacion, String Domicilio_Distribuidora, Float Cantidad, String Clasificacion, Integer Lote, Float Costo_Total, Float Costo_Unitario, Date Fecha_Caducidad) {
-        this.Marca = Marca;
-        this.Presentacion = Presentacion;
-        this.Domicilio_Distribuidora = Domicilio_Distribuidora;
-        this.Cantidad = Cantidad;
-        this.Clasificacion = Clasificacion;
-        this.Lote = Lote;
-        this.Costo_Total = Costo_Total;
-        this.Costo_Unitario = Costo_Unitario;
-        this.Fecha_Caducidad = Fecha_Caducidad;
+    public Fertilizante(String marca, String domicilio_Distribuidora, Float cantidad, String clasificacion,
+            Integer lote, Float costo_Total, Float costo_Unitario, LocalDate fecha_Caducidad) {
+        Marca = marca;
+        Domicilio_Distribuidora = domicilio_Distribuidora;
+        Cantidad = cantidad;
+        Clasificacion = clasificacion;
+        Lote = lote;
+        Costo_Total = costo_Total;
+        Costo_Unitario = costo_Unitario;
+        Fecha_Caducidad = fecha_Caducidad;
     }
+
 
     public Integer getId_Fertilizante() {
-        return this.Id_Fertilizante;
+        return Id_Fertilizante;
     }
 
-    public void setId_Fertilizante(Integer Id_Fertilizante) {
-        this.Id_Fertilizante = Id_Fertilizante;
+    public void setId_Fertilizante(Integer id_Fertilizante) {
+        Id_Fertilizante = id_Fertilizante;
     }
 
     public String getMarca() {
-        return this.Marca;
+        return Marca;
     }
 
-    public void setMarca(String Marca) {
-        this.Marca = Marca;
-    }
-
-    public String getPresentacion() {
-        return this.Presentacion;
-    }
-
-    public void setPresentacion(String Presentacion) {
-        this.Presentacion = Presentacion;
+    public void setMarca(String marca) {
+        Marca = marca;
     }
 
     public String getDomicilio_Distribuidora() {
-        return this.Domicilio_Distribuidora;
+        return Domicilio_Distribuidora;
     }
 
-    public void setDomicilio_Distribuidora(String Domicilio_Distribuidora) {
-        this.Domicilio_Distribuidora = Domicilio_Distribuidora;
+    public void setDomicilio_Distribuidora(String domicilio_Distribuidora) {
+        Domicilio_Distribuidora = domicilio_Distribuidora;
     }
 
     public Float getCantidad() {
-        return this.Cantidad;
+        return Cantidad;
     }
 
-    public void setCantidad(Float Cantidad) {
-        this.Cantidad = Cantidad;
+    public void setCantidad(Float cantidad) {
+        Cantidad = cantidad;
     }
 
     public String getClasificacion() {
-        return this.Clasificacion;
+        return Clasificacion;
     }
 
-    public void setClasificacion(String Clasificacion) {
-        this.Clasificacion = Clasificacion;
+    public void setClasificacion(String clasificacion) {
+        Clasificacion = clasificacion;
     }
 
     public Integer getLote() {
-        return this.Lote;
+        return Lote;
     }
 
-    public void setLote(Integer Lote) {
-        this.Lote = Lote;
+    public void setLote(Integer lote) {
+        Lote = lote;
     }
 
     public Float getCosto_Total() {
-        return this.Costo_Total;
+        return Costo_Total;
     }
 
-    public void setCosto_Total(Float Costo_Total) {
-        this.Costo_Total = Costo_Total;
+    public void setCosto_Total(Float costo_Total) {
+        Costo_Total = costo_Total;
     }
 
     public Float getCosto_Unitario() {
-        return this.Costo_Unitario;
+        return Costo_Unitario;
     }
 
-    public void setCosto_Unitario(Float Costo_Unitario) {
-        this.Costo_Unitario = Costo_Unitario;
+    public void setCosto_Unitario(Float costo_Unitario) {
+        Costo_Unitario = costo_Unitario;
     }
 
-    public Date getFecha_Caducidad() {
-        return this.Fecha_Caducidad;
+    public LocalDate getFecha_Caducidad() {
+        return Fecha_Caducidad;
     }
 
-    public void setFecha_Caducidad(Date Fecha_Caducidad) {
-        this.Fecha_Caducidad = Fecha_Caducidad;
+    public void setFecha_Caducidad(LocalDate fecha_Caducidad) {
+        Fecha_Caducidad = fecha_Caducidad;
     }
-
 
     public List<Fertilizacion> getFertilizacion() {
-        return this.Fertilizacion;
+        return Fertilizacion;
     }
 
-    public void setFertilizacion(List<Fertilizacion> Fertilizacion) {
-        this.Fertilizacion = Fertilizacion;
+    public void setFertilizacion(List<Fertilizacion> fertilizacion) {
+        Fertilizacion = fertilizacion;
     }
 
+    
 }

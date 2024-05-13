@@ -1,7 +1,6 @@
 package mx.LemonTrees.Project.Model;
 
-import java.sql.Date;
-import java.util.ArrayList;
+import java.time.*;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -28,7 +27,7 @@ public class Herramienta {
     private float Costo;
 
     @Column (nullable = false)
-    private Date Fecha_Adquisicion;
+    private LocalDate Fecha_Adquisicion;
 
     @OneToMany(mappedBy = "herramienta", cascade = CascadeType.ALL)
     private List<Trabajador> trabajador;
@@ -37,7 +36,7 @@ public class Herramienta {
 
     }
 
-    public Herramienta(String modelo, String marca, int cantidad, String color, float costo, Date fecha_Adquisicion) {
+    public Herramienta(String modelo, String marca, int cantidad, String color, float costo, LocalDate fecha_Adquisicion) {
 
         Modelo = modelo;
         Marca = marca;
@@ -96,11 +95,11 @@ public class Herramienta {
         Costo = costo;
     }
 
-    public Date getFecha_Adquisicion() {
+    public LocalDate getFecha_Adquisicion() {
         return Fecha_Adquisicion;
     }
 
-    public void setFecha_Adquisicion(Date fecha_Adquisicion) {
+    public void setFecha_Adquisicion(LocalDate fecha_Adquisicion) {
         Fecha_Adquisicion = fecha_Adquisicion;
     }
 

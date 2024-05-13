@@ -1,6 +1,6 @@
 package mx.LemonTrees.Project.Model;
 
-import java.sql.Date;
+import java.time.*;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -27,7 +27,7 @@ public class Venta {
     private float Peso_Total;
 
     @Column(nullable = false)
-    private Date Fecha;
+    private LocalDate Fecha;
 
     // Relaciones
     @ManyToOne(fetch = FetchType.EAGER)
@@ -46,7 +46,7 @@ public class Venta {
    
 
     public Venta(float precio_LimonVerde, float precio_LimonSegunda, float precio_LimonTercera, float pago_Total,
-            float peso_Total, Date fecha) {
+            float peso_Total, LocalDate fecha) {
         Precio_LimonVerde = precio_LimonVerde;
         Precio_LimonSegunda = precio_LimonSegunda;
         Precio_LimonTercera = precio_LimonTercera;
@@ -121,15 +121,23 @@ public class Venta {
         this.carga = carga;
     }
 
+<<<<<<< Updated upstream
 
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return Fecha;
     }
 
 
 
+    public void setFecha(LocalDate fecha) {
+=======
+    public Date getFecha() {
+        return Fecha;
+    }
+
     public void setFecha(Date fecha) {
+>>>>>>> Stashed changes
         Fecha = fecha;
     }
 

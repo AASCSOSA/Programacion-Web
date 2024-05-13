@@ -94,5 +94,5 @@ public class Comprador {
     public void setVentas(List<Venta> ventas) {
         this.ventas = ventas;
     }
-    
+
 }
