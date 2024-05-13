@@ -45,8 +45,9 @@ public class CompradorController {
         Optional<Comprador> compradorOptional = compradorRepository.findById(Id_Comprador);
         if (!compradorOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(compradorOptional.get());
         }
-        return ResponseEntity.ok(compradorOptional.get());
     }
 
     // Crear

@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 
 export default function HerramientaApp() {
     const [herramienta, setHerramienta] = useState([]);
-    const listarCarga = () => {
+    
+    const listarHerramienta = () => {
         HerramientaService.findAll().then((response) => {
             setHerramienta(response.data);
             console.log(response.data);
@@ -13,21 +14,12 @@ export default function HerramientaApp() {
         });
     }
     useEffect(() => {
-        listarCarga();
+        listarHerramienta();
     }, []);
 
-    useEffect(() => {
-        HerramientaService.findAll().then((response) => {
-            setHerramienta(response.data);
-            console.log(response.data);
-        }).catch((error) => {
-            console.log(error);
-        });
-
-    }, []);
     const deleteHerramienta = (id_Herramienta) => {
         HerramientaService.delete(id_Herramienta).then((response) => {
-            listarCarga();
+            listarHerramienta();
             console.log(response.data);
         }).catch((error) => {
             console.log(error);
@@ -41,7 +33,7 @@ export default function HerramientaApp() {
                     <table class="table" id="tableHerramienta">
                         <thead class="table-dark">
                             <tr>
-                                <th id="id_IdHerramienta">Id Herramienta</th>
+                                <th>Id Herramienta</th>
                                 <th >Modelo</th>
                                 <th >Marca</th>
                                 <th >Cantidad</th>

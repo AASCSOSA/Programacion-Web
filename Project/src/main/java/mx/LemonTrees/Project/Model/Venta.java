@@ -121,6 +121,7 @@ public class Venta {
         this.carga = carga;
     }
 
+<<<<<<< Updated upstream
 
 
     public LocalDate getFecha() {
@@ -130,6 +131,13 @@ public class Venta {
 
 
     public void setFecha(LocalDate fecha) {
+=======
+    public Date getFecha() {
+        return Fecha;
+    }
+
+    public void setFecha(Date fecha) {
+>>>>>>> Stashed changes
         Fecha = fecha;
     }
 
