@@ -122,7 +122,7 @@ public class Venta {
     }
 
     public void setFecha(LocalDate fecha) {
-
+        Fecha = fecha;
     }
 
 }
