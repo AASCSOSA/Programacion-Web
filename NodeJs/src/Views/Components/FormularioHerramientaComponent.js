@@ -10,6 +10,14 @@ export const FormularioHerramientaComponent = () => {
     const [costo, setCosto] = useState('');
     const [fecha_Adquisicion, setFecha_Adquisicion] = useState('');
 
+    //VALIDACIONES
+    const [modeloError, setModeloError] = useState(false);
+    const [cantidadError, setCantidadError] = useState(false);
+    const [colorError, setColorError] = useState(false);
+    const [costoError, setCostoError] = useState(false);
+    const [camposVaciosWarning, setCamposVaciosWarning] = useState(false); //VALIDAR EL LLENADO DE DATOS
+
+
 
     const navigate = useNavigate();
     const { id_Herramienta } = useParams();
@@ -26,10 +34,25 @@ export const FormularioHerramientaComponent = () => {
         }).catch(e => {
             console.log(e);
         })
-    }, []);
+    }, [id_Herramienta]);
 
     const saveHerramienta = (e) => {
         e.preventDefault();
+
+        // Validar que todos los campos estén llenos
+        if (
+            !modelo ||
+            !marca ||
+            !cantidad ||
+            !color ||
+            !costo ||
+            !fecha_Adquisicion
+        ) {
+            setCamposVaciosWarning(true);
+            return;
+        }
+
+
         const herramienta = { modelo, marca, cantidad, color, costo, fecha_Adquisicion };
         if (id_Herramienta) {
             HerramientaService.update(id_Herramienta, herramienta).then(response => {
@@ -53,6 +76,63 @@ export const FormularioHerramientaComponent = () => {
             return <h2 className="text-center">Agregar Herramienta</h2>
         }
     }
+
+    //VALIDAR MODELO 
+    const validarModelo = (e) => {
+        const inputValue = e.target.value;
+
+        //MAYUSCULAS, MINUSCULAS Y ESPACIOS
+        if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+            setModelo(inputValue);
+            setModeloError(false);// DESACTIVA ADVERTENCIA 
+        } else {
+            setModeloError(true);//ACTIVA ADVERTENCIA
+        }
+    };
+
+    //VALIDAR CANTIDAD
+    const validarCantidad = (e) => {
+        const inputValue = e.target.value;
+
+        // SOLO NUMEROS Y NO CARACTERES ESPECIALES
+        if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {
+            setCantidad(inputValue);
+            setCantidadError(false);
+        } else {
+            setCantidad(inputValue);
+            setCantidadError(true);
+        }
+    };
+
+    //VALIDAR COLOR
+    const validarColor = (e) => {
+        const inputValue = e.target.value;
+
+        //MAYUSCULAS, MINUSCULAS Y ESPACIOS
+        if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+            setColor(inputValue);
+            setColorError(false);
+        } else {
+            setColorError(true);
+        }
+    };
+
+    //VALIDAR COSTO
+    const validarCosto = (e) => {
+        const inputValue = e.target.value;
+
+        // SOLO NUMEROS Y NO CARACTERES ESPECIALES
+        if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {
+            setCosto(inputValue);
+            setCostoError(false);
+        } else {
+            setCosto(inputValue);
+            setCostoError(true);
+        }
+    };
+
+
+
     return (
         <div>
             <div className='container' id="formHerramienta">
@@ -63,16 +143,26 @@ export const FormularioHerramientaComponent = () => {
                         </h2>
                         <h2 className='text-center'>Gestión de Herramientas</h2>
                         <div className='card-body'>
+                            {camposVaciosWarning && (
+                                <div className="alert alert-warning" role="alert">
+                                    Por favor, complete todos los campos.
+                                </div>
+                            )}
                             <form>
                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Modelo</label>
                                     <input type='text'
                                         placeholder='Ingrese el modelo de la herramienta'
                                         name='ModeloHerramienta'
-                                        className='form-control'
+                                        className={`form-control ${modeloError ? 'is-invalid' : ''}`}//RESALTAR EL CAMPO EN EL FORMULARIO CON BORDES ROJOS Y DESPLEGAR ADVERTENCIA
                                         value={modelo}
-                                        onChange={(e) => setModelo(e.target.value)}>
+                                        onChange={validarModelo}>
                                     </input>
+                                    {modeloError && (
+                                        <div className="alert alert-warning" role="alert"> 
+                                            El modelo no debe contener números ni carácteres especiales.
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className='form-group mb-2'>
@@ -91,10 +181,15 @@ export const FormularioHerramientaComponent = () => {
                                     <input type='number'
                                         placeholder='Ingrese la cantidad de la herramienta'
                                         name='cantidadHerramienta'
-                                        className='form-control'
+                                        className={`form-control ${cantidadError ? 'is-invalid' : ''}`}
                                         value={cantidad}
-                                        onChange={(e) => setCantidad(e.target.value)}>
+                                        onChange={validarCantidad}>
                                     </input>
+                                    {cantidadError && (
+                                        <div className="alert alert-warning" role="alert"> 
+                                            La cantidad no debe de contener letras ni números negativos.
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className='form-group mb-2'>
@@ -102,11 +197,15 @@ export const FormularioHerramientaComponent = () => {
                                     <input type='text'
                                         placeholder='Ingrese el color de la herramienta'
                                         name='colorHerramienta'
-                                        className='form-control'
+                                        className={`form-control ${colorError ? 'is-invalid' : ''}`}
                                         value={color}
-                                        onChange={(e) => setColor(e.target.value)}>
+                                        onChange={validarColor}>
                                     </input>
-
+                                    {colorError && (
+                                        <div className="alert alert-warning" role="alert"> 
+                                            El color no debe contener números ni carácteres especiales.
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className='form-group mb-2'>
@@ -114,10 +213,15 @@ export const FormularioHerramientaComponent = () => {
                                     <input type='number' step="0.01"
                                         placeholder='Ingrese el costo de la herramienta'
                                         name='costoHerramienta'
-                                        className='form-control'
+                                        className={`form-control ${costoError ? 'is-invalid' : ''}`}
                                         value={costo}
-                                        onChange={(e) => setCosto(e.target.value)}>
+                                        onChange={validarCosto}>
                                     </input>
+                                    {costoError && (
+                                        <div className="alert alert-warning" role="alert"> 
+                                            El costo no debe de contener letras ni números negativos.
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className='form-group mb-2'>

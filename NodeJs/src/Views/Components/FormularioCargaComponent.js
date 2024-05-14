@@ -15,6 +15,17 @@ export const FormularioRanchoComponent = () => {
   const [id_Rancho, setId_Rancho] = useState("");
   const [ranchos, setRanchos] = useState([]); // Lista de ranchos
 
+  //VALIDACIONES
+  const [rejas_LimonVerdeError, setRejasVerdeError] = useState(false);
+  const [rejas_LimonSegundaError, setRejasSegundaError] = useState(false);
+  const [rejas_LimonTerceraError, setRejasTerceraError] = useState(false);
+  const [total_PesoLimonVerdeError, setPesoTLimonVerdeError] = useState(false);
+  const [total_PesoLimonSegundaError, setPesoTLimonSegundaError] = useState(false);
+  const [total_PesoLimonTerceraError, setPesoTLimonTerceraError] = useState(false);
+  const [total_TrabajadoresError, setTrabajadoresError] = useState(false);
+  const [camposVaciosWarning, setCamposVaciosWarning] = useState(false); //VALIDACION DE LLENADO DE CAMPOS
+
+
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -43,25 +54,51 @@ export const FormularioRanchoComponent = () => {
           setPesoTLimonTercera(carga.total_PesoLimonTercera);
           setTrabajadores(carga.total_Trabajadores);
           // Buscar el ID del rancho asociado a esta carga
-        CargaService.findByIdRancho(id)
-        .then((response2) => {
-          const rancho = response2.data;
-          setId_Rancho(rancho.id_Rancho); // Actualiza el estado id_Rancho con el ID del rancho encontrado
+          CargaService.findByIdRancho(id)
+            .then((response2) => {
+              const rancho = response2.data;
+              setId_Rancho(rancho.id_Rancho); // Actualiza el estado id_Rancho con el ID del rancho encontrado
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         })
         .catch((error) => {
-          console.log(error);
+          console.error("Error al obtener la carga:", error);
         });
-    })
-    .catch((error) => {
-      console.error("Error al obtener la carga:", error);
-    });
-}
-}, [id]);
+    }
+  }, [id]);
 
- 
+
 
   const saveCarga = (e) => {
     e.preventDefault();
+
+    // VALIDAR TODO EL LLENADO DE DATOS
+    if (
+      !fecha ||
+      !rejas_LimonVerde ||
+      !rejas_LimonSegunda ||
+      !rejas_LimonTercera ||
+      !total_PesoLimonVerde ||
+      !total_PesoLimonSegunda ||
+      !total_PesoLimonTercera ||
+      !total_Trabajadores ||
+      !id_Rancho ||
+
+      //ERRORES
+      rejas_LimonVerdeError ||
+      rejas_LimonSegundaError ||
+      rejas_LimonTerceraError ||
+      total_PesoLimonVerdeError ||
+      total_PesoLimonSegundaError ||
+      total_PesoLimonTerceraError ||
+      total_TrabajadoresError
+    ) {
+      setCamposVaciosWarning(true);
+      return; // Detiene la ejecución de la función si hay un error en el mont
+    }
+
     const rancho = { id_Rancho };
     const carga = {
       fecha,
@@ -100,6 +137,91 @@ export const FormularioRanchoComponent = () => {
       return <h2 className="text-center">Agregar Carga</h2>;
     }
   };
+
+  //VALIDAR REJAS LIMON VERDE
+  const validarRejas_LimonVerde = (e) => {
+    const inputValue = e.target.value;
+    if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {// SOLO NUMEROS Y NO CARACTERES ESPECIALES
+      setRejasVerde(inputValue);
+      setRejasVerdeError(false);
+    } else {
+      setRejasVerde(inputValue);
+      setRejasVerdeError(true);
+    }
+  };
+
+   //VALIDAR REJAS LIMON SEGUNDA
+   const validarRejas_LimonSegunda = (e) => {
+    const inputValue = e.target.value;
+    if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {// SOLO NUMEROS Y NO CARACTERES ESPECIALES
+      setRejasSegunda(inputValue);
+      setRejasSegundaError(false);
+    } else {
+      setRejasSegunda(inputValue);
+      setRejasSegundaError(true);
+    }
+  };
+
+  //VALIDAR REJAS LIMON TERCERA
+  const validarRejas_LimonTercera = (e) => {
+    const inputValue = e.target.value;
+    if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {// SOLO NUMEROS Y NO CARACTERES ESPECIALES
+      setRejasTercera(inputValue);
+      setRejasTerceraError(false);
+    } else {
+      setRejasTercera(inputValue);
+      setRejasTerceraError(true);
+    }
+  };
+
+   //VALIDAR TOTAL PESO LIMON VERDE
+   const validarTotal_PesoLimonVerde = (e) => {
+    const inputValue = e.target.value;
+    if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {// SOLO NUMEROS Y NO CARACTERES ESPECIALES
+      setPesoTLimonVerde(inputValue);
+      setPesoTLimonVerdeError(false);
+    } else {
+      setPesoTLimonVerde(inputValue);
+      setPesoTLimonVerdeError(true);
+    }
+  };
+
+     //VALIDAR TOTAL PESO LIMON SEGUNDA
+     const validarTotal_PesoLimonSegunda = (e) => {
+      const inputValue = e.target.value;
+      if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {// SOLO NUMEROS Y NO CARACTERES ESPECIALES
+        setPesoTLimonSegunda(inputValue);
+        setPesoTLimonSegundaError(false);
+      } else {
+        setPesoTLimonSegunda(inputValue);
+        setPesoTLimonSegundaError(true);
+      }
+    };
+
+     //VALIDAR TOTAL PESO LIMON TERCERA
+     const validarTotal_PesoLimonTercera = (e) => {
+      const inputValue = e.target.value;
+      if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {// SOLO NUMEROS Y NO CARACTERES ESPECIALES
+        setPesoTLimonTercera(inputValue);
+        setPesoTLimonTerceraError(false);
+      } else {
+        setPesoTLimonTercera(inputValue);
+        setPesoTLimonTerceraError(true);
+      }
+    };
+
+     //VALIDAR TOTAL DE TRABAJADORES
+     const validarTotal_Trabajadores = (e) => {
+      const inputValue = e.target.value;
+      if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {// SOLO NUMEROS Y NO CARACTERES ESPECIALES
+        setTrabajadores(inputValue);
+        setTrabajadoresError(false);
+      } else {
+        setTrabajadores(inputValue);
+        setTrabajadoresError(true);
+      }
+    };
+
   return (
     <div>
       <div className="container" id="formCarga">
@@ -108,6 +230,11 @@ export const FormularioRanchoComponent = () => {
             <h2 classsName="text-center">{titulo()}</h2>
             <h2 className="text-center">Gestión de Cargas</h2>
             <div className="card-body">
+              {camposVaciosWarning && (
+                <div className="alert alert-warning" role="alert">
+                  Por favor, complete todos los campos.
+                </div>
+              )}
               <form>
                 <div className="form-group mb-2">
                   <label className="form-label">Fecha</label>
@@ -119,39 +246,58 @@ export const FormularioRanchoComponent = () => {
                     onChange={(e) => setFecha(e.target.value)}
                   ></input>
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Rejas de limón Verde</label>
                   <input
                     type="number"
                     placeholder="Ingrese las rejas de limón verde"
                     name="rejasLimonVerde"
-                    className="form-control"
+                    className={`form-control ${rejas_LimonVerdeError ? 'is-invalid' : ''}`}//RESALTAR EL CAMPO EN EL FORMULARIO CON BORDES ROJOS Y DESPLEGAR ADVERTENCIA
                     value={rejas_LimonVerde}
-                    onChange={(e) => setRejasVerde(e.target.value)}
-                  ></input>
+                    onChange={validarRejas_LimonVerde}>
+                  </input>
+                  {rejas_LimonVerdeError && (
+                    <div className="alert alert-warning" role="alert">
+                      La cantidad de rejas solo debe contener números.
+                    </div>
+                  )}
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Rejas de limón Segunda</label>
                   <input
                     type="number"
                     placeholder="Ingrese las rejas de limón segunda"
                     name="rejasLimonSegunda"
-                    className="form-control"
+                    className={`form-control ${rejas_LimonSegundaError ? 'is-invalid' : ''}`}
                     value={rejas_LimonSegunda}
-                    onChange={(e) => setRejasSegunda(e.target.value)}
-                  ></input>
+                    onChange={validarRejas_LimonSegunda}>
+                  </input>
+                  {rejas_LimonSegundaError && (
+                    <div className="alert alert-warning" role="alert">
+                      La cantidad de rejas solo debe contener números.
+                    </div>
+                  )}
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Rejas de limón Tercera</label>
                   <input
                     type="number"
                     placeholder="Ingrese las rejas de limón tercera"
                     name="rejasLimonTercera"
-                    className="form-control"
+                    className={`form-control ${rejas_LimonTerceraError ? 'is-invalid' : ''}`}
                     value={rejas_LimonTercera}
-                    onChange={(e) => setRejasTercera(e.target.value)}
-                  ></input>
+                    onChange={validarRejas_LimonTercera}>
+                  </input>
+                  {rejas_LimonTerceraError && (
+                    <div className="alert alert-warning" role="alert">
+                      La cantidad de rejas solo debe contener números.
+                    </div>
+                  )}
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Total peso Limón Verde</label>
                   <input
@@ -159,11 +305,17 @@ export const FormularioRanchoComponent = () => {
                     step="0.01"
                     placeholder="Ingrese el total del peso del limón verde"
                     name="pesoLimónVerde"
-                    className="form-control"
+                    className={`form-control ${total_PesoLimonVerdeError ? 'is-invalid' : ''}`}
                     value={total_PesoLimonVerde}
-                    onChange={(e) => setPesoTLimonVerde(e.target.value)}
-                  ></input>
+                    onChange={validarTotal_PesoLimonVerde}>
+                  </input>
+                  {total_PesoLimonVerdeError && (
+                    <div className="alert alert-warning" role="alert">
+                      El total del peso solo debe contener números.
+                    </div>
+                  )}
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Total peso Limón Segunda</label>
                   <input
@@ -171,11 +323,17 @@ export const FormularioRanchoComponent = () => {
                     step="0.01"
                     placeholder="Ingrese el total del peso del limón segunda"
                     name="pesoLimónsegunda"
-                    className="form-control"
+                    className={`form-control ${total_PesoLimonSegundaError ? 'is-invalid' : ''}`}
                     value={total_PesoLimonSegunda}
-                    onChange={(e) => setPesoTLimonSegunda(e.target.value)}
-                  ></input>
+                    onChange={validarTotal_PesoLimonSegunda}>
+                  </input>
+                  {total_PesoLimonSegundaError && (
+                    <div className="alert alert-warning" role="alert">
+                      El total del peso solo debe contener números.
+                    </div>
+                  )}
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Total peso Limón Tercera</label>
                   <input
@@ -183,21 +341,32 @@ export const FormularioRanchoComponent = () => {
                     step="0.01"
                     placeholder="Ingrese el total del peso del limón tercera"
                     name="pesoLimóntercera"
-                    className="form-control"
+                    className={`form-control ${total_PesoLimonTerceraError ? 'is-invalid' : ''}`}
                     value={total_PesoLimonTercera}
-                    onChange={(e) => setPesoTLimonTercera(e.target.value)}
-                  ></input>
+                    onChange={validarTotal_PesoLimonTercera}>
+                  </input>
+                  {total_PesoLimonTerceraError && (
+                    <div className="alert alert-warning" role="alert">
+                      El total del peso solo debe contener números.
+                    </div>
+                  )}
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Total de trabajadores</label>
                   <input
                     type="number"
                     placeholder="Ingrese el total de trabajadores"
                     name="totalTrabajadores"
-                    className="form-control"
+                    className={`form-control ${total_TrabajadoresError ? 'is-invalid' : ''}`}
                     value={total_Trabajadores}
-                    onChange={(e) => setTrabajadores(e.target.value)}
-                  ></input>
+                    onChange={validarTotal_Trabajadores}>
+                  </input>
+                  {total_TrabajadoresError && (
+                    <div className="alert alert-warning" role="alert">
+                      El total de trabajadores solo debe contener números.
+                    </div>
+                  )}
                 </div>
 
                 <div className="form-group mb-2">

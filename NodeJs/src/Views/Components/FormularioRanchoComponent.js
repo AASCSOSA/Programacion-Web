@@ -6,10 +6,10 @@ export const FormularioRanchoComponent = () => {
     const [nombre_Rancho, setNombreRancho] = useState('');
     const [ubicacion_Rancho, setUbicacionRancho] = useState('');
     const [extension_Rancho, setExtensionRancho] = useState('');
-    const [emptyFieldsWarning, setEmptyFieldsWarning] = useState(false); //Validar que se llenen todos los datos
-    const [nombreRanchoWarning, setNombreRanchoWarning] = useState(false); // Advertencia para el campo nombre_Rancho
-    const [ubicacionRanchoWarning, setUbicacionRanchoWarning] = useState(false); // Advertencia para el campo ubicacion_Rancho
-
+    
+    //VALIDACIONES
+    const [nombre_RanchoError, setNombreRanchoError] = useState(false);
+    const [camposVaciosWarning, setCamposVaciosWarning] = useState(false); //VALIDACION DE LLENADO DE CAMPOS
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -21,7 +21,7 @@ export const FormularioRanchoComponent = () => {
         }).catch(e => {
             console.log(e);
         })
-    }, []);
+    }, [id]);
 
     const saveRancho = (e) => {
         e.preventDefault();
@@ -32,20 +32,20 @@ export const FormularioRanchoComponent = () => {
             !ubicacion_Rancho ||
             !extension_Rancho
         ) {
-            setEmptyFieldsWarning(true);
+            setCamposVaciosWarning(true);
             return;
         }
 
         const rancho = { nombre_Rancho, ubicacion_Rancho, extension_Rancho };
         if (id) {
             RanchoService.update(id, rancho).then(response => {
-                navigate('/rancho');
+                navigate("/rancho");
             }).catch(e => {
                 console.log(e);
             })
         } else {
             RanchoService.create(rancho).then(response => {
-                navigate('/rancho');
+                navigate("/rancho");
             }).catch(e => {
                 console.log(e);
             })
@@ -60,26 +60,17 @@ export const FormularioRanchoComponent = () => {
         }
     }
 
-    const handleNombreRanchoChange = (e) => {
+    //VALIDAR NOMBRE RANCHO
+    const validarNombre_Rancho = (e) => {
         const inputValue = e.target.value;
         if (/^[a-zA-Z\s]*$/.test(inputValue)) {
             setNombreRancho(inputValue);
-            setNombreRanchoWarning(false);
+            setNombreRanchoError(false);
         } else {
-            setNombreRanchoWarning(true);
+            setNombreRanchoError(true);
         }
     };
-
-    const handleUbicacionChange = (e) => {
-        const inputValue = e.target.value;
-        if (/^[a-zA-Z\s]*$/.test(inputValue)) {
-            setUbicacionRancho(inputValue);
-            setUbicacionRanchoWarning(false);
-        } else {
-            setUbicacionRanchoWarning(true);
-        }
-    };
-
+    
     return (
         <div>
             <div className='container' id="formRancho">
@@ -90,7 +81,7 @@ export const FormularioRanchoComponent = () => {
                         </h2>
                         <h2 className='text-center'>Gestión de Ranchos</h2>
                         <div className='card-body'>
-                            {emptyFieldsWarning && (
+                            {camposVaciosWarning && (
                                 <div className="alert alert-warning" role="alert">
                                     Por favor, complete todos los campos.
                                 </div>
@@ -101,11 +92,11 @@ export const FormularioRanchoComponent = () => {
                                     <input type='text'
                                         placeholder='Ingrese el nombre del rancho'
                                         name='NombreRancho'
-                                        className={`form-control ${nombreRanchoWarning ? 'is-invalid' : ''}`}
+                                        className={`form-control ${nombre_RanchoError ? 'is-invalid' : ''}`}
                                         value={nombre_Rancho}
-                                        onChange={handleNombreRanchoChange}>
+                                        onChange={validarNombre_Rancho}>
                                     </input>
-                                    {nombreRanchoWarning && (
+                                    {nombre_RanchoError && (
                                         <div className="alert alert-warning" role="alert">
                                             El nombre no debe contener números.
                                         </div>
@@ -117,15 +108,10 @@ export const FormularioRanchoComponent = () => {
                                     <input type='text'
                                         placeholder='Ingrese la ubicación del rancho'
                                         name='ubicacionRancho'
-                                        className={`form-control ${ubicacionRanchoWarning ? 'is-invalid' : ''}`}
+                                        className='form-control'
                                         value={ubicacion_Rancho}
-                                        onChange={handleUbicacionChange}>
+                                        onChange={(e) => setUbicacionRancho(e.target.value)}>
                                     </input>
-                                    {ubicacionRanchoWarning && (
-                                        <div className="alert alert-warning" role="alert">
-                                            La ubicacion no debe contener números.
-                                        </div>
-                                    )}
                                 </div>
 
                                 <div className='form-group mb-2'>
@@ -138,6 +124,7 @@ export const FormularioRanchoComponent = () => {
                                         onChange={(e) => setExtensionRancho(e.target.value)}>
                                     </input>
                                 </div>
+
                                 <button className='btn btn-success' onClick={(e) => saveRancho(e)}>Guardar</button>
                                 &nbsp;&nbsp;
                                 <Link to='/rancho' className='btn btn-danger'>Cancelar</Link>

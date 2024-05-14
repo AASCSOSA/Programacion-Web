@@ -10,6 +10,10 @@ export const FormularioPago_TrabajadorComponent = () => {
     const [id_Trabajador, setId_Trabajador] = useState('');
     const [trabajadores, setTrabajadores] = useState([]); // Lista de trabajadores
 
+    //VALIDACIONES
+    const [montoError, setMontoError] = useState(false);
+    const [camposVaciosWarning, setCamposVaciosWarning] = useState(false); //VALIDACION DE LLENADO DE CAMPOS
+
 
     const navigate = useNavigate();
     const { id_Pago_Trabajador } = useParams();
@@ -43,10 +47,25 @@ export const FormularioPago_TrabajadorComponent = () => {
                     });
             })
         }
-    }, []);
+    }, [id_Pago_Trabajador]);
 
     const savePago_Trabajador = (e) => {
         e.preventDefault();
+
+        // VALIDAR TODO EL LLENADO DE DATOS
+        if (
+            !monto ||
+            !fecha_Pago ||
+            !id_Trabajador
+        ) {
+            setCamposVaciosWarning(true);
+            return;
+        }
+
+        if (montoError) {
+            return; // Detiene la ejecución de la función si hay un error en el monto
+        }
+
         const trabajador = { id_Trabajador };
         const pago_trabajador = { monto, fecha_Pago, trabajador };
         if (id_Pago_Trabajador) {
@@ -71,6 +90,21 @@ export const FormularioPago_TrabajadorComponent = () => {
             return <h2 className="text-center">Agregar Pago de Trabajador</h2>
         }
     }
+
+    //VALIDAR MONTO
+    const validarMonto = (e) => {
+        const inputValue = e.target.value;
+    
+        // SOLO NUMEROS Y NO CARACTERES ESPECIALES
+        if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {
+            setMonto(inputValue);
+            setMontoError(false);// DESACTIVA ADVERTENCIA 
+        } else {
+            setMonto(inputValue);
+            setMontoError(true);//ACTIVA ADVERTENCIA
+        }
+    };
+    
     return (
         <div>
             <div className='container' id="formPago_Trabajador">
@@ -81,16 +115,27 @@ export const FormularioPago_TrabajadorComponent = () => {
                         </h2>
                         <h2 className='text-center'>Gestión de Pagos</h2>
                         <div className='card-body'>
+                            {camposVaciosWarning && (
+                                <div className="alert alert-warning" role="alert">
+                                    Por favor, complete todos los campos.
+                                </div>
+                            )}
+
                             <form>
                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Monto</label>
                                     <input type='number' step="0.01"
                                         placeholder='Ingrese el monto del pago a trabajador'
                                         name='montoPago_Trabajador'
-                                        className='form-control'
+                                        className={`form-control ${montoError ? 'is-invalid' : ''}`}//RESALTAR EL CAMPO EN EL FORMULARIO CON BORDES ROJOS Y DESPLEGAR ADVERTENCIA
                                         value={monto}
-                                        onChange={(e) => setMonto(e.target.value)}>
+                                        onChange={validarMonto}>
                                     </input>
+                                    {montoError && (
+                                        <div className="alert alert-warning" role="alert">
+                                            El monto solo debe contener números.
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className='form-group mb-2'>
@@ -109,8 +154,7 @@ export const FormularioPago_TrabajadorComponent = () => {
                                     <select
                                         className="form-select"
                                         value={id_Trabajador}
-                                        onChange={(e) => setId_Trabajador(e.target.value)}
-                                    >
+                                        onChange={(e) => setId_Trabajador(e.target.value)} >
                                         <option value="">Seleccionar Trabajador</option>
                                         {trabajadores.map((trabajador) => (
                                             <option key={trabajador.id_Trabajador} value={trabajador.id_Trabajador}>
@@ -131,8 +175,8 @@ export const FormularioPago_TrabajadorComponent = () => {
         </div>
     )
 }
-<<<<<<< HEAD
+
 export default FormularioPago_TrabajadorComponent;
-=======
-export default FormularioPago_TrabajadorComponent;
->>>>>>> main
+
+
+

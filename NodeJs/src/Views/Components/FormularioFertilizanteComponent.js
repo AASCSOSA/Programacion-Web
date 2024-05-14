@@ -12,6 +12,14 @@ export const FormularioFertilizanteComponent = () => {
   const [lote, setLote] = useState("");
   const [marca, setMarca] = useState("");
 
+  //VALIDACIONES
+  const [cantidadError, setCantidadError] = useState(false);
+  const [costo_TotalError, setCostoTotalError] = useState(false);
+  const [costo_UnitarioError, setCostoUnitarioError] = useState(false);
+  const [loteError, setLoteError] = useState(false);
+  const [camposVaciosWarning, setCamposVaciosWarning] = useState(false); //VALIDACION DE LLENADO DE CAMPOS
+
+
   const navigate = useNavigate();
   const { id_Fertilizante } = useParams();
 
@@ -31,10 +39,32 @@ export const FormularioFertilizanteComponent = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [id_Fertilizante]);
 
   const saveFertilizante = (e) => {
     e.preventDefault();
+
+    // VALIDAR TODO EL LLENADO DE DATOS
+    if (
+      !cantidad ||
+      !clasificacion ||
+      !costo_Total ||
+      !costo_Unitario ||
+      !domicilio_Distribuidora ||
+      !fecha_Caducidad ||
+      !lote ||
+      !marca ||
+
+      //ERRORES
+      cantidadError ||
+      costo_TotalError ||
+      costo_UnitarioError ||
+      loteError
+    ) {
+      setCamposVaciosWarning(true);
+      return; // Detiene la ejecución de la función si hay un error en el mont
+    }
+
     const fertilizante = {
       cantidad,
       clasificacion,
@@ -71,6 +101,55 @@ export const FormularioFertilizanteComponent = () => {
       return <h2 className="text-center">Agregar Fertilizante</h2>;
     }
   };
+
+  //VALIDAR LA CANTIDAD
+  const validarCantidad = (e) => {
+    const inputValue = e.target.value;
+    if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {// SOLO NUMEROS Y NO CARACTERES ESPECIALES
+      setCantidad(inputValue);
+      setCantidadError(false);
+    } else {
+      setCantidad(inputValue);
+      setCantidadError(true);
+    }
+  };
+
+  //VALIDAR COSTO TOTAL
+  const validarCostoTotal = (e) => {
+    const inputValue = e.target.value;
+    if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {// SOLO NUMEROS Y NO CARACTERES ESPECIALES
+      setCostoTotal(inputValue);
+      setCostoTotalError(false);
+    } else {
+      setCostoTotal(inputValue);
+      setCostoTotalError(true);
+    }
+  };
+
+  //VALIDAR COSTO UNITARIO
+  const validarCostoUnitario = (e) => {
+    const inputValue = e.target.value;
+    if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {// SOLO NUMEROS Y NO CARACTERES ESPECIALES
+      setCostoUnitario(inputValue);
+      setCostoUnitarioError(false);
+    } else {
+      setCostoUnitario(inputValue);
+      setCostoUnitarioError(true);
+    }
+  };
+
+  //VALIDAR LOTE
+  const validarLote = (e) => {
+    const inputValue = e.target.value;
+    if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {// SOLO NUMEROS Y NO CARACTERES ESPECIALES
+      setLote(inputValue);
+      setLoteError(false);
+    } else {
+      setLote(inputValue);
+      setLoteError(true);
+    }
+  };
+
   const listadeClasificacion = [
     "Abono Orgánico",
     "Abono Inorgánico/Sintético",
@@ -88,6 +167,11 @@ export const FormularioFertilizanteComponent = () => {
             <h2 classsName="text-center">{titulo()}</h2>
             <h2 className="text-center">Gestión de Fertilizante</h2>
             <div className="card-body">
+            {camposVaciosWarning && (
+                <div className="alert alert-warning" role="alert">
+                  Por favor, complete todos los campos.
+                </div>
+              )}
               <form>
                 <div className="form-group mb-2">
                   <label className="form-label">Cantidad</label>
@@ -96,11 +180,17 @@ export const FormularioFertilizanteComponent = () => {
                     step="0.01"
                     placeholder="Ingresa la cantidad adquirida"
                     name="cantidad"
-                    className="form-control"
+                    className={`form-control ${cantidadError ? 'is-invalid' : ''}`}//RESALTAR EL CAMPO EN EL FORMULARIO CON BORDES ROJOS Y DESPLEGAR ADVERTENCIA
                     value={cantidad}
-                    onChange={(e) => setCantidad(e.target.value)}
-                  ></input>
+                    onChange={validarCantidad}>
+                  </input>
+                  {cantidadError && (
+                    <div className="alert alert-warning" role="alert">
+                      La cantidad solo debe contener números.
+                    </div>
+                  )}
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Clasificación</label>
                   <select
@@ -116,6 +206,7 @@ export const FormularioFertilizanteComponent = () => {
                     ))}
                   </select>
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Costo Total</label>
                   <input
@@ -123,11 +214,17 @@ export const FormularioFertilizanteComponent = () => {
                     step="0.01"
                     placeholder="Ingrese el costo $total"
                     name="costoTotal"
-                    className="form-control"
+                    className={`form-control ${costo_TotalError ? 'is-invalid' : ''}`}//RESALTAR EL CAMPO EN EL FORMULARIO CON BORDES ROJOS Y DESPLEGAR ADVERTENCIA
                     value={costo_Total}
-                    onChange={(e) => setCostoTotal(e.target.value)}
-                  ></input>
+                    onChange={validarCostoTotal}>
+                  </input>
+                  {costo_TotalError && (
+                    <div className="alert alert-warning" role="alert">
+                      El costo total solo debe contener números.
+                    </div>
+                  )}
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Costo Unitario</label>
                   <input
@@ -135,11 +232,17 @@ export const FormularioFertilizanteComponent = () => {
                     step="0.01"
                     placeholder="Ingrese el costo unitario"
                     name="costoUnitario"
-                    className="form-control"
+                    className={`form-control ${costo_UnitarioError ? 'is-invalid' : ''}`}//RESALTAR EL CAMPO EN EL FORMULARIO CON BORDES ROJOS Y DESPLEGAR ADVERTENCIA
                     value={costo_Unitario}
-                    onChange={(e) => setCostoUnitario(e.target.value)}
-                  ></input>
+                    onChange={validarCostoUnitario}>
+                  </input>
+                  {costo_UnitarioError && (
+                    <div className="alert alert-warning" role="alert">
+                      El costo unitario solo debe contener números.
+                    </div>
+                  )}
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Domicilio Distribuidora</label>
                   <input
@@ -151,6 +254,7 @@ export const FormularioFertilizanteComponent = () => {
                     onChange={(e) => setDomicilioDistribuidora(e.target.value)}
                   ></input>
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Fecha Caducidad</label>
                   <input
@@ -161,17 +265,24 @@ export const FormularioFertilizanteComponent = () => {
                     onChange={(e) => setfechaCaducidad(e.target.value)}
                   ></input>
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Lote</label>
                   <input
                     type="number"
                     placeholder="Ingrese el lote del producto"
                     name="lote"
-                    className="form-control"
+                    className={`form-control ${loteError ? 'is-invalid' : ''}`}//RESALTAR EL CAMPO EN EL FORMULARIO CON BORDES ROJOS Y DESPLEGAR ADVERTENCIA
                     value={lote}
-                    onChange={(e) => setLote(e.target.value)}
-                  ></input>
+                    onChange={validarLote}>
+                  </input>
+                  {loteError && (
+                    <div className="alert alert-warning" role="alert">
+                      El lote solo debe contener números.
+                    </div>
+                  )}
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Marca</label>
                   <input

@@ -12,6 +12,10 @@ export const FormularioFertilizacionComponent = () => {
   const [ranchos, setRanchos] = useState([]);
   const [fertilizantes, setFertilizantes] = useState([]);
 
+  //VALIDACIONES
+  const [cantidad_AplicacionError, setCantidadAplicacionError] = useState(false);
+  const [camposVaciosWarning, setCamposVaciosWarning] = useState(false); //VALIDACION DE LLENADO DE CAMPOS
+
   const navigate = useNavigate();
   const { id_Fertilizacion } = useParams();
   useEffect(() => {
@@ -66,6 +70,21 @@ export const FormularioFertilizacionComponent = () => {
 
   const saveFertilizacion = (e) => {
     e.preventDefault();
+
+    // VALIDAR TODO EL LLENADO DE DATOS
+    if (
+      !cantidad_Aplicacion ||
+      !fecha_Aplicacion ||
+      !id_Rancho ||
+      !id_Fertilizante ||
+
+      //ERRORES
+      cantidad_AplicacionError
+    ) {
+      setCamposVaciosWarning(true);
+      return; // Detiene la ejecución de la función si hay un error en el mont
+    }
+
     const normalizedFecha = new Date(fecha_Aplicacion)
       .toISOString()
       .split("T")[0];
@@ -105,6 +124,18 @@ export const FormularioFertilizacionComponent = () => {
     }
   };
 
+  //VALIDAR LA CANTIDAD DE APLICACION
+  const validarCantidad_Aplicacion = (e) => {
+    const inputValue = e.target.value;
+    if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {// SOLO NUMEROS Y NO CARACTERES ESPECIALES
+      setCantidadAplicacion(inputValue);
+      setCantidadAplicacionError(false);
+    } else {
+      setCantidadAplicacion(inputValue);
+      setCantidadAplicacionError(true);
+    }
+  };
+
   return (
     <div>
       <div className="container" id="formFertilizacion">
@@ -113,6 +144,11 @@ export const FormularioFertilizacionComponent = () => {
             <h2 classsName="text-center">{titulo()}</h2>
             <h2 className="text-center">Gestión de Fertilización</h2>
             <div className="card-body">
+              {camposVaciosWarning && (
+                <div className="alert alert-warning" role="alert">
+                  Por favor, complete todos los campos.
+                </div>
+              )}
               <form>
                 <div className="form-group mb-2">
                   <label className="form-label">Cantidad de aplicación</label>
@@ -121,11 +157,17 @@ export const FormularioFertilizacionComponent = () => {
                     step="0.0"
                     placeholder="Ingresa la cantidad aplicada"
                     name="cantidad"
-                    className="form-control"
+                    className={`form-control ${cantidad_AplicacionError ? 'is-invalid' : ''}`}//RESALTAR EL CAMPO EN EL FORMULARIO CON BORDES ROJOS Y DESPLEGAR ADVERTENCIA
                     value={cantidad_Aplicacion}
-                    onChange={(e) => setCantidadAplicacion(e.target.value)}
-                  ></input>
+                    onChange={validarCantidad_Aplicacion}>
+                  </input>
+                  {cantidad_AplicacionError && (
+                    <div className="alert alert-warning" role="alert">
+                      La cantidad solo debe contener números.
+                    </div>
+                  )}
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Fecha de la Apliación</label>
                   <input
@@ -136,6 +178,7 @@ export const FormularioFertilizacionComponent = () => {
                     onChange={(e) => setFechaAplicacion(e.target.value)}
                   ></input>
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Marca Fertilizante</label>
                   <select
