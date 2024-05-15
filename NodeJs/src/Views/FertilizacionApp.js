@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import FertilizacionService from "../Controllers/FertilizacionService";
 import { Link } from "react-router-dom";
 
@@ -6,6 +6,11 @@ export default function FertilizacionApp() {
   const [fertilizacion, setFertilizacion] = useState([]);
   const [nameRancho, setNameRancho] = useState([]);
   const [nameMarca, setNameMarca] = useState([]);
+  const [selectedFertilizacion, setSelectedFertilizacion] = useState(null);
+  const [showInsertAndConsult, setShowInsertAndConsult] = useState(true);
+  const tableRef = useRef(null);
+  const [selectedNameFertilizacion, setSelectedNameFertilizacion] =
+    useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,67 +54,154 @@ export default function FertilizacionApp() {
   const deleteFertilizacion = (id) => {
     FertilizacionService.delete(id)
       .then(() => {
-        setFertilizacion(fertilizacion.filter((item) => item.id_Fertilizacion !== id));
+        setFertilizacion(
+          fertilizacion.filter((item) => item.id_Fertilizacion !== id)
+        );
+        setSelectedFertilizacion(null); // Deselect the row after deletion
+        setShowInsertAndConsult(true); // Show the Insert and Consult buttons after deletion
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
+  const handleRowClick = (id, name) => {
+    setSelectedFertilizacion(id);
+    setShowInsertAndConsult(false); // Hide the Insert and Consult buttons when a row is selected
+    setSelectedNameFertilizacion(name);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (tableRef.current && !tableRef.current.contains(event.target)) {
+        setSelectedFertilizacion(null); // Deselect the row when clicking outside the table
+        setShowInsertAndConsult(true); // Show the Insert and Consult buttons when clicking outside the table
+        setSelectedNameFertilizacion(null);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div>
       <footer className="tittleFrm">Fertilizacion</footer>
       <div className="container">
-        <div className="table-container">
-          <table className="table" id="tableFertilizacion">
-            <thead className="table-dark">
-              <tr>
-                <th>Id Fertilizacion</th>
-                <th>Cantidad de Aplicación</th>
-                <th>Fecha de Aplicación</th>
-                <th>Nombre del fertilizante</th>
-                <th>Nombre del rancho</th>
-              </tr>
-            </thead>
-            <tbody>
-              {fertilizacion.map((fertilizacionItem, index) => (
-                <tr key={fertilizacionItem.id_Fertilizacion}>
-                  <td>{fertilizacionItem.id_Fertilizacion}</td>
-                  <td>{fertilizacionItem.cantidad_Aplicacion}</td>
-                  <td>{fertilizacionItem.fecha_Aplicacion}</td>
-                  <td>{nameMarca[index]}</td>
-                  <td>{nameRancho[index]}</td>
-                  <td>
-                    <Link
-                      className="btn btn-info"
-                      to={`/edit-fertilizacion/${fertilizacionItem.id_Fertilizacion}`}
-                    >
-                      Editar
-                    </Link>
-                    <button
-                      className="btn btn-danger"
-                      onClick={() =>
-                        deleteFertilizacion(fertilizacionItem.id_Fertilizacion)
-                      }
-                    >
-                      Eliminar
-                    </button>
-                  </td>
+        <p>
+          {selectedNameFertilizacion
+            ? `Fertilización del rancho: ${selectedNameFertilizacion}`
+            : "No se esta seleccionando una fertilización"}
+        </p>
+        <div className="table-container" ref={tableRef}>
+          <div className="table-responsive">
+            <table className="table table-hover table-bordered">
+              <thead className="table-success">
+                <tr>
+                  <th>Id Fertilizacion</th>
+                  <th>Cantidad de Aplicación</th>
+                  <th>Fecha de Aplicación</th>
+                  <th>Nombre del fertilizante</th>
+                  <th>Nombre del rancho</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {fertilizacion.map((fertilizacionItem, index) => (
+                  <tr
+                    key={fertilizacionItem.id_Fertilizacion}
+                    onClick={() =>
+                      handleRowClick(
+                        fertilizacionItem.id_Fertilizacion,
+                        nameRancho[index]
+                      )
+                    }
+                    className={
+                      selectedFertilizacion ===
+                      fertilizacionItem.id_Fertilizacion
+                        ? "selected"
+                        : ""
+                    }
+                  >
+                    <td>{fertilizacionItem.id_Fertilizacion}</td>
+                    <td>{fertilizacionItem.cantidad_Aplicacion}</td>
+                    <td>{fertilizacionItem.fecha_Aplicacion}</td>
+                    <td>{nameMarca[index]}</td>
+                    <td>{nameRancho[index]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-        <Link to="/form-fertilizacion">
-          <button type="button" className="btn btn-success">
-            Insertar
-          </button>
-        </Link>
-        <Link to="/form-fertilizacion">
-          <button type="button" className="btn btn-success">
-            Consultar
-          </button>
-        </Link>
+        <div className="buttonsInLine">
+          {showInsertAndConsult && (
+            <>
+              <Link to="/form-fertilizacion">
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  class="btnimagen"
+                >
+                  {" "}
+                  <img
+                    src="icons/Insertar.png"
+                    alt="Insertar fertilizacion"
+                    className="imgInsert"
+                  ></img>
+                  Insertar
+                </button>
+              </Link>
+              <Link to="/form-fertilizacion">
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  class="btnimagen"
+                >
+                  <img
+                    src="icons/Buscar.png"
+                    alt="Buscar fertilizacion"
+                    className="imgBuscar"
+                  ></img>
+                  Consultar
+                </button>
+              </Link>
+            </>
+          )}
+          {selectedFertilizacion && (
+            <div className="butonsEditandDelete">
+              <Link to={`/edit-fertilizacion/${selectedFertilizacion}`}>
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  class="btnimagen"
+                >
+                  <img
+                    src="icons/Actualizar.png"
+                    alt="Editar fertilizacion"
+                    className="imgEditar"
+                  ></img>
+                  Editar
+                </button>
+              </Link>
+              <button
+                onClick={() => deleteFertilizacion(selectedFertilizacion)}
+                className="btn btn-success"
+                class="btnimagen"
+                type="button"
+              >
+                <img
+                  src="icons/Eliminar.png"
+                  alt="Eliminar fertilizacion"
+                  className="imgEliminar"
+                ></img>
+                Eliminar
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.net.URI;
 import java.util.Optional;
 
@@ -115,4 +116,8 @@ public class VentaController {
         Comprador comprador = ventaOptional.get().getComprador();
         return ResponseEntity.ok(comprador);
     }
+
+
+
+
 }
