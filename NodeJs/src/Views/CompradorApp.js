@@ -29,13 +29,14 @@ export default function CompradorApp() {
         setClickedInsideTable(false);
         setRowSelected(false);
         setSelectNameComprador(null);
+        setSelectedCompradorId(null);
       }
     };
 
-    document.addEventListener("mousedown", handleOutsideClick);
+    document.addEventListener("click", handleOutsideClick);
 
     return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("click", handleOutsideClick);
     };
   }, []);
 
@@ -43,7 +44,7 @@ export default function CompradorApp() {
     CompradorService.delete(id)
       .then((response) => {
         listarComprador();
-        console.log(response.data);
+        console.log(response.id);
       })
       .catch((error) => {
         console.log(error);

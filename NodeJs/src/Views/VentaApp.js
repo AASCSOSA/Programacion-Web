@@ -12,7 +12,6 @@ export default function VentaApp() {
   const tableRef = useRef(null);
   const [showButtons, setShowButtons] = useState(false);
   const [selectedVenta, setselectedVenta] = useState(null);
-
   const listarVenta = () => {
     VentaService.findAll()
       .then((response) => {

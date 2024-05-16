@@ -26,5 +26,6 @@ class VentaService {
   obtenerVentasMesActual(){
     return axios.get(URL_BASE );
   }
+
 }
 export default new VentaService();
