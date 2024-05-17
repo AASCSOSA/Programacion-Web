@@ -3,6 +3,8 @@ package mx.LemonTrees.Project.Controller;
 import mx.LemonTrees.Project.Model.Carga;
 import mx.LemonTrees.Project.Model.Comprador;
 import mx.LemonTrees.Project.Model.Venta;
+import mx.LemonTrees.Project.QueryInterface.QueryMonthVenta;
+import mx.LemonTrees.Project.QueryInterface.QueryMonthCarga;
 import mx.LemonTrees.Project.Repository.CargaRepository;
 import mx.LemonTrees.Project.Repository.CompradorRepository;
 import mx.LemonTrees.Project.Repository.VentaRepository;
@@ -21,7 +23,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
+
+import javax.management.Query;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/venta")
@@ -72,7 +79,8 @@ public class VentaController {
     @PutMapping("/{Id_Venta}")
     public ResponseEntity<Void> update(@PathVariable Integer Id_Venta, @RequestBody Venta ventaUpdate) {
         Optional<Carga> cargaOptional = cargaRepository.findById(ventaUpdate.getCarga().getId_Carga());
-        Optional<Comprador> compradorOptional = compradorRepository.findById(ventaUpdate.getComprador().getId_Comprador());
+        Optional<Comprador> compradorOptional = compradorRepository
+                .findById(ventaUpdate.getComprador().getId_Comprador());
         Optional<Venta> ventaOptional = ventaRepository.findById(Id_Venta);
         if (!(cargaOptional.isPresent() && compradorOptional.isPresent())) {
             return ResponseEntity.unprocessableEntity().build();
@@ -117,7 +125,9 @@ public class VentaController {
         return ResponseEntity.ok(comprador);
     }
 
-
-
+    @GetMapping("/ventaxmes")
+    public ResponseEntity<Iterable<QueryMonthVenta>> findVentaXMonth() {
+        return ResponseEntity.ok(ventaRepository.findVentaXMonth());
+    }
 
 }

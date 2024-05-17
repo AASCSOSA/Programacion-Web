@@ -83,7 +83,7 @@ export const FormularioVentaComponent = () => {
     if (id) {
       VentaService.update(venta, id)
         .then((response) => {
-          navigate("/venta");
+          navigate("/ventaForMonth");
         })
         .catch((error) => {
           console.error(error);
@@ -91,7 +91,7 @@ export const FormularioVentaComponent = () => {
     } else {
       VentaService.create(venta)
         .then((response) => {
-          navigate("/venta");
+          navigate("/ventaForMonth");
         })
         .catch((error) => {
           console.error(error);
@@ -221,7 +221,7 @@ export const FormularioVentaComponent = () => {
                   Guardar
                 </button>
                 &nbsp;&nbsp;
-                <Link to="/venta" className="btn btn-danger">
+                <Link to="/ventaForMonth" className="btn btn-danger">
                   Cancelar
                 </Link>
               </form>

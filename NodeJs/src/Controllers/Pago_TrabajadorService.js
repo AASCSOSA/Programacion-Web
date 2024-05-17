@@ -26,5 +26,8 @@ class Pago_TrabajadorService {
         return axios.get(URL_BASE+"/trabajadores/"+id_Pago_Trabajador)
 
     }
+    findPagoTrabajadorXMonth(){
+        return axios.get(URL_BASE+"/pagoTXmes")
+    }
 }
 export default new Pago_TrabajadorService();

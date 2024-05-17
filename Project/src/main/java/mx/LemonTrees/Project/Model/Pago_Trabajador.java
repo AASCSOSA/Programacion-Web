@@ -13,7 +13,7 @@ public class Pago_Trabajador {
     private Integer Id_Pago_Trabajador;
 
     @Column(nullable = false)
-    private String Monto;
+    private Integer Monto;
 
     @Column(nullable = false)
     private LocalDate Fecha_Pago;
@@ -27,7 +27,7 @@ public class Pago_Trabajador {
         
     }
 
-    public Pago_Trabajador(String Monto, LocalDate Fecha_Pago) {
+    public Pago_Trabajador(Integer Monto, LocalDate Fecha_Pago) {
         this.Monto = Monto;
         this.Fecha_Pago = Fecha_Pago;
     }
@@ -41,11 +41,11 @@ public class Pago_Trabajador {
         this.Id_Pago_Trabajador = Id_Pago_Trabajador;
     }
 
-    public String getMonto() {
+    public Integer getMonto() {
         return Monto;
     }
 
-    public void setMonto(String Monto) {
+    public void setMonto(Integer Monto) {
         this.Monto = Monto;
     }
 

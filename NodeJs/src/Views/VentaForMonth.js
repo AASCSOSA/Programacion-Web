@@ -4,7 +4,7 @@ import CargaService from "../Controllers/CargaService";
 import CompradorService from "../Controllers/CompradorService";
 import { Link } from "react-router-dom";
 
-export default function VentaApp() {
+export default function VentaForMonth() {
   const [venta, setVenta] = useState([]);
   const [cargas, setCargas] = useState([]);
   const [compradores, setCompradores] = useState([]);
@@ -25,7 +25,6 @@ export default function VentaApp() {
   };
 
   useEffect(() => {
-    listarVenta();
     mesxprmex();
   }, []);
   const mesxprmex=() => {
@@ -73,7 +72,7 @@ export default function VentaApp() {
   const deleteVenta = (id) => {
     VentaService.delete(id)
       .then((response) => {
-        listarVenta();
+        mesxprmex();
       })
       .catch((error) => {
         console.log(error);
@@ -124,7 +123,7 @@ export default function VentaApp() {
                 </tr>
               </thead>
               <tbody>
-                {venta.map((venta, index) => (
+                {ventaXmes.map((venta, index) => (
                   <tr
                     key={venta.id_Venta}
                     onClick={() => {
@@ -134,14 +133,14 @@ export default function VentaApp() {
                     }}
                   >
                     <td>{venta.id_Venta}</td>
-                    <td>{venta.precio_LimonVerde}</td>
-                    <td>{venta.precio_LimonSegunda}</td>
-                    <td>{venta.precio_LimonTercera}</td>
+                    <td>{venta.precio_Limon_Verde}</td>
+                    <td>{venta.precio_Limon_Segunda}</td>
+                    <td>{venta.precio_Limon_Tercera}</td>
                     <td>{venta.peso_Total}</td>
                     <td>{venta.pago_Total}</td>
                     <td>{venta.fecha}</td>
-                    <td>{cargas[index]}</td>
-                    <td>{compradores[index]}</td>
+                    <td>{venta.id_Carga}</td>
+                    <td>{venta.nombre}</td>
                   </tr>
                 ))}
               </tbody>
@@ -166,7 +165,7 @@ export default function VentaApp() {
                   Insertar
                 </button>
               </Link>
-              <Link to="/form-venta">
+              <Link to="/venta">
                 <button
                   type="button"
                   className="btn btn-success"
