@@ -25,7 +25,7 @@ public class Comprador {
     @Column(nullable = false, length = 50)
     private String Nombre_Empresa;
 
-    @OneToMany(mappedBy = "comprador", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "comprador")
     private List<Venta> ventas;
 
     public Comprador() {

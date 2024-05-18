@@ -23,5 +23,11 @@ class VentaService {
   findByIdCarga(id) {
     return axios.get(URL_BASE + "/carga/"+id);
   }
+  obtenerVentasMesActual(){
+    return axios.get(URL_BASE );
+  }
+  findVentaXMonth(){
+    return axios.get(URL_BASE + "/ventaxmes");
+  }
 }
 export default new VentaService();

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Pago_TrabajadorService from "../Controllers/Pago_TrabajadorService";
 
-export default function Pago_TrabajadorApp() {
+export default function Pago_TrabajadorForMonth() {
   const [pago_Trabajador, setPago_Trabajador] = useState([]);
   const [trabajadores, setTrabajadores] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
@@ -10,7 +10,7 @@ export default function Pago_TrabajadorApp() {
   const [selectedPagoTrabajador, setSelectedPagoTrabajador] = useState(null);
   const [showInsertAndConsult, setShowInsertAndConsult] = useState(true);
   const [selectedNamePagoTrabajador, setSelectedNamePagoTrabajador] = useState(null);
-
+const [pago_TrabajadorXMes, setPago_TrabajadorXMes] = useState([]);
 
   const listarPago = () => {
     Pago_TrabajadorService.findAll()
@@ -23,8 +23,17 @@ export default function Pago_TrabajadorApp() {
   };
 
   useEffect(() => {
-    listarPago();
+    listarPorMes();
   }, []);
+  const listarPorMes=()=>{
+    Pago_TrabajadorService.findPagoTrabajadorXMonth()
+     .then((response) => {
+        setPago_TrabajadorXMes(response.data);
+      })
+     .catch((error) => {
+        console.log(error);
+      });
+  }
 
   useEffect(() => {
     const obtenerNombresTrabajadores = async () => {
@@ -51,7 +60,7 @@ export default function Pago_TrabajadorApp() {
   const deletePago_Trabajador = (id_Pago_Trabajador) => {
     Pago_TrabajadorService.delete(id_Pago_Trabajador)
       .then((response) => {
-        listarPago();
+        listarPorMes();
       })
       .catch((error) => {
         console.log(error);
@@ -72,6 +81,7 @@ export default function Pago_TrabajadorApp() {
         setSelectedRow(null);
         setSelectedPagoTrabajador(null);
         setShowInsertAndConsult(true);
+        setSelectedNamePagoTrabajador(null);
       }
     };
 
@@ -87,8 +97,8 @@ export default function Pago_TrabajadorApp() {
       <footer className="tittleFrm">Pago de Trabajador</footer>
       <div className="container">
         <p>
-          {selectedPagoTrabajador
-            ? `Nombre del Trabajador: ${selectedPagoTrabajador}`
+          {selectedNamePagoTrabajador
+            ? `Nombre del Trabajador: ${selectedNamePagoTrabajador}`
             : "No se esta seleccionando un Pago de Trabajador"}
         </p>
         <div className="table-container" ref={tableRef}>
@@ -103,13 +113,13 @@ export default function Pago_TrabajadorApp() {
                 </tr>
               </thead>
               <tbody>
-                {pago_Trabajador.map((pago_TrabajadorItem, index) => (
+                {pago_TrabajadorXMes.map((pago_TrabajadorItem) => (
                   <tr
                     key={pago_TrabajadorItem.id_Pago_Trabajador}
                     onClick={() =>
                       handleRowClick(
                         pago_TrabajadorItem.id_Pago_Trabajador,
-                        trabajadores[index]
+                        pago_TrabajadorItem.nombre_Trabajador
                       )
                     }
                     className={
@@ -121,7 +131,7 @@ export default function Pago_TrabajadorApp() {
                     <td>{pago_TrabajadorItem.id_Pago_Trabajador}</td>
                     <td>{pago_TrabajadorItem.monto}</td>
                     <td>{pago_TrabajadorItem.fecha_Pago}</td>
-                    <td>{trabajadores[index]}</td>
+                    <td>{pago_TrabajadorItem.nombre+" "+pago_TrabajadorItem.apellido_Pat}</td>
                   </tr>
                 ))}
               </tbody>
@@ -130,13 +140,13 @@ export default function Pago_TrabajadorApp() {
         </div>
         <div className="buttonsInLine">
           {showInsertAndConsult && (
+            <>
             <Link to="/form-pago_trabajador">
               <button
                 type="button"
                 className="btn btn-success"
                 class="btnimagen"
               >
-                {" "}
                 <img
                   src="icons/Insertar.png"
                   alt="Insertar Pago"
@@ -145,6 +155,21 @@ export default function Pago_TrabajadorApp() {
                 Insertar
               </button>
             </Link>
+            <Link to="/pago_trabajador"r>
+            <button
+              type="button"
+              className="btn btn-success"
+              class="btnimagen"
+            >
+              <img
+                src="icons/Buscar.png"
+                alt="Buscar Pago"
+                className="imgBuscar"
+              ></img>
+              Consultar
+            </button>
+          </Link>
+          </>
           )}
           {selectedPagoTrabajador && (
             <>

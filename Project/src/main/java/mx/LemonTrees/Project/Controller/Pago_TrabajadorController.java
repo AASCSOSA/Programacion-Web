@@ -4,13 +4,14 @@ import java.net.URI;
 import java.util.Optional;
 
 import mx.LemonTrees.Project.Model.*;
+import mx.LemonTrees.Project.QueryInterface.QueryMonthPagoTrabajador;
 import mx.LemonTrees.Project.Repository.Pago_TrabajadorRepository;
 import mx.LemonTrees.Project.Repository.TrabajadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import org.springframework.web.bind.annotation.GetMapping;
+
 
 
 @RestController
@@ -100,5 +101,9 @@ public class Pago_TrabajadorController {
         return ResponseEntity.ok(nombreCompleto);
 
     }
-
+    @GetMapping("/pagoTXmes")
+    public ResponseEntity <Iterable<QueryMonthPagoTrabajador>> findPagoTrabajadorXMonth() {
+        return ResponseEntity.ok(pago_trabajadorRepository.findPagoTrabajadorXMonth());
+    }
+    
 }

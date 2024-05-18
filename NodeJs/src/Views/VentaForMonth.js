@@ -4,7 +4,7 @@ import CargaService from "../Controllers/CargaService";
 import CompradorService from "../Controllers/CompradorService";
 import { Link } from "react-router-dom";
 
-export default function VentaApp() {
+export default function VentaForMonth() {
   const [venta, setVenta] = useState([]);
   const [cargas, setCargas] = useState([]);
   const [compradores, setCompradores] = useState([]);
@@ -25,7 +25,6 @@ export default function VentaApp() {
   };
 
   useEffect(() => {
-    listarVenta();
     mesxprmex();
   }, []);
   const mesxprmex=() => {
@@ -70,26 +69,47 @@ export default function VentaApp() {
     }
   }, [venta]);
 
-    const deleteVenta = (id) => {
-      const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar este registro?");
-      if (confirmDelete) {
-        VentaService.delete(id)
-          .then((response) => {
-            listarVenta();
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+  const deleteVenta = (id) => {
+    VentaService.delete(id)
+      .then((response) => {
+        mesxprmex();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const handleRowClick = (id) => {
+    setselectedVenta(id);
+  };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (tableRef.current && !tableRef.current.contains(event.target)) {
+        setSelectedRow(null);
+        setShowButtons(false);
+        setselectedVenta(null);
       }
-    }
+    };
 
-    return (
-      <div >
-        <footer className="tittleFrm">Venta</footer>
-        <div className="container">
-          <div className="table-container">
-            <table className="table" id="tableVenta">
-              <thead className="table-dark">
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <div>
+      <footer className="tittleFrm">Venta</footer>
+      <div className="container">
+        <p>
+          {selectedVenta
+            ? `Numero de venta: ${selectedVenta}`
+            : "No se está seleccionando una venta"}
+        </p>
+        <div className="table-container" ref={tableRef}>
+          <div className="table-responsive">
+            <table className="table table-hover table-bordered">
+              <thead className="table-success">
                 <tr>
                   <th>Id Venta</th>
                   <th>Precio Limón Verde</th>
@@ -103,7 +123,7 @@ export default function VentaApp() {
                 </tr>
               </thead>
               <tbody>
-                {venta.map((venta, index) => (
+                {ventaXmes.map((venta, index) => (
                   <tr
                     key={venta.id_Venta}
                     onClick={() => {
@@ -113,14 +133,14 @@ export default function VentaApp() {
                     }}
                   >
                     <td>{venta.id_Venta}</td>
-                    <td>{venta.precio_LimonVerde}</td>
-                    <td>{venta.precio_LimonSegunda}</td>
-                    <td>{venta.precio_LimonTercera}</td>
+                    <td>{venta.precio_Limon_Verde}</td>
+                    <td>{venta.precio_Limon_Segunda}</td>
+                    <td>{venta.precio_Limon_Tercera}</td>
                     <td>{venta.peso_Total}</td>
                     <td>{venta.pago_Total}</td>
                     <td>{venta.fecha}</td>
-                    <td>{cargas[index]}</td>
-                    <td>{compradores[index]}</td>
+                    <td>{venta.id_Carga}</td>
+                    <td>{venta.nombre}</td>
                   </tr>
                 ))}
               </tbody>
@@ -145,7 +165,7 @@ export default function VentaApp() {
                   Insertar
                 </button>
               </Link>
-              <Link to="/form-venta">
+              <Link to="/venta">
                 <button
                   type="button"
                   className="btn btn-success"

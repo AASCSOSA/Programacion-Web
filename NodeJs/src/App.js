@@ -10,6 +10,11 @@ import Pago_TrabajadorApp from './Views/Pago_TrabajadorApp';
 import CompradorApp from './Views/CompradorApp';
 import FertilizanteApp from './Views/FertilizanteApp';
 import FertilizacionApp from './Views/FertilizacionApp';
+import VentaForMonth from './Views/VentaForMonth';
+import CargaForMonth from './Views/CargaForMonth';
+import FertilizacionForMonth from './Views/FertilizacionForMonth';
+import Pago_TrabajadoForMonth from './Views/Pago_TrabajadorForMonth';
+
 
 import FormularioRanchoComponent  from './Views/Components/FormularioRanchoComponent';
 import FormularioCargaComponent from './Views/Components/FormularioCargaComponent';
@@ -40,7 +45,11 @@ function App() {
           <Route path='/comprador'element={<CompradorApp />} />
           <Route path='/fertilizante'element={<FertilizanteApp />} />
           <Route path='/fertilizacion'element={<FertilizacionApp />} />
-
+          <Route path='/ventaForMonth'element={<VentaForMonth />} />
+          <Route path='/cargaForMonth'element={<CargaForMonth />} />
+          <Route path='/fertilizacionForMonth'element={<FertilizacionForMonth/>} />
+          <Route path='/pago_trabajadorForMonth'element={<Pago_TrabajadoForMonth/>} />
+          
           <Route path='/form-rancho'element={<FormularioRanchoComponent />} />
           <Route path='/edit-rancho/:id' element={<FormularioRanchoComponent />} />
           <Route path='/form-carga' element={<FormularioCargaComponent />} />
