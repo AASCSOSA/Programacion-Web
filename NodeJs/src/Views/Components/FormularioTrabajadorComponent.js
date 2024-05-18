@@ -11,7 +11,16 @@ export const FormularioTrabajadorComponent = () => {
     const [direccion, setDireccion] = useState('');
     const [id_Herramienta, setId_Herramienta] = useState('');
     const [herramientas, setHerramientas] = useState([]); // Lista de herramientas
-    
+
+    //VALIDACIONES
+    const [nombreError, setNombreError] = useState(false);
+    const [apellidoPatError, setApellidoPatError] = useState(false);
+    const [apellidoMatError, setApellidoMatError] = useState(false);
+    const [telefonoError, setTelefonoError] = useState(false);
+    const [direccionError, setDireccionError] = useState(false);
+
+    const [camposVaciosWarning, setCamposVaciosWarning] = useState(false); //VALIDAR EL LLENADO DE DATOS
+
 
     const navigate = useNavigate();
     const { id_Trabajador } = useParams();
@@ -50,7 +59,21 @@ export const FormularioTrabajadorComponent = () => {
 
     const saveTrabajador = (e) => {
         e.preventDefault();
-        const herramienta ={ id_Herramienta };
+
+        // VALIDAR QUE SE LLENEN LOS DATOS
+        if (
+            !nombre ||
+            !apellido_Pat ||
+            !apellido_Mat ||
+            !telefono ||
+            !direccion ||
+            !id_Herramienta
+        ) {
+            setCamposVaciosWarning(true);
+            return;
+        }
+
+        const herramienta = { id_Herramienta };
         const trabajador = { nombre, apellido_Pat, apellido_Mat, telefono, direccion, herramienta };
         if (id_Trabajador) {
             TrabajadorService.update(id_Trabajador, trabajador).then(response => {
@@ -75,6 +98,73 @@ export const FormularioTrabajadorComponent = () => {
         }
     }
 
+    //VALIDAR NOMBRE 
+    const validarNombre = (e) => {
+        const valor = e.target.value.toUpperCase();
+        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]*$/; //LETRAS, ACENTOS Y Ñ
+        if (regex.test(valor)) {
+            setNombre(valor);
+            setNombreError(false);
+        } else {
+            setNombreError(true);
+        }
+    };
+
+    //VALIDAR APELLIDO PATERNO
+    const validarApellido_Pat = (e) => {
+        const valor = e.target.value.toUpperCase();
+        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]*$/; //LETRAS, ACENTOS Y Ñ
+        if (regex.test(valor)) {
+            setApellido_Pat(valor);
+            setApellidoPatError(false);
+        } else {
+            setApellidoPatError(true);
+        }
+    };
+
+    //VALIDAR APELLIDO MATERNO
+    const validarApellido_Mat = (e) => {
+        const valor = e.target.value.toUpperCase();
+        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]*$/; //LETRAS, ACENTOS Y Ñ
+        if (regex.test(valor)) {
+            setApellido_Mat(valor);
+            setApellidoMatError(false);
+        } else {
+            setApellidoMatError(true);
+        }
+    };
+
+    //VALIDAR TELEFONO
+    const validarTelefono = (e) => {
+        const valor = e.target.value;
+        const regex = /^[0-9]*$/; //NUMEROS 
+        if (regex.test(valor)) {
+            setTelefono(valor);
+            setTelefonoError(false);
+        } else {
+            setTelefonoError(true);
+        }
+    };
+
+    //VALIDAR DIRECCION
+    const validarDireccion = (e) => {
+        const valor = e.target.value.toUpperCase();
+        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ0-9.,\s]*$/; //LETRAS,NUMEROS, ACENTOS, Ñ, PUNTOS Y COMAS
+        if (regex.test(valor)) {
+            setDireccion(valor);
+            setDireccionError(false);
+        } else {
+            setDireccionError(true);
+        }
+    };
+
+    //LIMITE DE CARACTERES
+    const maxNombre = 30;
+    const maxApellidoP = 20;
+    const maxApellidoM = 20;
+    const maxTelefono = 10;
+    const maxDireccion = 70;
+
     return (
         <div>
             <div className='container' id="formTrabajador">
@@ -85,16 +175,30 @@ export const FormularioTrabajadorComponent = () => {
                         </h2>
                         <h2 className='text-center'>Gestión de Trabajadores</h2>
                         <div className='card-body'>
+                            {camposVaciosWarning && (
+                                <div className="alert alert-warning" role="alert">
+                                    Por favor, complete todos los campos.
+                                </div>
+                            )}
                             <form>
                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Nombre</label>
                                     <input type='text'
                                         placeholder='Ingrese el nombre del trabajador'
                                         name='nombreTrabajador'
-                                        className='form-control'
+                                        className={`form-control ${nombreError ? 'is-invalid' : ''}`}//RESALTAR EL CAMPO EN EL FORMULARIO CON BORDES ROJOS Y DESPLEGAR ADVERTENCIA
                                         value={nombre}
-                                        onChange={(e) => setNombre(e.target.value)}>
-                                    </input>
+                                        onChange={validarNombre}
+                                        maxLength={maxNombre}
+                                    />
+                                    <div className="form-text">
+                                        {nombre.length}/{maxNombre} caracteres ingresados
+                                    </div>
+                                    {nombreError && (
+                                        <div className="alert alert-warning" role="alert">
+                                            El nombre no debe contener números.
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className='form-group mb-2'>
@@ -102,43 +206,82 @@ export const FormularioTrabajadorComponent = () => {
                                     <input type='text'
                                         placeholder='Ingrese el apellido paterno del trabajador'
                                         name='apellido_PatTrabajador'
-                                        className='form-control'
+                                        className={`form-control ${apellidoPatError ? 'is-invalid' : ''}`}
                                         value={apellido_Pat}
-                                        onChange={(e) => setApellido_Pat(e.target.value)}>
-                                    </input>
+                                        onChange={validarApellido_Pat}
+                                        maxLength={maxApellidoP}
+                                    />
+                                    <div className="form-text">
+                                        {apellido_Pat.length}/{maxApellidoP} caracteres ingresados
+                                    </div>
+                                    {apellidoPatError && (
+                                        <div className="alert alert-warning" role="alert">
+                                            El apellido paterno no debe contener números.
+                                        </div>
+                                    )}
                                 </div>
+
 
                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Apellido Materno</label>
                                     <input type='text'
                                         placeholder='Ingrese el apellido materno del trabajador'
                                         name='apellido_MatTrabajador'
-                                        className='form-control'
+                                        className={`form-control ${apellidoMatError ? 'is-invalid' : ''}`}
                                         value={apellido_Mat}
-                                        onChange={(e) => setApellido_Mat(e.target.value)}>
-                                    </input>
+                                        onChange={validarApellido_Mat}
+                                        maxLength={maxApellidoM}
+                                    />
+                                    <div className="form-text">
+                                        {apellido_Mat.length}/{maxApellidoM} caracteres ingresados
+                                    </div>
+                                    {apellidoMatError && (
+                                        <div className="alert alert-warning" role="alert">
+                                            El apellido materno no debe contener números.
+                                        </div>
+                                    )}
                                 </div>
+
 
                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Teléfono</label>
                                     <input type='text'
                                         placeholder='Ingrese el teléfono del trabajador'
                                         name='telefonoTrabajador'
-                                        className='form-control'
+                                        className={`form-control ${telefonoError ? 'is-invalid' : ''}`}
                                         value={telefono}
-                                        onChange={(e) => setTelefono(e.target.value)}>
-                                    </input>
+                                        onChange={validarTelefono}
+                                        maxLength={maxTelefono}
+                                    />
+                                    <div className="form-text">
+                                        {telefono.length}/{maxTelefono} caracteres ingresados
+                                    </div>
+                                    {telefonoError && (
+                                        <div className="alert alert-warning" role="alert">
+                                            El teléfono solo debe contener números.
+                                        </div>
+                                    )}
                                 </div>
+
 
                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Dirección</label>
                                     <input type='text'
                                         placeholder='Ingrese la dirección del trabajador'
                                         name='direccionTrabajador'
-                                        className='form-control'
+                                        className={`form-control ${direccionError ? 'is-invalid' : ''}`}
                                         value={direccion}
-                                        onChange={(e) => setDireccion(e.target.value)}>
-                                    </input>
+                                        onChange={validarDireccion}
+                                        maxLength={maxDireccion}
+                                    />
+                                    <div className="form-text">
+                                        {direccion.length}/{maxDireccion} caracteres ingresados
+                                    </div>
+                                    {direccionError && (
+                                        <div className="alert alert-warning" role="alert">
+                                            La direccion no debe de contener caracteres especiales.
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className='form-group mb-2'>

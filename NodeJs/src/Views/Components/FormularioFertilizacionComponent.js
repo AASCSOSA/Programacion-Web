@@ -12,6 +12,18 @@ export const FormularioFertilizacionComponent = () => {
   const [ranchos, setRanchos] = useState([]);
   const [fertilizantes, setFertilizantes] = useState([]);
 
+  //VALIDACIONES
+  const [cantidad_AplicacionError, setCantidadAplicacionError] = useState(false);
+
+  // Obtener la fecha actual en formato YYYY-MM-DD
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Los meses son de 0 a 11, por eso se suma 1
+  const day = String(today.getDate()).padStart(2, '0');
+  const maxDate = `${year}-${month}-${day}`;
+
+  const [camposVaciosWarning, setCamposVaciosWarning] = useState(false); //VALIDACION DE LLENADO DE CAMPOS
+
   const navigate = useNavigate();
   const { id_Fertilizacion } = useParams();
   useEffect(() => {
@@ -66,6 +78,21 @@ export const FormularioFertilizacionComponent = () => {
 
   const saveFertilizacion = (e) => {
     e.preventDefault();
+
+    // VALIDAR TODO EL LLENADO DE DATOS
+    if (
+      !cantidad_Aplicacion ||
+      !fecha_Aplicacion ||
+      !id_Rancho ||
+      !id_Fertilizante ||
+
+      //ERRORES
+      cantidad_AplicacionError
+    ) {
+      setCamposVaciosWarning(true);
+      return; // Detiene la ejecución de la función si hay un error en el mont
+    }
+
     const normalizedFecha = new Date(fecha_Aplicacion)
       .toISOString()
       .split("T")[0];
@@ -105,6 +132,29 @@ export const FormularioFertilizacionComponent = () => {
     }
   };
 
+  //VALIDAR LA CANTIDAD DE APLICACION
+  const validarCantidad_Aplicacion = (e) => {
+    const inputValue = e.target.value;
+    const regex = /^\d*(\.\d{0,2})?$/; //NUMEROS Y DOS NUMEROS DESPUES DEL PUNTO
+    if (regex.test(inputValue)) {
+      setCantidadAplicacion(inputValue);
+      setCantidadAplicacionError(false);
+    } else {
+      setCantidadAplicacionError(true);
+    }
+  };
+
+  //Validar fecha
+  const validarFecha = (e) => {
+    const selectedDate = e.target.value;
+    if (selectedDate <= maxDate) {
+      setFechaAplicacion(selectedDate);
+    } else {
+      alert("No puedes seleccionar una fecha futura");
+    }
+  };
+
+
   return (
     <div>
       <div className="container" id="formFertilizacion">
@@ -113,6 +163,11 @@ export const FormularioFertilizacionComponent = () => {
             <h2 classsName="text-center">{titulo()}</h2>
             <h2 className="text-center">Gestión de Fertilización</h2>
             <div className="card-body">
+              {camposVaciosWarning && (
+                <div className="alert alert-warning" role="alert">
+                  Por favor, complete todos los campos.
+                </div>
+              )}
               <form>
                 <div className="form-group mb-2">
                   <label className="form-label">Cantidad de aplicación</label>
@@ -121,21 +176,29 @@ export const FormularioFertilizacionComponent = () => {
                     step="0.0"
                     placeholder="Ingresa la cantidad aplicada"
                     name="cantidad"
-                    className="form-control"
+                    className={`form-control ${cantidad_AplicacionError ? 'is-invalid' : ''}`}//RESALTAR EL CAMPO EN EL FORMULARIO CON BORDES ROJOS Y DESPLEGAR ADVERTENCIA
                     value={cantidad_Aplicacion}
-                    onChange={(e) => setCantidadAplicacion(e.target.value)}
-                  ></input>
+                    onChange={validarCantidad_Aplicacion}>
+                  </input>
+                  {cantidad_AplicacionError && (
+                    <div className="alert alert-warning" role="alert">
+                      La cantidad solo debe contener números.
+                    </div>
+                  )}
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Fecha de la Apliación</label>
                   <input
                     type="date"
                     name="fechaAplicacion"
                     className="form-control"
-                    value={fecha_Aplicacion}
-                    onChange={(e) => setFechaAplicacion(e.target.value)}
+                    value={setFechaAplicacion}
+                    max={maxDate} // Establecer el atributo max
+                    onChange={validarFecha}
                   ></input>
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Marca Fertilizante</label>
                   <select
