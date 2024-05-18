@@ -33,7 +33,7 @@ export const FormularioCompradorComponent = () => {
       .catch((e) => {
         console.log(e);
       });
-  }, []);
+  }, [id]);
   const saveComprador = (e) => {
     e.preventDefault();
 
@@ -85,7 +85,7 @@ export const FormularioCompradorComponent = () => {
 
   const handleNombreChange = (e) => {
     const inputValue = e.target.value;
-    if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+    if (/^[A-Z][a-z\s]*$/.test(inputValue)) { //PRIMER LETRA MAYUSCULA RESTO EN MINUSCULA
       setNombre(inputValue);
       setNombreError(false);
     } else {
@@ -95,7 +95,7 @@ export const FormularioCompradorComponent = () => {
 
   const handleApellidoPatChange = (e) => {
     const inputValue = e.target.value;
-    if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+    if (/^[A-Z][a-z\s]*$/.test(inputValue)) { //PRIMER LETRA MAYUSCULA RESTO EN MINUSCULA
       setApellido_Pat(inputValue);
       setApellidoPatError(false);
     } else {
@@ -105,7 +105,7 @@ export const FormularioCompradorComponent = () => {
 
   const handleApellidoMatChange = (e) => {
     const inputValue = e.target.value;
-    if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+    if (/^[A-Z][a-z\s]*$/.test(inputValue)) { //PRIMER LETRA MAYUSCULA RESTO EN MINUSCULA
       setApellido_Mat(inputValue);
       setApellidoMatError(false);
     } else {
@@ -115,7 +115,7 @@ export const FormularioCompradorComponent = () => {
 
   const handleTelefonoChange = (e) => {
     const inputValue = e.target.value;
-    if (/^\d*$/.test(inputValue)) {
+    if (/^\d{0,12}$/.test(inputValue)) {
       setTelefono(inputValue);
       setTelefonoError(false);
     } else {

@@ -7,11 +7,13 @@
     <list default="true" id="f9e149a8-540a-47fb-8023-3798901e6920" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NodeJs/node_modules/.cache/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/node_modules/.cache/.eslintcache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeJs/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeJs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeJs/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeJs/src/Views/HomeApp.js" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/Views/HomeApp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Project/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeJs/src/Views/Components/FormularioCargaComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/Views/Components/FormularioCargaComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeJs/src/Views/Components/FormularioHerramientaComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/Views/Components/FormularioHerramientaComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeJs/src/Views/Components/FormularioPago_TrabajadorComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/Views/Components/FormularioPago_TrabajadorComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeJs/src/Views/Components/FormularioRanchoComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/Views/Components/FormularioRanchoComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeJs/src/Views/Components/FormularioTrabajadorComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/Views/Components/FormularioTrabajadorComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeJs/src/Views/Components/FormularioVentaComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/Views/Components/FormularioVentaComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeJs/src/Views/VentaApp.js" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/Views/VentaApp.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +22,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -30,27 +35,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.LemonTreesApplication.executor": "Run",
-    "git-widget-placeholder": "Felipe",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Documents/GitHub/Programacion-Web/Project",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.LemonTreesApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Felipe&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Documents/GitHub/Programacion-Web/Project&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="LemonTreesApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="Project" />
@@ -84,6 +89,9 @@
       <workItem from="1715116925330" duration="11000" />
       <workItem from="1715116975839" duration="16000" />
       <workItem from="1715117097895" duration="96000" />
+      <workItem from="1715726175886" duration="22000" />
+      <workItem from="1715918368031" duration="69000" />
+      <workItem from="1715918446916" duration="7000" />
     </task>
     <servers />
   </component>

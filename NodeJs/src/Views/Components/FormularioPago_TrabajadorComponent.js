@@ -12,6 +12,14 @@ export const FormularioPago_TrabajadorComponent = () => {
 
     //VALIDACIONES
     const [montoError, setMontoError] = useState(false);
+
+    // Obtener la fecha actual en formato YYYY-MM-DD
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Los meses son de 0 a 11, por eso se suma 1
+    const day = String(today.getDate()).padStart(2, '0');
+    const maxDate = `${year}-${month}-${day}`;
+
     const [camposVaciosWarning, setCamposVaciosWarning] = useState(false); //VALIDACION DE LLENADO DE CAMPOS
 
 
@@ -94,17 +102,28 @@ export const FormularioPago_TrabajadorComponent = () => {
     //VALIDAR MONTO
     const validarMonto = (e) => {
         const inputValue = e.target.value;
-    
-        // SOLO NUMEROS Y NO CARACTERES ESPECIALES
-        if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {
+        const regex = /^[0-9]*$/; //NUMEROS 
+        if (regex.test(inputValue)) {
             setMonto(inputValue);
             setMontoError(false);// DESACTIVA ADVERTENCIA 
         } else {
-            setMonto(inputValue);
             setMontoError(true);//ACTIVA ADVERTENCIA
         }
     };
-    
+
+    //Validar fecha
+    const validarFecha = (e) => {
+        const selectedDate = e.target.value;
+        if (selectedDate <= maxDate) {
+            setfecha_Pago(selectedDate);
+        } else {
+            alert("No puedes seleccionar una fecha futura");
+        }
+    };
+
+    //LIMITE DE CARACTERES
+    const maxMonto = 4;
+
     return (
         <div>
             <div className='container' id="formPago_Trabajador">
@@ -124,13 +143,17 @@ export const FormularioPago_TrabajadorComponent = () => {
                             <form>
                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Monto</label>
-                                    <input type='number' step="0.01"
+                                    <input type='text'
                                         placeholder='Ingrese el monto del pago a trabajador'
                                         name='montoPago_Trabajador'
                                         className={`form-control ${montoError ? 'is-invalid' : ''}`}//RESALTAR EL CAMPO EN EL FORMULARIO CON BORDES ROJOS Y DESPLEGAR ADVERTENCIA
                                         value={monto}
-                                        onChange={validarMonto}>
-                                    </input>
+                                        onChange={validarMonto}
+                                        maxLength={maxMonto}
+                                        />
+                                        <div className="form-text">
+                                          {monto.length}/{maxMonto} caracteres ingresados
+                                        </div>
                                     {montoError && (
                                         <div className="alert alert-warning" role="alert">
                                             El monto solo debe contener números.
@@ -143,10 +166,11 @@ export const FormularioPago_TrabajadorComponent = () => {
                                     <input type='date'
                                         placeholder='Ingrese la fecha del pago a trabajador'
                                         name='fecha_PagoPago_Trabajador'
-                                        className='form-control'
+                                        className="form-control"
                                         value={fecha_Pago}
-                                        onChange={(e) => setfecha_Pago(e.target.value)}>
-                                    </input>
+                                        max={maxDate} // Establecer el atributo max
+                                        onChange={validarFecha}
+                                    ></input>
                                 </div>
 
                                 <div className='form-group mb-2'>

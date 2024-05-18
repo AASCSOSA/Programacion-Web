@@ -7,6 +7,10 @@ export default function CargaApp() {
   const [carga, setCarga] = useState([]);
   const [ranchos, setRanchos] = useState([]);
 
+  const capitalize = (str) => {
+    return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+};
+
   const listarCarga = () => {
     CargaService.findAll()
       .then((response) => {
@@ -27,7 +31,7 @@ export default function CargaApp() {
         const nombresRanchos = await Promise.all(
           carga.map(async (cargaItem) => {
             const response = await RanchoService.getNameRancho(cargaItem.id_Carga);
-            return response.data;
+            return capitalize(response.data); //APLICA EL FORMATO CAPITALIZADO
           })
         );
         setRanchos(nombresRanchos);
@@ -41,13 +45,16 @@ export default function CargaApp() {
   }, [carga]);
 
   const deleteCarga = (id) => {
-    CargaService.delete(id)
-      .then((response) => {
-        listarCarga();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const confirmarDelete = window.confirm("¿Estás seguro de que deseas eliminar este registro?");
+    if (confirmarDelete) {
+      CargaService.delete(id)
+        .then((response) => {
+          listarCarga();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   return (

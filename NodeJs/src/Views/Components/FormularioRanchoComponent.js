@@ -6,10 +6,14 @@ export const FormularioRanchoComponent = () => {
     const [nombre_Rancho, setNombreRancho] = useState('');
     const [ubicacion_Rancho, setUbicacionRancho] = useState('');
     const [extension_Rancho, setExtensionRancho] = useState('');
-    
+
     //VALIDACIONES
     const [nombre_RanchoError, setNombreRanchoError] = useState(false);
+    const [ubicacion_RanchoError, setUbicacionRanchoError] = useState(false);
+    const [extension_RanchoError, setExtensionRanchoError] = useState(false);
     const [camposVaciosWarning, setCamposVaciosWarning] = useState(false); //VALIDACION DE LLENADO DE CAMPOS
+
+
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -62,15 +66,45 @@ export const FormularioRanchoComponent = () => {
 
     //VALIDAR NOMBRE RANCHO
     const validarNombre_Rancho = (e) => {
-        const inputValue = e.target.value;
-        if (/^[a-zA-Z\s]*$/.test(inputValue)) {
-            setNombreRancho(inputValue);
+        const valor = e.target.value.toUpperCase();
+        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]*$/; //LETRAS, ACENTOS Y Ñ
+        if (regex.test(valor)) {
+            setNombreRancho(valor);
             setNombreRanchoError(false);
         } else {
             setNombreRanchoError(true);
         }
     };
-    
+
+    //VALIDAR UBICACION RANCHO
+    const validarUbicacion_Rancho = (e) => {
+        const valor = e.target.value.toUpperCase();
+        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ0-9.,\s]*$/; //LETRAS,NUMEROS, ACENTOS, Ñ, PUNTOS Y COMAS
+        if (regex.test(valor)) {
+            setUbicacionRancho(valor);
+            setUbicacionRanchoError(false);
+        } else {
+            setUbicacionRanchoError(true);
+        }
+    };
+
+    //VALIDAR EXTENSION RANCHO
+    const validarExtension_Rancho = (e) => {
+        const valor = e.target.value.toUpperCase();
+        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ0-9.,\s]*$/; //LETRAS,NUMEROS, ACENTOS, Ñ, PUNTOS Y COMAS
+        if (regex.test(valor)) {
+            setExtensionRancho(valor);
+            setExtensionRanchoError(false);
+        } else {
+            setExtensionRanchoError(true);
+        }
+    };
+
+    //LIMITE DE CARACTERES
+    const maxNombre = 30;
+    const maxUbicacion = 100;
+    const maxExtension = 20;
+
     return (
         <div>
             <div className='container' id="formRancho">
@@ -94,11 +128,15 @@ export const FormularioRanchoComponent = () => {
                                         name='NombreRancho'
                                         className={`form-control ${nombre_RanchoError ? 'is-invalid' : ''}`}
                                         value={nombre_Rancho}
-                                        onChange={validarNombre_Rancho}>
-                                    </input>
+                                        onChange={validarNombre_Rancho}
+                                        maxLength={maxNombre}
+                                    />
+                                    <div className="form-text">
+                                        {nombre_Rancho.length}/{maxNombre} caracteres ingresados
+                                    </div>
                                     {nombre_RanchoError && (
                                         <div className="alert alert-warning" role="alert">
-                                            El nombre no debe contener números.
+                                             El nombre solo debe contener letras.
                                         </div>
                                     )}
                                 </div>
@@ -108,10 +146,19 @@ export const FormularioRanchoComponent = () => {
                                     <input type='text'
                                         placeholder='Ingrese la ubicación del rancho'
                                         name='ubicacionRancho'
-                                        className='form-control'
+                                        className={`form-control ${ubicacion_RanchoError ? 'is-invalid' : ''}`}
                                         value={ubicacion_Rancho}
-                                        onChange={(e) => setUbicacionRancho(e.target.value)}>
-                                    </input>
+                                        onChange={validarUbicacion_Rancho}
+                                        maxLength={maxUbicacion}
+                                    />
+                                    <div className="form-text">
+                                        {ubicacion_Rancho.length}/{maxUbicacion} caracteres ingresados
+                                    </div>
+                                    {ubicacion_RanchoError && (
+                                        <div className="alert alert-warning" role="alert">
+                                            La ubicacion no debe de contener caracteres especiales.
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className='form-group mb-2'>
@@ -119,10 +166,19 @@ export const FormularioRanchoComponent = () => {
                                     <input type='text'
                                         placeholder='Ingrese la extensión del rancho'
                                         name='extensionRancho'
-                                        className='form-control'
+                                        className={`form-control ${extension_RanchoError ? 'is-invalid' : ''}`}
                                         value={extension_Rancho}
-                                        onChange={(e) => setExtensionRancho(e.target.value)}>
-                                    </input>
+                                        onChange={validarExtension_Rancho}
+                                        maxLength={maxExtension}
+                                    />
+                                    <div className="form-text">
+                                        {extension_Rancho.length}/{maxExtension} caracteres ingresados
+                                    </div>
+                                    {extension_RanchoError && (
+                                        <div className="alert alert-warning" role="alert">
+                                            La extension no debe de contener caracteres especiales.
+                                        </div>
+                                    )}
                                 </div>
 
                                 <button className='btn btn-success' onClick={(e) => saveRancho(e)}>Guardar</button>

@@ -15,6 +15,14 @@ export const FormularioHerramientaComponent = () => {
     const [cantidadError, setCantidadError] = useState(false);
     const [colorError, setColorError] = useState(false);
     const [costoError, setCostoError] = useState(false);
+
+    // Obtener la fecha actual en formato YYYY-MM-DD
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Los meses son de 0 a 11, por eso se suma 1
+    const day = String(today.getDate()).padStart(2, '0');
+    const maxDate = `${year}-${month}-${day}`;
+
     const [camposVaciosWarning, setCamposVaciosWarning] = useState(false); //VALIDAR EL LLENADO DE DATOS
 
 
@@ -79,11 +87,10 @@ export const FormularioHerramientaComponent = () => {
 
     //VALIDAR MODELO 
     const validarModelo = (e) => {
-        const inputValue = e.target.value;
-
-        //MAYUSCULAS, MINUSCULAS Y ESPACIOS
-        if (/^[a-zA-Z\s]*$/.test(inputValue)) {
-            setModelo(inputValue);
+        const valor = e.target.value.toUpperCase();
+        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]*$/; //LETRAS, ACENTOS Y Ñ
+        if (regex.test(valor)) {
+            setModelo(valor);
             setModeloError(false);// DESACTIVA ADVERTENCIA 
         } else {
             setModeloError(true);//ACTIVA ADVERTENCIA
@@ -93,13 +100,11 @@ export const FormularioHerramientaComponent = () => {
     //VALIDAR CANTIDAD
     const validarCantidad = (e) => {
         const inputValue = e.target.value;
-
-        // SOLO NUMEROS Y NO CARACTERES ESPECIALES
-        if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {
+        const regex = /^[0-9]*$/; //NUMEROS
+        if (regex.test(inputValue)) {
             setCantidad(inputValue);
             setCantidadError(false);
         } else {
-            setCantidad(inputValue);
             setCantidadError(true);
         }
     };
@@ -120,18 +125,29 @@ export const FormularioHerramientaComponent = () => {
     //VALIDAR COSTO
     const validarCosto = (e) => {
         const inputValue = e.target.value;
-
-        // SOLO NUMEROS Y NO CARACTERES ESPECIALES
-        if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {
+        const regex = /^\d*(\.\d{0,2})?$/; //NUMEROS Y DOS NUMEROS DESPUES DEL PUNTO
+        if (regex.test(inputValue)) {
             setCosto(inputValue);
             setCostoError(false);
         } else {
-            setCosto(inputValue);
             setCostoError(true);
         }
     };
 
+    //Validar fecha
+    const validarFecha = (e) => {
+        const selectedDate = e.target.value;
+        if (selectedDate <= maxDate) {
+            setFecha_Adquisicion(selectedDate);
+        } else {
+            alert("No puedes seleccionar una fecha futura");
+        }
+    };
 
+    //LIMITE DE CARACTERES
+    const maxModelo = 30;
+    const maxCantidad = 3;
+    const maxCosto = 8;
 
     return (
         <div>
@@ -156,11 +172,15 @@ export const FormularioHerramientaComponent = () => {
                                         name='ModeloHerramienta'
                                         className={`form-control ${modeloError ? 'is-invalid' : ''}`}//RESALTAR EL CAMPO EN EL FORMULARIO CON BORDES ROJOS Y DESPLEGAR ADVERTENCIA
                                         value={modelo}
-                                        onChange={validarModelo}>
-                                    </input>
+                                        onChange={validarModelo}
+                                        maxLength={maxModelo}
+                                    />
+                                    <div className="form-text">
+                                        {modelo.length}/{maxModelo} caracteres ingresados
+                                    </div>
                                     {modeloError && (
-                                        <div className="alert alert-warning" role="alert"> 
-                                            El modelo no debe contener números ni carácteres especiales.
+                                        <div className="alert alert-warning" role="alert">
+                                            El modelo solo debe contener letras.
                                         </div>
                                     )}
                                 </div>
@@ -178,16 +198,20 @@ export const FormularioHerramientaComponent = () => {
 
                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Cantidad</label>
-                                    <input type='number'
+                                    <input type='text'
                                         placeholder='Ingrese la cantidad de la herramienta'
                                         name='cantidadHerramienta'
                                         className={`form-control ${cantidadError ? 'is-invalid' : ''}`}
                                         value={cantidad}
-                                        onChange={validarCantidad}>
-                                    </input>
+                                        onChange={validarCantidad}
+                                        maxLength={maxCantidad}
+                                        />
+                                        <div className="form-text">
+                                            {cantidad.length}/{maxCantidad} caracteres ingresados
+                                        </div>
                                     {cantidadError && (
-                                        <div className="alert alert-warning" role="alert"> 
-                                            La cantidad no debe de contener letras ni números negativos.
+                                        <div className="alert alert-warning" role="alert">
+                                            La cantidad solo debe contener numeros.
                                         </div>
                                     )}
                                 </div>
@@ -202,7 +226,7 @@ export const FormularioHerramientaComponent = () => {
                                         onChange={validarColor}>
                                     </input>
                                     {colorError && (
-                                        <div className="alert alert-warning" role="alert"> 
+                                        <div className="alert alert-warning" role="alert">
                                             El color no debe contener números ni carácteres especiales.
                                         </div>
                                     )}
@@ -210,16 +234,20 @@ export const FormularioHerramientaComponent = () => {
 
                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Costo</label>
-                                    <input type='number' step="0.01"
+                                    <input type='text'
                                         placeholder='Ingrese el costo de la herramienta'
                                         name='costoHerramienta'
                                         className={`form-control ${costoError ? 'is-invalid' : ''}`}
                                         value={costo}
-                                        onChange={validarCosto}>
-                                    </input>
+                                        onChange={validarCosto}
+                                        maxLength={maxCosto}
+                                        />
+                                        <div className="form-text">
+                                            {costo.length}/{maxCosto} caracteres ingresados
+                                        </div>
                                     {costoError && (
-                                        <div className="alert alert-warning" role="alert"> 
-                                            El costo no debe de contener letras ni números negativos.
+                                        <div className="alert alert-warning" role="alert">
+                                            El costo solo debe contener numeros.
                                         </div>
                                     )}
                                 </div>
@@ -229,11 +257,13 @@ export const FormularioHerramientaComponent = () => {
                                     <input type='date'
                                         placeholder='Ingrese la fecha de adquisición de la herramienta'
                                         name='fecha_AdquisicionHerramienta'
-                                        className='form-control'
+                                        className="form-control"
                                         value={fecha_Adquisicion}
-                                        onChange={(e) => setFecha_Adquisicion(e.target.value)}>
-                                    </input>
+                                        max={maxDate} // Establecer el atributo max
+                                        onChange={validarFecha}
+                                    ></input>
                                 </div>
+
                                 <button className='btn btn-success' onClick={(e) => saveHerramienta(e)}>Guardar</button>
                                 &nbsp;&nbsp;
                                 <Link to='/herramienta' className='btn btn-danger'>Cancelar</Link>

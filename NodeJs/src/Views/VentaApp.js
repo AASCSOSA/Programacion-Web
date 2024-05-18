@@ -54,15 +54,18 @@ export default function VentaApp(){
     }, [venta]);
 
     const deleteVenta = (id) => {
-      CargaService.delete(id)
-        .then((response) => {
-          listarVenta();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-  
+      const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar este registro?");
+      if (confirmDelete) {
+        VentaService.delete(id)
+          .then((response) => {
+            listarVenta();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    }
+
     return (
       <div >
         <footer className="tittleFrm">Venta</footer>
