@@ -14,6 +14,14 @@ export const FormularioFertilizacionComponent = () => {
 
   //VALIDACIONES
   const [cantidad_AplicacionError, setCantidadAplicacionError] = useState(false);
+
+  // Obtener la fecha actual en formato YYYY-MM-DD
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Los meses son de 0 a 11, por eso se suma 1
+  const day = String(today.getDate()).padStart(2, '0');
+  const maxDate = `${year}-${month}-${day}`;
+
   const [camposVaciosWarning, setCamposVaciosWarning] = useState(false); //VALIDACION DE LLENADO DE CAMPOS
 
   const navigate = useNavigate();
@@ -127,14 +135,25 @@ export const FormularioFertilizacionComponent = () => {
   //VALIDAR LA CANTIDAD DE APLICACION
   const validarCantidad_Aplicacion = (e) => {
     const inputValue = e.target.value;
-    if (/^\d*\.?\d*$/.test(inputValue) && parseFloat(inputValue) >= 0) {// SOLO NUMEROS Y NO CARACTERES ESPECIALES
+    const regex = /^\d*(\.\d{0,2})?$/; //NUMEROS Y DOS NUMEROS DESPUES DEL PUNTO
+    if (regex.test(inputValue)) {
       setCantidadAplicacion(inputValue);
       setCantidadAplicacionError(false);
     } else {
-      setCantidadAplicacion(inputValue);
       setCantidadAplicacionError(true);
     }
   };
+
+  //Validar fecha
+  const validarFecha = (e) => {
+    const selectedDate = e.target.value;
+    if (selectedDate <= maxDate) {
+      setFechaAplicacion(selectedDate);
+    } else {
+      alert("No puedes seleccionar una fecha futura");
+    }
+  };
+
 
   return (
     <div>
@@ -174,8 +193,9 @@ export const FormularioFertilizacionComponent = () => {
                     type="date"
                     name="fechaAplicacion"
                     className="form-control"
-                    value={fecha_Aplicacion}
-                    onChange={(e) => setFechaAplicacion(e.target.value)}
+                    value={setFechaAplicacion}
+                    max={maxDate} // Establecer el atributo max
+                    onChange={validarFecha}
                   ></input>
                 </div>
 
