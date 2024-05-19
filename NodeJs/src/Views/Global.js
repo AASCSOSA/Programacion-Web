@@ -1,5 +1,5 @@
-const globals = {
-    miVariableGlobal: "Hola, mundo!",
+let globals = {
+    miVariableGlobal: null
   };
   
   export default globals;

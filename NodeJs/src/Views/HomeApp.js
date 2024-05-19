@@ -17,6 +17,7 @@ export default function HomeApp() {
     };
 
     return (
+        <div className='fondo1'>
         <div className="CentroC">
             <BarraNavegacionComponent />
             <div className="carousel-container">
@@ -41,6 +42,16 @@ export default function HomeApp() {
                     </div>
                 </Slider>
             </div>
+            <h2>Con más de 20 años de experiencia, distribuidra "LA PALMILLA" se coloca 
+                como uno de los referentes en la producción y venta de limón PERSA, conservando
+                procesos artesanales y combinando tecnologías de la información para ofrecer
+                un producto de la más alta calidad.
+            </h2>
+            
+            <h2 class="h2Abajo">
+                ¡Gracias a tu preferencia, seguiremos creciendo para seguir cosechando, solo lo mejor!
+            </h2>
+        </div>
         </div>
     );
 }
