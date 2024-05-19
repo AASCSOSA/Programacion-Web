@@ -83,8 +83,8 @@ console.log(globals.miVariableGlobal="Alain");
       <div className="container">
         <p>
           {selectedCarga
-            ? `Numero de carga: ${selectedCarga}`
-            : "No se está seleccionando una carga"}
+            ? `Número de carga: ${selectedCarga}`
+            : ""}
         </p>
         <div className="table-container" ref={tableRef}>
           <div className="table-responsive">

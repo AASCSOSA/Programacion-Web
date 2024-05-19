@@ -9,8 +9,8 @@ export default function Pago_TrabajadorApp() {
   const tableRef = useRef(null);
   const [selectedPagoTrabajador, setSelectedPagoTrabajador] = useState(null);
   const [showInsertAndConsult, setShowInsertAndConsult] = useState(true);
-  const [selectedNamePagoTrabajador, setSelectedNamePagoTrabajador] = useState(null);
-
+  const [selectedNamePagoTrabajador, setSelectedNamePagoTrabajador] =
+    useState(null);
 
   const listarPago = () => {
     Pago_TrabajadorService.findAll()
@@ -89,7 +89,7 @@ export default function Pago_TrabajadorApp() {
         <p>
           {selectedPagoTrabajador
             ? `Nombre del Trabajador: ${selectedPagoTrabajador}`
-            : "No se esta seleccionando un Pago de Trabajador"}
+            : ""}
         </p>
         <div className="table-container" ref={tableRef}>
           <div className="table-responsive">
@@ -130,21 +130,38 @@ export default function Pago_TrabajadorApp() {
         </div>
         <div className="buttonsInLine">
           {showInsertAndConsult && (
-            <Link to="/form-pago_trabajador">
-              <button
-                type="button"
-                className="btn btn-success"
-                class="btnimagen"
-              >
-                {" "}
-                <img
-                  src="icons/Insertar.png"
-                  alt="Insertar Pago"
-                  className="imgInsert"
-                ></img>
-                Insertar
-              </button>
-            </Link>
+            <>
+              <Link to="/form-pago_trabajador">
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  class="btnimagen"
+                >
+                  {" "}
+                  <img
+                    src="icons/Insertar.png"
+                    alt="Insertar Pago"
+                    className="imgInsert"
+                  ></img>
+                  Insertar
+                </button>
+              </Link>
+
+              <Link to="/pago_trabajadorForMonth">
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  class="btnimagen"
+                >
+                  <img
+                    src="icons/Regresar.png"
+                    alt="Regresar carga"
+                    className="imgBuscar"
+                  ></img>
+                  Regresar
+                </button>
+              </Link>
+            </>
           )}
           {selectedPagoTrabajador && (
             <>

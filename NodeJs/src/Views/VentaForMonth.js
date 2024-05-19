@@ -104,7 +104,7 @@ export default function VentaForMonth() {
         <p>
           {selectedVenta
             ? `Numero de venta: ${selectedVenta}`
-            : "No se está seleccionando una venta"}
+            : ""}
         </p>
         <div className="table-container" ref={tableRef}>
           <div className="table-responsive">

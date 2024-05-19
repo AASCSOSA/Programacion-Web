@@ -69,7 +69,7 @@ export default function HerramientaApp() {
         <p>
           {selectedNameHerramienta
             ? `Herramienta seleccionada: ${selectedNameHerramienta}`
-            : "No se está seleccionando una herramienta"}
+            : ""}
         </p>
         <div className="table-container" ref={tableRef}>
           <div className="table-responsive">
@@ -132,20 +132,7 @@ export default function HerramientaApp() {
                   Insertar
                 </button>
               </Link>
-              <Link to="/form-herramienta">
-                <button
-                  type="button"
-                  className="btn btn-success"
-                  class="btnimagen"
-                >
-                  <img
-                    src="icons/Buscar.png"
-                    alt="Buscar herramienta"
-                    className="imgBuscar"
-                  ></img>
-                  Consultar
-                </button>
-              </Link>
+             
             </>
           )}
           {showEditAndDelete && (

@@ -5,7 +5,6 @@ import HerramientaService from "../Controllers/HerramientaService";
 
 export default function TrabajadorApp() {
   const [trabajador, setTrabajador] = useState([]);
-  const [herramientas, setHerramientas] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
   const [showButtons, setShowButtons] = useState(false);
   const tableRef = useRef(null);
@@ -25,27 +24,7 @@ export default function TrabajadorApp() {
     listarTrabajador();
   }, []);
 
-  useEffect(() => {
-    const obtenerModelosHerramientas = async () => {
-      try {
-        const modelosHerramientas = await Promise.all(
-          trabajador.map(async (trabajador) => {
-            const response = await HerramientaService.getModeloHerramienta(
-              trabajador.id_Trabajador
-            );
-            return response.data;
-          })
-        );
-        setHerramientas(modelosHerramientas);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    if (trabajador.length > 0) {
-      obtenerModelosHerramientas();
-    }
-  }, [trabajador]);
+  
 
   const deleteTrabajador = (id_Trabajador) => {
     TrabajadorService.delete(id_Trabajador)
@@ -86,7 +65,7 @@ export default function TrabajadorApp() {
         <p>
           {selectedTrabajador
             ? `Nombre del trabajador seleccionado: ${selectedTrabajador}`
-            : "No se esta seleccionando un trabajador"}
+            : ""}
         </p>
         <div className="table-container" ref={tableRef}>
           <div className="table-responsive">
@@ -99,7 +78,6 @@ export default function TrabajadorApp() {
                   <th>Apellido Materno</th>
                   <th>Teléfono</th>
                   <th>Dirección</th>
-                  <th>Modelo de la herramienta</th>
                 </tr>
               </thead>
               <tbody>
@@ -122,7 +100,6 @@ export default function TrabajadorApp() {
                     <td>{trabajador.apellido_Mat}</td>
                     <td>{trabajador.telefono}</td>
                     <td>{trabajador.direccion}</td>
-                    <td>{herramientas[index]}</td>
                   </tr>
                 ))}
               </tbody>

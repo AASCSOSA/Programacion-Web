@@ -63,7 +63,7 @@ export default function RanchoApp() {
         <p>
           {selectedRancho
             ? `Rancho seleccionado: ${selectedRancho}`
-            : "No se está seleccionando un rancho"}
+            : ""}
         </p>
         <div className="table-container" ref={tableRef}>
           <div className="table-responsive">
@@ -121,20 +121,7 @@ export default function RanchoApp() {
                     Insertar
                   </button>
                 </Link>
-                <Link to="/form-rancho">
-                  <button
-                    type="button"
-                    className="btn btn-success"
-                    class="btnimagen"
-                  >
-                    <img
-                      src="icons/Buscar.png"
-                      alt="Buscar rancho"
-                      className="imgBuscar"
-                    ></img>
-                    Consultar
-                  </button>
-                </Link>
+               
               </>
             )}
 

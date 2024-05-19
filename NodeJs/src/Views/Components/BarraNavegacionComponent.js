@@ -18,34 +18,31 @@ const BarraNavegacionComponent = () => {
       />
       <ul>
         <li>
-          <Link to="/">Inicio</Link>
+          <Link to="/ventaForMonth">Ventas</Link>
         </li>
         <li>
-          <Link to="/ventaForMonth">Venta</Link>
+          <Link to="/rancho">Ranchos</Link>
         </li>
         <li>
-          <Link to="/rancho">Rancho</Link>
+          <Link to="/cargaForMonth">Cargas</Link>
         </li>
         <li>
-          <Link to="/cargaForMonth">Carga</Link>
+          <Link to="/herramienta">Herramientas</Link>
         </li>
         <li>
-          <Link to="/herramienta">Herramienta</Link>
+          <Link to="/trabajador">Trabajadores</Link>
         </li>
         <li>
-          <Link to="/trabajador">Trabajador</Link>
+          <Link to="/pago_trabajadorForMonth">Pago Trabajadores</Link>
         </li>
         <li>
-          <Link to="/pago_trabajador">Pago Trabajador</Link>
+          <Link to="/comprador">Compradores</Link>
         </li>
         <li>
-          <Link to="/comprador">Comprador</Link>
+          <Link to="/fertilizante">Fertilizantes</Link>
         </li>
         <li>
-          <Link to="/fertilizante">Fertilizante</Link>
-        </li>
-        <li>
-          <Link to="/fertilizacionForMonth">Fertilización</Link>
+          <Link to="/fertilizacionForMonth">Fertilizaciónes</Link>
         </li>
         <li>
           <Link to="/reporte">Reportes</Link>

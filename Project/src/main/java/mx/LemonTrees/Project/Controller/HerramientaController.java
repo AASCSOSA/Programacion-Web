@@ -80,17 +80,4 @@ public class HerramientaController {
         }
         return ResponseEntity.notFound().build();
     }
-
-    @GetMapping("/trabajador/{Id_Trabajador}")
-    public ResponseEntity<String> getModeloHerramienta(@PathVariable Integer Id_Trabajador) {
-        Optional<Trabajador> trabajadorOptional= trabajadorRepository.findById(Id_Trabajador);
-        if(!trabajadorOptional.isPresent()){
-            return ResponseEntity.notFound().build();
-        }
-        Optional<Herramienta> herramientaOptional= herramientaRepository.findById(trabajadorOptional.get().getHerramienta().getId_Herramienta());
-        if(!trabajadorOptional.isPresent()){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(herramientaOptional.get().getModelo());
-    }
 }

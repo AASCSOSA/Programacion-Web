@@ -9,49 +9,16 @@ export const FormularioTrabajadorComponent = () => {
     const [apellido_Mat, setApellido_Mat] = useState('');
     const [telefono, setTelefono] = useState('');
     const [direccion, setDireccion] = useState('');
-    const [id_Herramienta, setId_Herramienta] = useState('');
-    const [herramientas, setHerramientas] = useState([]); // Lista de herramientas
     
 
     const navigate = useNavigate();
     const { id_Trabajador } = useParams();
 
-    useEffect(() => {
-        HerramientaService.findAll()
-            .then((response) => {
-                setHerramientas(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []);
-
-    useEffect(() => {
-        if (id_Trabajador) {
-            TrabajadorService.findById(id_Trabajador).then(response => {
-                const trabajador = response.data;
-                setNombre(trabajador.nombre);
-                setApellido_Pat(trabajador.apellido_Pat);
-                setApellido_Mat(trabajador.apellido_Mat);
-                setTelefono(trabajador.telefono);
-                setDireccion(trabajador.direccion);
-                // Buscar el ID de la herramienta asociado a este trabajador
-                TrabajadorService.findByIdHerramienta(id_Trabajador)
-                    .then((response2) => {
-                        const herramienta = response2.data;
-                        setId_Herramienta(herramienta.id_Herramienta); // Actualiza el estado id_Herramienta con el ID de la herramienta encontrado
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            })
-        }
-    }, [id_Trabajador]);
+    
 
     const saveTrabajador = (e) => {
         e.preventDefault();
-        const herramienta ={ id_Herramienta };
-        const trabajador = { nombre, apellido_Pat, apellido_Mat, telefono, direccion, herramienta };
+        const trabajador = { nombre, apellido_Pat, apellido_Mat, telefono, direccion };
         if (id_Trabajador) {
             TrabajadorService.update(id_Trabajador, trabajador).then(response => {
                 navigate('/trabajador');
@@ -139,22 +106,6 @@ export const FormularioTrabajadorComponent = () => {
                                         value={direccion}
                                         onChange={(e) => setDireccion(e.target.value)}>
                                     </input>
-                                </div>
-
-                                <div className='form-group mb-2'>
-                                    <label className='form-label'>Selecciona la herramienta</label>
-                                    <select
-                                        className="form-select"
-                                        value={id_Herramienta}
-                                        onChange={(e) => setId_Herramienta(e.target.value)}
-                                    >
-                                        <option value="">Seleccionar Herramienta</option>
-                                        {herramientas.map((herramienta) => (
-                                            <option key={herramienta.id_Herramienta} value={herramienta.id_Herramienta}>
-                                                {herramienta.modelo}
-                                            </option>
-                                        ))}
-                                    </select>
                                 </div>
 
                                 <button className='btn btn-success' onClick={(e) => saveTrabajador(e)}>Guardar</button>

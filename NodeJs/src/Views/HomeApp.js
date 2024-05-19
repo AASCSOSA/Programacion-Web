@@ -23,19 +23,19 @@ export default function HomeApp() {
                 <Slider {...settings}>
                     <div className="carousel-item">
                         <Link to='/ventaForMonth'>
-                            <img src="Img/IMG_4293.png" alt="Venta" className="carousel-image" />
-                            <p className="NameButtons">Venta</p>
+                            <img src="Img/BANNER4.png" alt="Venta" className="carousel-image" />
+                            <p className="NameButtons">Ventas</p>
                         </Link>
                     </div>
                     <div className="carousel-item">
                         <Link to='/cargaForMonth'>
-                            <img src="Img/IMG_4302.png" alt="Carga" className="carousel-image" />
-                            <p className="NameButtons">Carga</p>
+                            <img src="Img/BANNER2.png" alt="Carga" className="carousel-image" />
+                            <p className="NameButtons">Cargas</p>
                         </Link>
                     </div>
                     <div className="carousel-item">
                         <Link to='/reporte'>
-                            <img src="Img/IMG_4308.png" alt="Carga" className="carousel-image" />
+                            <img src="Img/BANNER3.png" alt="Carga" className="carousel-image" />
                             <p className="NameButtons">Reportes</p>
                         </Link>
                     </div>
