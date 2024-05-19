@@ -76,6 +76,7 @@ export default function FertilizanteApp() {
                   <th>Costo unitario</th>
                   <th>Domicilio distribuidora</th>
                   <th>Fecha de caducidad</th>
+                  <th>Fecha de adquisicion</th>
                   <th>Lote</th>
                   <th>Marca</th>
                 </tr>
@@ -103,6 +104,7 @@ export default function FertilizanteApp() {
                     <td>{fertilizante.costo_Unitario}</td>
                     <td>{fertilizante.domicilio_Distribuidora}</td>
                     <td>{fertilizante.fecha_Caducidad}</td>
+                    <td>{fertilizante.fecha_Adquisicion}</td>
                     <td>{fertilizante.lote}</td>
                     <td>{fertilizante.marca}</td>
                   </tr>

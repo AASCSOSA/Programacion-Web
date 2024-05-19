@@ -2,16 +2,17 @@ import React, { useState, useEffect, useRef } from "react";
 import CargaService from "../Controllers/CargaService";
 import RanchoService from "../Controllers/RanchoService";
 import { Link } from "react-router-dom";
-
-export default function CargaApp() {
+import  globals from "../Views/Global"; 
+export default function CargaForMonth() {
   const [carga, setCarga] = useState([]);
   const [ranchos, setRanchos] = useState([]);
   const [selectedCarga, setSelectedCarga] = useState(null);
   const [showInsertAndConsult, setShowInsertAndConsult] = useState(true);
   const tableRef = useRef(null);
+console.log(globals.miVariableGlobal="Alain");
 
   const listarCarga = () => {
-    CargaService.findAll()
+    CargaService.findVentaXMonth()
       .then((response) => {
         setCarga(response.data);
       })
@@ -113,13 +114,13 @@ export default function CargaApp() {
                   >
                     <td>{cargaItem.id_Carga}</td>
                     <td>{cargaItem.fecha}</td>
-                    <td>{cargaItem.rejas_LimonVerde}</td>
-                    <td>{cargaItem.rejas_LimonSegunda}</td>
-                    <td>{cargaItem.rejas_LimonTercera}</td>
-                    <td>{cargaItem.total_PesoLimonVerde}</td>
-                    <td>{cargaItem.total_PesoLimonSegunda}</td>
-                    <td>{cargaItem.total_PesoLimonTercera}</td>
-                    <td>{cargaItem.total_Trabajadores}</td>
+                    <td>{cargaItem.rejas_limon_verde}</td>
+                    <td>{cargaItem.rejas_limon_segunda}</td>
+                    <td>{cargaItem.rejas_limon_tercera}</td>
+                    <td>{cargaItem.total_peso_limon_verde}</td>
+                    <td>{cargaItem.total_peso_limon_segunda}</td>
+                    <td>{cargaItem.total_peso_limon_tercera}</td>
+                    <td>{cargaItem.total_trabajadores}</td>
                     <td>{ranchos[index]}</td>
                   </tr>
                 ))}
@@ -145,7 +146,7 @@ export default function CargaApp() {
                   Insertar
                 </button>
               </Link>
-              <Link to="/form-carga">
+              <Link to="/carga">
                 <button
                   type="button"
                   className="btn btn-success"

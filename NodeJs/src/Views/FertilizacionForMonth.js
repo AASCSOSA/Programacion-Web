@@ -2,9 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import FertilizacionService from "../Controllers/FertilizacionService";
 import { Link } from "react-router-dom";
 
-export default function FertilizacionApp() {
+export default function FertilizacionForMonth() {
   const [fertilizacion, setFertilizacion] = useState([]);
-  const [nameRancho, setNameRancho] = useState([]);
   const [nameMarca, setNameMarca] = useState([]);
   const [selectedFertilizacion, setSelectedFertilizacion] = useState(null);
   const [showInsertAndConsult, setShowInsertAndConsult] = useState(true);
@@ -15,7 +14,7 @@ export default function FertilizacionApp() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await FertilizacionService.findAll();
+        const response = await FertilizacionService.findFertilizacionXMonth();
         setFertilizacion(response.data);
       } catch (error) {
         console.log(error);
@@ -40,7 +39,6 @@ export default function FertilizacionApp() {
         const nombreRanchos = await Promise.all(nombreRanchosPromises);
 
         setNameMarca(detallesFertilizantes.map((response) => response.data));
-        setNameRancho(nombreRanchos.map((response) => response.data));
       } catch (error) {
         console.log(error);
       }
@@ -115,7 +113,7 @@ export default function FertilizacionApp() {
                     onClick={() =>
                       handleRowClick(
                         fertilizacionItem.id_Fertilizacion,
-                        nameRancho[index]
+                        fertilizacionItem.nombre_Rancho
                       )
                     }
                     className={
@@ -129,7 +127,7 @@ export default function FertilizacionApp() {
                     <td>{fertilizacionItem.cantidad_Aplicacion}</td>
                     <td>{fertilizacionItem.fecha_Aplicacion}</td>
                     <td>{nameMarca[index]}</td>
-                    <td>{nameRancho[index]}</td>
+                    <td>{fertilizacionItem.nombre_Rancho}</td>
                   </tr>
                 ))}
               </tbody>
@@ -154,7 +152,7 @@ export default function FertilizacionApp() {
                   Insertar
                 </button>
               </Link>
-              <Link to="/form-fertilizacion">
+              <Link to="/fertilizacion">
                 <button
                   type="button"
                   className="btn btn-success"

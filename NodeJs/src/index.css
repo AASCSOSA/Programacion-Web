@@ -1,3 +1,7 @@
+body {
+  background-color: #c5c7bc;
+  font-family: 'Lobster';
+}
 @font-face {
   font-family: 'Dancing Script';
   src: url('./Fonts/DancingScript-VariableFont_wght.ttf') format('truetype');
@@ -22,7 +26,15 @@
   font-family: 'Bricolage';
   src: url('../src/Fonts/BricolageGrotesque-VariableFont_opsz\,wdth\,wght.ttf') format('truetype');
 }
-
+.QUitar{
+  text-decoration: none;
+  text-align: center;
+  font-size: 3rem;
+  font-family: 'Poetsen One', sans-serif;
+  margin-top: 1rem;
+  height: 4rem;
+  color: white;
+}
 .btnimagen {
   background: none;
   border: none;
@@ -31,16 +43,19 @@
   width: 80px;
   height: 80px;
 }
-.butonsEditandDelete{
+
+.butonsEditandDelete {
   margin-top: -0.2rem;
   display: inline-block;
 }
-.buttonsInLine{
+
+.buttonsInLine {
   display: flex;
   margin-left: -1.6em;
   margin-top: 1rem;
 }
-.imgEliminar{
+
+.imgEliminar {
   width: 85%;
   height: 78%;
   object-fit: cover;
@@ -48,29 +63,33 @@
   /* Para ajustar la imagen al tamaño del botón */
 }
 
-.imgEditar{
+.imgEditar {
   width: 70%;
   height: 75%;
   object-fit: cover;
   /* Para ajustar la imagen al tamaño del botón */
 }
+
 .imgInsert {
   width: 70%;
   height: 70%;
   object-fit: cover;
   /* Para ajustar la imagen al tamaño del botón */
 }
+
 .imgBuscar {
   width: 80%;
   height: 72%;
   object-fit: cover;
   /* Para ajustar la imagen al tamaño del botón */
 }
-p{
+
+p {
   text-align: left;
   font-family: 'Poetsen One';
   font-size: 1.2rem;
 }
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -82,13 +101,6 @@ body {
   box-sizing: border-box;
 }
 
-#imgLogoHome {
-  border-radius: 80%;
-  width: 5%;
-  display: block;
-  margin-top: -5.4rem;
-  margin-right: auto;
-}
 
 .tittleFrm {
   font-size: 1.5rem;
@@ -99,7 +111,7 @@ body {
 }
 
 footer {
-  background-color: #3b3b3b;
+  background-color: #434534;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -117,8 +129,231 @@ footer {
   height: 4rem;
 }
 
+@media (max-width: 800px) and (min-width: 900px){
+  .imagenLogo {
+    border-radius: 80%;
+    width: 15%;
+    display: block;
+    margin-left: -1.3rem;
+    margin-top: -1.4rem;
+  }
+  .carousel-container {
+  position: relative;
+  max-width: 800px; /* Ajusta el ancho máximo según tus necesidades */
+  margin: 0 auto; /* Centra el contenedor horizontalmente */
+  padding: 20px; /* Añade relleno al contenedor si es necesario */
+}
 
-@media (min-width: 1200px) {
+.carousel-item {
+  position: relative;
+}
+
+.carousel-image {
+  width: 100%; /* Asegúrate de que la imagen ocupe todo el ancho del contenedor */
+  height: auto; /* Mantiene la proporción de la imagen */
+}
+
+.NameButtons {
+  position: absolute;
+  top: 50%; /* Ajusta según donde quieras colocar el texto */
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centra el texto horizontal y verticalmente */
+  color: white; /* Color del texto */
+  font-size: 2rem; /* Tamaño del texto */
+  padding: 10px; /* Espaciado alrededor del texto */
+  border-radius: 5px; /* Bordes redondeados */
+  text-align: center;
+}
+
+.NameButtons{
+  position: absolute;
+  top: 50%; /* Coloca el texto en la mitad superior de la imagen */
+  left: 50%; /* Coloca el texto en el centro de la imagen */
+  transform: translate(-50%, -50%); /* Centra el texto horizontal y verticalmente */
+  color: white; /* Cambia el color del texto */
+  font-size: 80px; /* Tamaño del texto */
+  padding: 10px; /* Añade espacio alrededor del texto */
+}
+/* Estilo para el botón de alternar menú */
+.toggle-menu-btn {
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  position: fixed;
+  top: 20px;
+  left: 0px;
+  z-index: 1100;
+  transition: background-color 0.3s ease, left 0.3s ease;
+}
+
+.sidebar.open .toggle-menu-btn {
+  left: 6.5rem; /* Ajusta esto según el ancho de tu menú lateral */
+}
+
+
+/* Estilos básicos para la barra lateral */
+.sidebar {
+  width: 100px;
+  height: 100%;
+  background-color: #434534;
+  position: fixed;
+  top: 0;
+  left: -250px; /* Inicialmente oculto a la izquierda */
+  transition: left 0.3s ease-in-out;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+/* Estilo para cuando la barra lateral está abierta */
+.sidebar.open {
+  left: 0;
+}
+
+/* Estilo para los elementos de la lista del menú */
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  padding: 15px 20px;
+  border-bottom: 1px solid #5a5e4a;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  font-family: 'Poetsen One', sans-serif;
+  font-size: 18px;
+  display: block;
+}
+
+.sidebar ul li a:hover {
+  background-color: #5a5e4a;
+}
+
+.sidebar.open ~ .main-content {
+  margin-left: 0px; /* Ajusta esto según el ancho de tu menú lateral */
+}
+
+}
+@media (max-width: 1200px) {
+  .imagenLogo {
+    border-radius: 80%;
+    width: 10%;
+    display: block;
+    margin-left: -2rem;
+    margin-top: -1.5rem;
+  }
+  .carousel-container {
+    position: relative;
+    max-width: 800px; /* Ajusta el ancho máximo según tus necesidades */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    padding: 20px; /* Añade relleno al contenedor si es necesario */
+  }
+  
+  .carousel-item {
+    position: relative;
+  }
+  
+  .carousel-image {
+    width: 100%; /* Asegúrate de que la imagen ocupe todo el ancho del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+  }
+  
+  .NameButtons {
+    position: absolute;
+    top: 50%; /* Ajusta según donde quieras colocar el texto */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra el texto horizontal y verticalmente */
+    color: white; /* Color del texto */
+    font-size: 2rem; /* Tamaño del texto */
+    padding: 10px; /* Espaciado alrededor del texto */
+    border-radius: 5px; /* Bordes redondeados */
+    text-align: center;
+  }
+  
+  .NameButtons{
+    position: absolute;
+    top: 50%; /* Coloca el texto en la mitad superior de la imagen */
+    left: 50%; /* Coloca el texto en el centro de la imagen */
+    transform: translate(-50%, -50%); /* Centra el texto horizontal y verticalmente */
+    color: white; /* Cambia el color del texto */
+    font-size: 80px; /* Tamaño del texto */
+    padding: 10px; /* Añade espacio alrededor del texto */
+  }
+  /* Estilo para el botón de alternar menú */
+  .toggle-menu-btn {
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1100;
+    transition: background-color 0.3s ease, left 0.3s ease;
+  }
+  
+  .sidebar.open .toggle-menu-btn {
+    left: 270px; /* Ajusta esto según el ancho de tu menú lateral */
+  }
+  
+
+  /* Estilos básicos para la barra lateral */
+  .sidebar {
+    width: 250px;
+    height: 100%;
+    background-color: #434534;
+    position: fixed;
+    top: 0;
+    left: -250px; /* Inicialmente oculto a la izquierda */
+    transition: left 0.3s ease-in-out;
+    overflow-y: auto;
+    z-index: 1000;
+  }
+  
+  /* Estilo para cuando la barra lateral está abierta */
+  .sidebar.open {
+    left: 0;
+  }
+  
+  /* Estilo para los elementos de la lista del menú */
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar ul li {
+    padding: 15px 20px;
+    border-bottom: 1px solid #5a5e4a;
+  }
+  
+  .sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    font-family: 'Poetsen One', sans-serif;
+    font-size: 18px;
+    display: block;
+  }
+  
+  .sidebar ul li a:hover {
+    background-color: #5a5e4a;
+  }
+  .main-content {
+    transition: margin-left 0.3s ease-in-out;
+    margin-left: 0;
+  }
+  
+  .sidebar.open ~ .main-content {
+    margin-left: 250px; /* Ajusta esto según el ancho de tu menú lateral */
+  }
+  
 
   button.btn-primary {
     margin: 10px;
@@ -150,6 +385,123 @@ footer {
 }
 
 @media (min-width: 1400px) {
+
+.imagenLogo {
+  border-radius: 80%;
+  width: 6.2%;
+  display: block;
+  margin-right: auto;
+  margin-top: -1.5rem;
+  margin-left: -2.2rem;
+}
+  .carousel-container {
+    position: relative;
+    max-width: 800px; /* Ajusta el ancho máximo según tus necesidades */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    padding: 20px; /* Añade relleno al contenedor si es necesario */
+  }
+  
+  .carousel-item {
+    position: relative;
+  }
+  
+  .carousel-image {
+    width: 100%; /* Asegúrate de que la imagen ocupe todo el ancho del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+  }
+  
+  .NameButtons {
+    position: absolute;
+    top: 50%; /* Ajusta según donde quieras colocar el texto */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra el texto horizontal y verticalmente */
+    color: white; /* Color del texto */
+    font-size: 2rem; /* Tamaño del texto */
+    padding: 10px; /* Espaciado alrededor del texto */
+    border-radius: 5px; /* Bordes redondeados */
+    text-align: center;
+  }
+  
+  .NameButtons{
+    position: absolute;
+    top: 50%; /* Coloca el texto en la mitad superior de la imagen */
+    left: 50%; /* Coloca el texto en el centro de la imagen */
+    transform: translate(-50%, -50%); /* Centra el texto horizontal y verticalmente */
+    color: white; /* Cambia el color del texto */
+    font-size: 80px; /* Tamaño del texto */
+    padding: 10px; /* Añade espacio alrededor del texto */
+  }
+  /* Estilo para el botón de alternar menú */
+  .toggle-menu-btn {
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1100;
+    transition: background-color 0.3s ease, left 0.3s ease;
+  }
+  
+  .sidebar.open .toggle-menu-btn {
+    left: 270px; /* Ajusta esto según el ancho de tu menú lateral */
+  }
+  
+  .toggle-menu-btn:hover {
+    background-color: #8c8f79;
+  }
+  /* Estilos básicos para la barra lateral */
+  .sidebar {
+    width: 250px;
+    height: 100%;
+    background-color: #434534;
+    position: fixed;
+    top: 0;
+    left: -250px; /* Inicialmente oculto a la izquierda */
+    transition: left 0.3s ease-in-out;
+    overflow-y: auto;
+    z-index: 1000;
+  }
+  
+  /* Estilo para cuando la barra lateral está abierta */
+  .sidebar.open {
+    left: 0;
+  }
+  
+  /* Estilo para los elementos de la lista del menú */
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar ul li {
+    padding: 15px 20px;
+    border-bottom: 1px solid #5a5e4a;
+  }
+  
+  .sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    font-family: 'Poetsen One', sans-serif;
+    font-size: 18px;
+    display: block;
+  }
+  
+  .sidebar ul li a:hover {
+    background-color: #5a5e4a;
+  }
+  .main-content {
+    transition: margin-left 0.3s ease-in-out;
+    margin-left: 0;
+  }
+  
+  .sidebar.open ~ .main-content {
+    margin-left: 250px; /* Ajusta esto según el ancho de tu menú lateral */
+  }
+
   button.btn-primary {
     margin: 10px;
     width: 9rem;
@@ -177,4 +529,31 @@ footer {
     border-collapse: collapse;
 
   }
+
+  .carousel-container {
+    max-width: 800px; /* Ancho máximo del contenedor */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    padding: 20px; /* Añade relleno al contenedor si es necesario */
+    position: relative;
+  }
+  
+
+.carousel-image-container {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+
+}
+
+.carousel-image {
+    max-width: 100%; /* Establece el ancho máximo de la imagen al 100% del contenedor */
+    height: auto; /* Permite que la altura se ajuste automáticamente para mantener la proporción */
+    border-radius: 20px;
+    filter: brightness(50%); /* Reduce el brillo al 50% */
+}
+
+.carousel-image:hover {
+    cursor: pointer; /* Cambia el cursor cuando se pasa sobre la imagen */
+}
+
 }
