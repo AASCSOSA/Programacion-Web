@@ -23,5 +23,8 @@ class CargaService {
     getIdCarga(id){
         return axios.get(URL_BASE+"/venta/"+id)
     }
+    findVentaXMonth(){
+        return axios.get(URL_BASE + "/cargaxmes");
+    }
 }
 export default new CargaService();

@@ -9,10 +9,7 @@ export const FormularioPago_TrabajadorComponent = () => {
     const [fecha_Pago, setfecha_Pago] = useState('');
     const [id_Trabajador, setId_Trabajador] = useState('');
     const [trabajadores, setTrabajadores] = useState([]); // Lista de trabajadores
-    const [emptyFieldsWarning, setEmptyFieldsWarning] = useState(false); //Validar que se llenen todos los datos
-    const [negativoWarning, setNegativoWarning] = useState({
-        monto: false,
-    });
+
 
     const navigate = useNavigate();
     const { id_Pago_Trabajador } = useParams();
@@ -22,6 +19,7 @@ export const FormularioPago_TrabajadorComponent = () => {
         TrabajadorService.findAll()
             .then((response) => {
                 setTrabajadores(response.data);
+                console.log(response.data)
             })
             .catch((error) => {
                 console.log(error);
@@ -31,9 +29,10 @@ export const FormularioPago_TrabajadorComponent = () => {
     useEffect(() => {
         if (id_Pago_Trabajador) {
             Pago_TrabajadorService.findById(id_Pago_Trabajador).then(response => {
-                setMonto(response.data.monto);
-                setfecha_Pago(response.data.fecha_Pago);
-                // Buscar el ID del trabajador asociado a este pago de trabajador
+                const pago_Trabajador = response.data;
+                setMonto(pago_Trabajador.monto);
+                setfecha_Pago(pago_Trabajador.fecha_Pago);
+
                 Pago_TrabajadorService.findByIdTrabajador(id_Pago_Trabajador)
                     .then((response2) => {
                         const trabajador = response2.data;
@@ -43,47 +42,22 @@ export const FormularioPago_TrabajadorComponent = () => {
                         console.log(error);
                     });
             })
-                .catch((error) => {
-                    console.error("Error al obtener el pago de trabajador:", error);
-                });
         }
-    }, [id_Pago_Trabajador]);
+    }, []);
 
     const savePago_Trabajador = (e) => {
         e.preventDefault();
-
-         // Validar que el campo de costo no sea negativo
-         if (
-            monto < 0 
-        ) {
-            setNegativoWarning({
-                monto: monto < 0,
-            });
-            return;
-        }
-
-         // Validar que todos los campos estén llenos
-         if (
-            !monto||
-            !fecha_Pago||
-            !trabajador
-         ) {
-            setEmptyFieldsWarning(true);
-            return;
-        }
-
-
         const trabajador = { id_Trabajador };
         const pago_trabajador = { monto, fecha_Pago, trabajador };
         if (id_Pago_Trabajador) {
             Pago_TrabajadorService.update(id_Pago_Trabajador, pago_trabajador).then(response => {
-                navigate('/pago_trabajador');
+                navigate('/pago_trabajadorForMonth');
             }).catch(e => {
                 console.log(e);
             })
         } else {
             Pago_TrabajadorService.create(pago_trabajador).then(response => {
-                navigate('/pago_trabajador');
+                navigate('/pago_trabajadorForMonth');
             }).catch(e => {
                 console.log(e);
             })
@@ -107,34 +81,17 @@ export const FormularioPago_TrabajadorComponent = () => {
                         </h2>
                         <h2 className='text-center'>Gestión de Pagos</h2>
                         <div className='card-body'>
-                        {emptyFieldsWarning && (
-                                <div className="alert alert-warning" role="alert">
-                                    Por favor, complete todos los campos.
-                                </div>
-                            )}
                             <form>
                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Monto</label>
                                     <input type='number' step="0.01"
                                         placeholder='Ingrese el monto del pago a trabajador'
                                         name='montoPago_Trabajador'
-                                        className={`form-control ${negativoWarning.monto ? "is-invalid" : ""
-                                    }`}
-                                value={monto}
-                                onChange={(e) => {
-                                    setMonto(e.target.value);
-                                    setNegativoWarning({
-                                        ...negativoWarning,
-                                        monto: e.target.value < 0,
-                                    });
-                                }}
-                            ></input>
-                            {negativoWarning.monto && (
-                                <div className="invalid-feedback">
-                                    No se permiten valores negativos
+                                        className='form-control'
+                                        value={monto}
+                                        onChange={(e) => setMonto(e.target.value)}>
+                                    </input>
                                 </div>
-                            )}
-                        </div>
 
                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Fecha de Pago</label>
@@ -157,7 +114,7 @@ export const FormularioPago_TrabajadorComponent = () => {
                                         <option value="">Seleccionar Trabajador</option>
                                         {trabajadores.map((trabajador) => (
                                             <option key={trabajador.id_Trabajador} value={trabajador.id_Trabajador}>
-                                                {trabajador.nombre_Trabajador}
+                                                {trabajador.nombre}
                                             </option>
                                         ))}
                                     </select>
@@ -165,7 +122,7 @@ export const FormularioPago_TrabajadorComponent = () => {
 
                                 <button className='btn btn-success' onClick={(e) => savePago_Trabajador(e)}>Guardar</button>
                                 &nbsp;&nbsp;
-                                <Link to='/pago_trabajador' className='btn btn-danger'>Cancelar</Link>
+                                <Link to='/pago_trabajadorForMonth' className='btn btn-danger'>Cancelar</Link>
                             </form>
                         </div>
                     </div>

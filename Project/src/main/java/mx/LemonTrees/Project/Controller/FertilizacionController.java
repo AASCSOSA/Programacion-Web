@@ -23,9 +23,12 @@ import mx.LemonTrees.Project.Model.Fertilizacion;
 import mx.LemonTrees.Project.Model.Fertilizante;
 import mx.LemonTrees.Project.Model.Rancho;
 import mx.LemonTrees.Project.Model.Venta;
+import mx.LemonTrees.Project.QueryInterface.QueryMonthFertilizacion;
 import mx.LemonTrees.Project.Repository.FertilizacionRepository;
 import mx.LemonTrees.Project.Repository.FertilizanteRepository;
 import mx.LemonTrees.Project.Repository.RanchoRepository;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/fertilizacion")
@@ -139,4 +142,9 @@ public class FertilizacionController {
         Fertilizante fertilizante = fertilizacionOptional.get().getFertilizante();
         return ResponseEntity.ok(fertilizante);
     }
+    @GetMapping("/fertilizacionxmes")
+    public ResponseEntity<Iterable<QueryMonthFertilizacion>> findFertilizacionXMonth(){
+        return (ResponseEntity.ok(fertilizacionRepository.findFertilizacionXMonth()));
+    }
+    
 }

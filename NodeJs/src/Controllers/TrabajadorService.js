@@ -18,12 +18,6 @@ class TrabajadorService {
         return axios.delete(URL_BASE + "/" + id_Trabajador);
     }
 
-    findByIdHerramienta(id_Herramienta) {
-        return axios.get(URL_BASE + "/herramienta/" + id_Herramienta);
-    }
-    
-    getNameTrabajador(id_Trabajador){
-        return axios.get(URL_BASE + "/pago_trabajador/" + id_Trabajador);
-    }
+
 }
 export default new TrabajadorService();

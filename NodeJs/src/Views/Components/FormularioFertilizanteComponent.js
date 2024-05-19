@@ -9,6 +9,8 @@ export const FormularioFertilizanteComponent = () => {
   const [costo_Unitario, setCostoUnitario] = useState("");
   const [domicilio_Distribuidora, setDomicilioDistribuidora] = useState("");
   const [fecha_Caducidad, setfechaCaducidad] = useState("");
+  const [fecha_Adquisicion, setfechaAdquisicion] = useState("");
+
   const [lote, setLote] = useState("");
   const [marca, setMarca] = useState("");
 
@@ -42,6 +44,7 @@ export const FormularioFertilizanteComponent = () => {
       costo_Unitario,
       domicilio_Distribuidora,
       fecha_Caducidad,
+      fecha_Adquisicion,
       lote,
       marca
     };
@@ -159,6 +162,16 @@ export const FormularioFertilizanteComponent = () => {
                     className="form-control"
                     value={fecha_Caducidad}
                     onChange={(e) => setfechaCaducidad(e.target.value)}
+                  ></input>
+                </div>
+                <div className="form-group mb-2">
+                  <label className="form-label">Fecha Adquisicon</label>
+                  <input
+                    type="date"
+                    name="fechaCaducidad"
+                    className="form-control"
+                    value={fecha_Adquisicion}
+                    onChange={(e) => setfechaAdquisicion(e.target.value)}
                   ></input>
                 </div>
                 <div className="form-group mb-2">

@@ -19,6 +19,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import mx.LemonTrees.Project.Model.Carga;
 import mx.LemonTrees.Project.Model.Rancho;
 import mx.LemonTrees.Project.Model.Venta;
+import mx.LemonTrees.Project.QueryInterface.QueryMonthCarga;
+import mx.LemonTrees.Project.QueryInterface.QueryMonthVenta;
 import mx.LemonTrees.Project.Repository.CargaRepository;
 import mx.LemonTrees.Project.Repository.RanchoRepository;
 import mx.LemonTrees.Project.Repository.VentaRepository;
@@ -113,5 +115,10 @@ public class CargaController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(cargaOptional.get().getId_Carga());
+    }
+
+    @GetMapping("/cargaxmes")
+    public ResponseEntity<Iterable<QueryMonthCarga>> findVentaXMonth() {
+        return ResponseEntity.ok(cargaRepository.findCargaXMonth());
     }
 }

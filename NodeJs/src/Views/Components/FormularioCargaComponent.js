@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CargaService from "../../Controllers/CargaService";
 import RanchoService from "../../Controllers/RanchoService";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import globals from "../Global"; 
 
 export const FormularioRanchoComponent = () => {
   const [fecha, setFecha] = useState("");
@@ -14,6 +15,7 @@ export const FormularioRanchoComponent = () => {
   const [total_Trabajadores, setTrabajadores] = useState("");
   const [id_Rancho, setId_Rancho] = useState("");
   const [ranchos, setRanchos] = useState([]); // Lista de ranchos
+
 
   const navigate = useNavigate();
 
@@ -28,6 +30,7 @@ export const FormularioRanchoComponent = () => {
         console.log(error);
       });
   }, []);
+  console.log(globals.miVariableGlobal); 
 
   useEffect(() => {
     if (id) {
@@ -77,7 +80,7 @@ export const FormularioRanchoComponent = () => {
     if (id) {
       CargaService.update(id, carga)
         .then((response) => {
-          navigate("/carga");
+          navigate(`${globals.miVariableGlobal}`);
         })
         .catch((error) => {
           console.error(error);
@@ -85,7 +88,7 @@ export const FormularioRanchoComponent = () => {
     } else {
       CargaService.create(carga)
         .then((response) => {
-          navigate("/carga");
+          navigate(`${globals.miVariableGlobal}`);
         })
         .catch((error) => {
           console.error(error);
@@ -222,7 +225,7 @@ export const FormularioRanchoComponent = () => {
                   Guardar
                 </button>
                 &nbsp;&nbsp;
-                <Link to="/carga" className="btn btn-danger">
+                <Link to= {`${globals.miVariableGlobal}`} className="btn btn-danger">
                   Cancelar
                 </Link>
               </form>

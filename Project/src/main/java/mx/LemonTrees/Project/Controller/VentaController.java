@@ -3,6 +3,8 @@ package mx.LemonTrees.Project.Controller;
 import mx.LemonTrees.Project.Model.Carga;
 import mx.LemonTrees.Project.Model.Comprador;
 import mx.LemonTrees.Project.Model.Venta;
+import mx.LemonTrees.Project.QueryInterface.QueryMonthVenta;
+import mx.LemonTrees.Project.QueryInterface.QueryMonthCarga;
 import mx.LemonTrees.Project.Repository.CargaRepository;
 import mx.LemonTrees.Project.Repository.CompradorRepository;
 import mx.LemonTrees.Project.Repository.VentaRepository;
@@ -18,9 +20,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
+
+import javax.management.Query;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/venta")
@@ -116,4 +124,10 @@ public class VentaController {
         Comprador comprador = ventaOptional.get().getComprador();
         return ResponseEntity.ok(comprador);
     }
+
+    @GetMapping("/ventaxmes")
+    public ResponseEntity<Iterable<QueryMonthVenta>> findVentaXMonth() {
+        return ResponseEntity.ok(ventaRepository.findVentaXMonth());
+    }
+
 }

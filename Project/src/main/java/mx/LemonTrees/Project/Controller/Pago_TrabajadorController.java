@@ -3,17 +3,15 @@ package mx.LemonTrees.Project.Controller;
 import java.net.URI;
 import java.util.Optional;
 
-import mx.LemonTrees.Project.Model.Carga;
-import mx.LemonTrees.Project.Model.Pago_Trabajador;
-import mx.LemonTrees.Project.Model.Rancho;
-import mx.LemonTrees.Project.Model.Trabajador;
+import mx.LemonTrees.Project.Model.*;
+import mx.LemonTrees.Project.QueryInterface.QueryMonthPagoTrabajador;
 import mx.LemonTrees.Project.Repository.Pago_TrabajadorRepository;
 import mx.LemonTrees.Project.Repository.TrabajadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import org.springframework.web.bind.annotation.GetMapping;
+
 
 
 @RestController
@@ -37,22 +35,11 @@ public class Pago_TrabajadorController {
     @GetMapping("/{Id_Pago_Trabajador}")
     public ResponseEntity<Pago_Trabajador> findById(@PathVariable Integer Id_Pago_Trabajador) {
         Optional<Pago_Trabajador> pago_trabajadorOptional = pago_trabajadorRepository.findById(Id_Pago_Trabajador);
-        if (pago_trabajadorOptional.isPresent()) {
-            return ResponseEntity.ok(pago_trabajadorOptional.get());
+        if (!pago_trabajadorOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(pago_trabajadorOptional.get());
         }
-    }
-
-    //Buscar trabajador por pago_trabajador
-    @GetMapping("/trabajador/{Id_Trabajador}")
-    public ResponseEntity<Trabajador> findByIdTrabajador (@PathVariable Integer Id_Pago_Trabajador) {
-        Optional<Pago_Trabajador> pago_trabajadorOptional=pago_trabajadorRepository.findById(Id_Pago_Trabajador);
-        if(!pago_trabajadorOptional.isPresent()){
-            return ResponseEntity.notFound().build();
-        }
-        Trabajador trabajador= pago_trabajadorOptional.get().getTrabajador();
-        return ResponseEntity.ok(trabajador);
     }
 
     //CREAR
@@ -72,20 +59,18 @@ public class Pago_TrabajadorController {
     }
 
     //UPDATE
-    //Revisar
     @PutMapping("/{Id_Pago_Trabajador}")
-    public ResponseEntity<Void> update(@PathVariable Integer Id_Pago_Trabajador, @RequestBody Pago_Trabajador pago_trabajadorAct) {
-        Pago_Trabajador pago_trabajadorAnt = pago_trabajadorRepository.findById(Id_Pago_Trabajador).get();
-        if (pago_trabajadorAnt != null) {
-            pago_trabajadorAct.setId_Pago_Trabajador(pago_trabajadorAnt.getId_Pago_Trabajador());
-            pago_trabajadorRepository.save(pago_trabajadorAct);
+    public ResponseEntity<Void> update(@PathVariable Integer Id_Pago_Trabajador, @RequestBody Pago_Trabajador pago_TrabajadorAct) {
+        Pago_Trabajador pago_TrabajadorAnt = pago_trabajadorRepository.findById(Id_Pago_Trabajador).get();
+        if (pago_TrabajadorAct != null) {
+            pago_TrabajadorAct.setId_Pago_Trabajador(pago_TrabajadorAnt.getId_Pago_Trabajador());
+            pago_trabajadorRepository.save(pago_TrabajadorAct);
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
     }
 
     //ELIMINAR
-    //Revisar
     @DeleteMapping("/{Id_Pago_Trabajador}")
     public ResponseEntity<Void> delete(@PathVariable Integer Id_Pago_Trabajador) {
         if (pago_trabajadorRepository.findById(Id_Pago_Trabajador).get() != null) {
@@ -94,15 +79,31 @@ public class Pago_TrabajadorController {
         }
         return ResponseEntity.notFound().build();
     }
+
     @GetMapping("/trabajador/{Id_Pago_Trabajador}")
-    public ResponseEntity<Trabajador> getNameTrabajador(@PathVariable Integer Id_Pago_Trabajador) {
+    public ResponseEntity<Trabajador> findByIdTrabajador(@PathVariable Integer Id_Pago_Trabajador) {
+        Optional<Pago_Trabajador> pago_trabajadorOptional = pago_trabajadorRepository.findById(Id_Pago_Trabajador);
+        if (!pago_trabajadorOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        Trabajador trabajador = pago_trabajadorOptional.get().getTrabajador();
+        return ResponseEntity.ok(trabajador);
+    }
+
+    @GetMapping("/trabajadores/{Id_Pago_Trabajador}")
+    public ResponseEntity<String> getNameTrabajador(@PathVariable Integer Id_Pago_Trabajador) {
         Optional<Pago_Trabajador> pagoTrabajadorOptional= pago_trabajadorRepository.findById(Id_Pago_Trabajador);
         if(!pagoTrabajadorOptional.isPresent()){
             return ResponseEntity.notFound().build();
         }
         Trabajador trabajador=pagoTrabajadorOptional.get().getTrabajador();
-        return ResponseEntity.ok(trabajador);
+        String nombreCompleto = trabajador.getNombre() + " " + trabajador.getApellido_Pat();
+        return ResponseEntity.ok(nombreCompleto);
 
+    }
+    @GetMapping("/pagoTXmes")
+    public ResponseEntity <Iterable<QueryMonthPagoTrabajador>> findPagoTrabajadorXMonth() {
+        return ResponseEntity.ok(pago_trabajadorRepository.findPagoTrabajadorXMonth());
     }
     
 }

@@ -47,7 +47,7 @@ public class Carga {
     private Rancho rancho;
 
     // Relacion con Venta
-    @OneToMany(mappedBy = "carga", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "carga")
     private List<Venta> venta;
 
     public Carga() {
