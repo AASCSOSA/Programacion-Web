@@ -28,10 +28,6 @@ public class Trabajador {
     @Column(nullable = false, length = 50)
     private String Direccion;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Id_Herramienta")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Herramienta herramienta;
     @OneToMany(mappedBy = "trabajador", cascade = CascadeType.ALL)
     private List<Pago_Trabajador> Pago = new ArrayList<>();
 
@@ -103,11 +99,4 @@ public class Trabajador {
         this.Pago = Pago;
     }
 
-    public Herramienta getHerramienta() {
-        return this.herramienta;
-    }
-
-    public void setHerramienta(Herramienta herramienta) {
-        this.herramienta = herramienta;
-    }
 }

@@ -122,7 +122,7 @@ export const FormularioRanchoComponent = () => {
     if (id) {
       CargaService.update(id, carga)
         .then((response) => {
-          navigate("/carga");
+          navigate("/cargaForMonth");
         })
         .catch((error) => {
           console.error(error);
@@ -130,7 +130,7 @@ export const FormularioRanchoComponent = () => {
     } else {
       CargaService.create(carga)
         .then((response) => {
-          navigate("/carga");
+          navigate("/cargaForMonth");
         })
         .catch((error) => {
           console.error(error);
@@ -445,7 +445,7 @@ export const FormularioRanchoComponent = () => {
                   Guardar
                 </button>
                 &nbsp;&nbsp;
-                <Link to="/carga" className="btn btn-danger">
+                <Link to="/cargaForMonth" className="btn btn-danger">
                   Cancelar
                 </Link>
               </form>

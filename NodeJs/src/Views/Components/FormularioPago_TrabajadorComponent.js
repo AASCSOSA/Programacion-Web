@@ -78,13 +78,13 @@ export const FormularioPago_TrabajadorComponent = () => {
         const pago_trabajador = { monto, fecha_Pago, trabajador };
         if (id_Pago_Trabajador) {
             Pago_TrabajadorService.update(id_Pago_Trabajador, pago_trabajador).then(response => {
-                navigate('/pago_trabajador');
+                navigate('/pago_trabajadorForMonth');
             }).catch(e => {
                 console.log(e);
             })
         } else {
             Pago_TrabajadorService.create(pago_trabajador).then(response => {
-                navigate('/pago_trabajador');
+                navigate('/pago_trabajadorForMonth');
             }).catch(e => {
                 console.log(e);
             })
@@ -190,7 +190,7 @@ export const FormularioPago_TrabajadorComponent = () => {
 
                                 <button className='btn btn-success' onClick={(e) => savePago_Trabajador(e)}>Guardar</button>
                                 &nbsp;&nbsp;
-                                <Link to='/pago_trabajador' className='btn btn-danger'>Cancelar</Link>
+                                <Link to='/pago_trabajadorForMonth' className='btn btn-danger'>Cancelar</Link>
                             </form>
                         </div>
                     </div>

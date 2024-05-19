@@ -25,37 +25,7 @@ export const FormularioTrabajadorComponent = () => {
     const navigate = useNavigate();
     const { id_Trabajador } = useParams();
 
-    useEffect(() => {
-        HerramientaService.findAll()
-            .then((response) => {
-                setHerramientas(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []);
-
-    useEffect(() => {
-        if (id_Trabajador) {
-            TrabajadorService.findById(id_Trabajador).then(response => {
-                const trabajador = response.data;
-                setNombre(trabajador.nombre);
-                setApellido_Pat(trabajador.apellido_Pat);
-                setApellido_Mat(trabajador.apellido_Mat);
-                setTelefono(trabajador.telefono);
-                setDireccion(trabajador.direccion);
-                // Buscar el ID de la herramienta asociado a este trabajador
-                TrabajadorService.findByIdHerramienta(id_Trabajador)
-                    .then((response2) => {
-                        const herramienta = response2.data;
-                        setId_Herramienta(herramienta.id_Herramienta); // Actualiza el estado id_Herramienta con el ID de la herramienta encontrado
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            })
-        }
-    }, [id_Trabajador]);
+    
 
     const saveTrabajador = (e) => {
         e.preventDefault();

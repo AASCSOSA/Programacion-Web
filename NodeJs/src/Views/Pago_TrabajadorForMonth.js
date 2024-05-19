@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import Pago_TrabajadorService from "../Controllers/Pago_TrabajadorService";
 
 export default function Pago_TrabajadorForMonth() {
-  const [pago_Trabajador, setPago_Trabajador] = useState([]);
-  const [trabajadores, setTrabajadores] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
   const tableRef = useRef(null);
   const [selectedPagoTrabajador, setSelectedPagoTrabajador] = useState(null);
@@ -12,15 +10,6 @@ export default function Pago_TrabajadorForMonth() {
   const [selectedNamePagoTrabajador, setSelectedNamePagoTrabajador] = useState(null);
 const [pago_TrabajadorXMes, setPago_TrabajadorXMes] = useState([]);
 
-  const listarPago = () => {
-    Pago_TrabajadorService.findAll()
-      .then((response) => {
-        setPago_Trabajador(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   useEffect(() => {
     listarPorMes();
@@ -34,28 +23,6 @@ const [pago_TrabajadorXMes, setPago_TrabajadorXMes] = useState([]);
         console.log(error);
       });
   }
-
-  useEffect(() => {
-    const obtenerNombresTrabajadores = async () => {
-      try {
-        const nombresTrabajadores = await Promise.all(
-          pago_Trabajador.map(async (pago_TrabajadorItem) => {
-            const response = await Pago_TrabajadorService.getNameTrabajador(
-              pago_TrabajadorItem.id_Pago_Trabajador
-            );
-            return response.data;
-          })
-        );
-        setTrabajadores(nombresTrabajadores);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    if (pago_Trabajador.length > 0) {
-      obtenerNombresTrabajadores();
-    }
-  }, [pago_Trabajador]);
 
   const deletePago_Trabajador = (id_Pago_Trabajador) => {
     Pago_TrabajadorService.delete(id_Pago_Trabajador)
@@ -99,7 +66,7 @@ const [pago_TrabajadorXMes, setPago_TrabajadorXMes] = useState([]);
         <p>
           {selectedNamePagoTrabajador
             ? `Nombre del Trabajador: ${selectedNamePagoTrabajador}`
-            : "No se esta seleccionando un Pago de Trabajador"}
+            : ""}
         </p>
         <div className="table-container" ref={tableRef}>
           <div className="table-responsive">
@@ -119,7 +86,7 @@ const [pago_TrabajadorXMes, setPago_TrabajadorXMes] = useState([]);
                     onClick={() =>
                       handleRowClick(
                         pago_TrabajadorItem.id_Pago_Trabajador,
-                        pago_TrabajadorItem.nombre_Trabajador
+                        pago_TrabajadorItem.nombre+" "+pago_TrabajadorItem.apellido_Pat
                       )
                     }
                     className={

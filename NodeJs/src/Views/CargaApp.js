@@ -9,8 +9,8 @@ export default function CargaApp() {
   const [selectedCarga, setSelectedCarga] = useState(null);
   const [showInsertAndConsult, setShowInsertAndConsult] = useState(true);
   const tableRef = useRef(null);
-
-  const listarCarga = () => {
+  console.log(global.miVariableGlobal);
+    const listarCarga = () => {
     CargaService.findAll()
       .then((response) => {
         setCarga(response.data);
@@ -83,8 +83,9 @@ export default function CargaApp() {
         <p>
           {selectedCarga
             ? `Numero de carga: ${selectedCarga}`
-            : "No se está seleccionando una carga"}
+            : ""}
         </p>
+        <p>{global.miVariableGlobal}</p>
         <div className="table-container" ref={tableRef}>
           <div className="table-responsive">
             <table className="table table-hover table-bordered">
@@ -145,18 +146,19 @@ export default function CargaApp() {
                   Insertar
                 </button>
               </Link>
-              <Link to="/form-carga">
+              
+              <Link to="/cargaForMonth">
                 <button
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
                 >
                   <img
-                    src="icons/Buscar.png"
-                    alt="Buscar carga"
+                    src="icons/Regresar.png"
+                    alt="Regresar carga"
                     className="imgBuscar"
                   ></img>
-                  Consultar
+                  Regresar
                 </button>
               </Link>
             </>

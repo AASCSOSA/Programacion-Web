@@ -109,7 +109,7 @@ export const FormularioFertilizacionComponent = () => {
     if (id_Fertilizacion) {
       FertilizacionService.update(id_Fertilizacion, fertilizacion)
         .then(() => {
-          navigate("/fertilizacion");
+          navigate("/fertilizacionForMonth");
         })
         .catch((error) => {
           console.log(error);
@@ -117,7 +117,7 @@ export const FormularioFertilizacionComponent = () => {
     } else {
       FertilizacionService.create(fertilizacion)
         .then(() => {
-          navigate("/fertilizacion");
+          navigate("/fertilizacionForMonth");
         })
         .catch((error) => {
           console.log(error);
@@ -206,7 +206,7 @@ export const FormularioFertilizacionComponent = () => {
                     value={id_Fertilizante}
                     onChange={(e) => setIdFertilizante(e.target.value)}
                   >
-                    <option value="">Seleccione el Comprador</option>
+                    <option value="">Seleccione nombre del fertilizante</option>
                     {fertilizantes.map((fertilizante) => (
                       <option
                         key={fertilizante.id_Fertilizante}

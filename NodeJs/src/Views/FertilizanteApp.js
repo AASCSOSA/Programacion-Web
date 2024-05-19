@@ -62,7 +62,7 @@ export default function FertilizanteApp() {
         <p>
           {selectdNameFertilizante
             ? `Nombre del Fertilizante: ${selectdNameFertilizante}`
-            : "No se esta seleccionando un Fertilizante"}
+            : ""}
         </p>
         <div className="table-container" ref={tableRef}>
           <div className="table-responsive">
@@ -76,6 +76,7 @@ export default function FertilizanteApp() {
                   <th>Costo unitario</th>
                   <th>Domicilio distribuidora</th>
                   <th>Fecha de caducidad</th>
+                  <th>Fecha de adquisicion</th>
                   <th>Lote</th>
                   <th>Marca</th>
                 </tr>
@@ -103,6 +104,7 @@ export default function FertilizanteApp() {
                     <td>{fertilizante.costo_Unitario}</td>
                     <td>{fertilizante.domicilio_Distribuidora}</td>
                     <td>{fertilizante.fecha_Caducidad}</td>
+                    <td>{fertilizante.fecha_Adquisicion}</td>
                     <td>{fertilizante.lote}</td>
                     <td>{fertilizante.marca}</td>
                   </tr>
@@ -129,20 +131,7 @@ export default function FertilizanteApp() {
                   Insertar
                 </button>
               </Link>
-              <Link to="/form-fertilizante">
-                <button
-                  type="button"
-                  className="btn btn-success"
-                  class="btnimagen"
-                >
-                  <img
-                    src="icons/Buscar.png"
-                    alt="Buscar fertilizante"
-                    className="imgBuscar"
-                  ></img>
-                  Consultar
-                </button>
-              </Link>
+              
             </>
           )}
           {selectedFertilizante && (

@@ -65,7 +65,7 @@ export default function CompradorApp() {
         <p>
           {selectNameComprador
             ? `Nombre del comprador seleccionado: ${selectNameComprador}`
-            : "No se esta seleccionando un comprador"}
+            : ""}
         </p>
         <div className="table-container" ref={tableRef}>
           <table className="table" id="tableComprador">
@@ -121,20 +121,7 @@ export default function CompradorApp() {
                   Insertar
                 </button>
               </Link>
-              <Link to="/form-comprador">
-                <button
-                  type="button"
-                  className="btn btn-success"
-                  class="btnimagen"
-                >
-                  <img
-                    src="icons/Buscar.png"
-                    alt="Buscar comprador"
-                    className="imgBuscar"
-                  ></img>
-                  Consultar
-                </button>
-              </Link>
+             
             </>
           )}
           {rowSelected && (

@@ -30,5 +30,8 @@ class FertilizacionService {
   findByIdFertilizante(id){
     return axios.get(URL_BASE + "/fertilizantes/" + id);
   }
+  findFertilizacionXMonth(){
+    return axios.get(URL_BASE + "/fertilizacionxmes");
+  }
 }
 export default new FertilizacionService();
