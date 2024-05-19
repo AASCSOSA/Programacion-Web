@@ -1,0 +1,20 @@
+Para poder ejecutar node js y spring boot se debe de hacer lo siguiente:
+sudo apt install maven  /*Solo para linux*/
+mvn clean install
+1.- Ingresar al archivo de package.json en el proyecto de Node JS y hacer lo siguiente:
+"scripts": {
+  "start": "react-scripts start",
+  "build": "react-scripts build",
+  "test": "react-scripts test",
+  "eject": "react-scripts eject",
+  "start-spring": "java -jar ../Project/target/Project-0.0.1-SNAPSHOT.jar", /*Se agrega la direccion del pryecto en una version SNAPSHOT*/
+  "start-both": "concurrently \"npm run start\" \"npm run start-spring\""/*Para poder iniciar es usando el comando de start-both*/
+}
+2.- Para el lado de Springboot se debe de ir a la carpeta de Project:
+Se ejecuta el siguiente comando para que realice la compilación de nuestro proyecto de Springboot (Maven o Gradle) mvn clean install (Maven),
+./gradlew clean build (Gradle).
+
+Una vez compilado el proyecto se procede ir a la carpeta de NodeJs, para ingresa el comando 
+npm run start-both
+
+De esta manera se ejecutan ambos procesos.
