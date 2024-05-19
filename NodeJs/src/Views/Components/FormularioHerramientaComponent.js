@@ -6,14 +6,14 @@ export const FormularioHerramientaComponent = () => {
     const [modelo, setModelo] = useState('');
     const [marca, setMarca] = useState('');
     const [cantidad, setCantidad] = useState('');
-    const [color, setColor] = useState('');
+    // const [color, setColor] = useState('');
     const [costo, setCosto] = useState('');
     const [fecha_Adquisicion, setFecha_Adquisicion] = useState('');
 
     //VALIDACIONES
     const [modeloError, setModeloError] = useState(false);
     const [cantidadError, setCantidadError] = useState(false);
-    const [colorError, setColorError] = useState(false);
+    // const [colorError, setColorError] = useState(false);
     const [costoError, setCostoError] = useState(false);
 
     // Obtener la fecha actual en formato YYYY-MM-DD
@@ -36,7 +36,7 @@ export const FormularioHerramientaComponent = () => {
             setModelo(herramienta.modelo);
             setMarca(herramienta.marca);
             setCantidad(herramienta.cantidad);
-            setColor(herramienta.color);
+            // setColor(herramienta.color);
             setCosto(herramienta.costo);
             setFecha_Adquisicion(herramienta.fecha_Adquisicion)
         }).catch(e => {
@@ -52,7 +52,7 @@ export const FormularioHerramientaComponent = () => {
             !modelo ||
             !marca ||
             !cantidad ||
-            !color ||
+            // !color ||
             !costo ||
             !fecha_Adquisicion
         ) {
@@ -61,7 +61,7 @@ export const FormularioHerramientaComponent = () => {
         }
 
 
-        const herramienta = { modelo, marca, cantidad, color, costo, fecha_Adquisicion };
+        const herramienta = { modelo,marca, cantidad, costo, fecha_Adquisicion };
         if (id_Herramienta) {
             HerramientaService.update(id_Herramienta, herramienta).then(response => {
                 navigate("/herramienta");
@@ -109,18 +109,18 @@ export const FormularioHerramientaComponent = () => {
         }
     };
 
-    //VALIDAR COLOR
-    const validarColor = (e) => {
-        const inputValue = e.target.value;
+    // //VALIDAR COLOR
+    // const validarColor = (e) => {
+    //     const inputValue = e.target.value;
 
-        //MAYUSCULAS, MINUSCULAS Y ESPACIOS
-        if (/^[a-zA-Z\s]*$/.test(inputValue)) {
-            setColor(inputValue);
-            setColorError(false);
-        } else {
-            setColorError(true);
-        }
-    };
+    //     //MAYUSCULAS, MINUSCULAS Y ESPACIOS
+    //     if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+    //         setColor(inputValue);
+    //         setColorError(false);
+    //     } else {
+    //         setColorError(true);
+    //     }
+    // };
 
     //VALIDAR COSTO
     const validarCosto = (e) => {
@@ -185,7 +185,7 @@ export const FormularioHerramientaComponent = () => {
                                     )}
                                 </div>
 
-                                <div className='form-group mb-2'>
+                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Marca</label>
                                     <input type='text'
                                         placeholder='Ingrese la marca de la herramienta'
@@ -194,7 +194,7 @@ export const FormularioHerramientaComponent = () => {
                                         value={marca}
                                         onChange={(e) => setMarca(e.target.value)}>
                                     </input>
-                                </div>
+                                </div> 
 
                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Cantidad</label>
@@ -216,7 +216,7 @@ export const FormularioHerramientaComponent = () => {
                                     )}
                                 </div>
 
-                                <div className='form-group mb-2'>
+                                {/* <div className='form-group mb-2'>
                                     <label className='form-label'>Color</label>
                                     <input type='text'
                                         placeholder='Ingrese el color de la herramienta'
@@ -230,7 +230,7 @@ export const FormularioHerramientaComponent = () => {
                                             El color no debe contener números ni carácteres especiales.
                                         </div>
                                     )}
-                                </div>
+                                </div> */}
 
                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Costo</label>

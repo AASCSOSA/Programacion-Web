@@ -10,10 +10,23 @@ export default function TrabajadorApp() {
   const tableRef = useRef(null);
   const [selectedTrabajador, setSelectedTrabajador] = useState(null);
 
+  //FORMATO PARA TABLA
+  const capitalize = (str) => {
+    return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+  };
+
   const listarTrabajador = () => {
     TrabajadorService.findAll()
       .then((response) => {
-        setTrabajador(response.data);
+        const formatoData = response.data.map(item => ({
+          ...item,
+          nombre: capitalize(item.nombre),
+          apellido_Pat: capitalize(item.apellido_Pat),
+          apellido_Mat: capitalize(item.apellido_Mat),
+          direccion: capitalize(item.direccion)
+        }));
+        setTrabajador(formatoData);
+        console.log(formatoData);
       })
       .catch((error) => {
         console.log(error);
@@ -24,16 +37,18 @@ export default function TrabajadorApp() {
     listarTrabajador();
   }, []);
 
-  
-
   const deleteTrabajador = (id_Trabajador) => {
-    TrabajadorService.delete(id_Trabajador)
-      .then((response) => {
-        listarTrabajador();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const confirmarDelete = window.confirm("¿Estás seguro de que deseas eliminar este registro?");
+    if (confirmarDelete) {
+      TrabajadorService.delete(id_Trabajador)
+        .then((response) => {
+          listarTrabajador();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
   };
 
   const handleRowClick = (id_Trabajador, nombreTrabajador) => {

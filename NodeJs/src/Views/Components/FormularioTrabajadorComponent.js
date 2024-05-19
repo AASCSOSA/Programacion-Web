@@ -9,8 +9,8 @@ export const FormularioTrabajadorComponent = () => {
     const [apellido_Mat, setApellido_Mat] = useState('');
     const [telefono, setTelefono] = useState('');
     const [direccion, setDireccion] = useState('');
-    const [id_Herramienta, setId_Herramienta] = useState('');
-    const [herramientas, setHerramientas] = useState([]); // Lista de herramientas
+    // const [id_Herramienta, setId_Herramienta] = useState('');
+    // const [herramientas, setHerramientas] = useState([]); // Lista de herramientas
 
     //VALIDACIONES
     const [nombreError, setNombreError] = useState(false);
@@ -36,15 +36,14 @@ export const FormularioTrabajadorComponent = () => {
             !apellido_Pat ||
             !apellido_Mat ||
             !telefono ||
-            !direccion ||
-            !id_Herramienta
+            !direccion 
         ) {
             setCamposVaciosWarning(true);
             return;
         }
 
-        const herramienta = { id_Herramienta };
-        const trabajador = { nombre, apellido_Pat, apellido_Mat, telefono, direccion, herramienta };
+
+        const trabajador = { nombre, apellido_Pat, apellido_Mat, telefono, direccion };
         if (id_Trabajador) {
             TrabajadorService.update(id_Trabajador, trabajador).then(response => {
                 navigate('/trabajador');
@@ -252,22 +251,6 @@ export const FormularioTrabajadorComponent = () => {
                                             La direccion no debe de contener caracteres especiales.
                                         </div>
                                     )}
-                                </div>
-
-                                <div className='form-group mb-2'>
-                                    <label className='form-label'>Selecciona la herramienta</label>
-                                    <select
-                                        className="form-select"
-                                        value={id_Herramienta}
-                                        onChange={(e) => setId_Herramienta(e.target.value)}
-                                    >
-                                        <option value="">Seleccionar Herramienta</option>
-                                        {herramientas.map((herramienta) => (
-                                            <option key={herramienta.id_Herramienta} value={herramienta.id_Herramienta}>
-                                                {herramienta.modelo}
-                                            </option>
-                                        ))}
-                                    </select>
                                 </div>
 
                                 <button className='btn btn-success' onClick={(e) => saveTrabajador(e)}>Guardar</button>

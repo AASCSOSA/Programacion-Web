@@ -9,10 +9,23 @@ export default function RanchoApp() {
   const [selectedRancho, setSelectedRancho] = useState(null);
   const [showInsertAndConsult, setShowInsertAndConsult] = useState(true);
 
+  //FORMATO EN TABLA 
+  const capitalize = (str) => {
+    return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+};
+
+
   const listarCarga = () => {
     RanchoService.findAll()
       .then((response) => {
-        setRancho(response.data);
+        const formatoData = response.data.map(item => ({
+          ...item,
+          nombre_Rancho: capitalize(item.nombre_Rancho),
+          ubicacion_Rancho: capitalize(item.ubicacion_Rancho),
+          extension_Rancho: capitalize(item.extension_Rancho)
+      }));
+      setRancho(formatoData);
+      console.log(formatoData);
       })
       .catch((error) => {
         console.log(error);
@@ -24,13 +37,18 @@ export default function RanchoApp() {
   }, []);
 
   const deleteRancho = (id) => {
-    RanchoService.delete(id)
+    const confirmarDelete = window.confirm("¿Estás seguro de que deseas eliminar este registro?");
+    if (confirmarDelete) {
+      RanchoService.delete(id)
       .then((response) => {
         listarCarga();
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
+    }
+    
   };
 
   const handleRowClick = (id, nombreRancho) => {
