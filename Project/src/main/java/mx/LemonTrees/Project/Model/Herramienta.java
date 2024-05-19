@@ -20,8 +20,8 @@ public class Herramienta {
     @Column(nullable = false)
     private int Cantidad;
 
-    @Column(nullable = false, length = 10)
-    private String Color;
+//    @Column(nullable = false, length = 10)
+//    private String Color;
 
     @Column(nullable = false)
     private float Costo;
@@ -33,13 +33,13 @@ public class Herramienta {
 
     }
 
-    public Herramienta(String modelo, String marca, int cantidad, String color, float costo,
+    public Herramienta(String modelo, String marca, int cantidad, float costo,
             LocalDate fecha_Adquisicion) {
 
         Modelo = modelo;
         Marca = marca;
         Cantidad = cantidad;
-        Color = color;
+//        Color = color;
         Costo = costo;
         Fecha_Adquisicion = fecha_Adquisicion;
     }
@@ -76,13 +76,13 @@ public class Herramienta {
         Cantidad = cantidad;
     }
 
-    public String getColor() {
-        return Color;
-    }
-
-    public void setColor(String color) {
-        Color = color;
-    }
+//    public String getColor() {
+//        return Color;
+//    }
+//
+//    public void setColor(String color) {
+//        Color = color;
+//    }
 
     public float getCosto() {
         return Costo;
