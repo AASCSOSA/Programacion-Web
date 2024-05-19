@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CargaService from "../../Controllers/CargaService";
 import RanchoService from "../../Controllers/RanchoService";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import globals from "../Global"; 
 
 export const FormularioRanchoComponent = () => {
   const [fecha, setFecha] = useState("");
@@ -29,6 +30,7 @@ export const FormularioRanchoComponent = () => {
         console.log(error);
       });
   }, []);
+  console.log(globals.miVariableGlobal); 
 
   useEffect(() => {
     if (id) {
@@ -78,7 +80,7 @@ export const FormularioRanchoComponent = () => {
     if (id) {
       CargaService.update(id, carga)
         .then((response) => {
-          navigate("/cargaForMonth");
+          navigate(`${globals.miVariableGlobal}`);
         })
         .catch((error) => {
           console.error(error);
@@ -86,7 +88,7 @@ export const FormularioRanchoComponent = () => {
     } else {
       CargaService.create(carga)
         .then((response) => {
-          navigate("/cargaForMonth");
+          navigate(`${globals.miVariableGlobal}`);
         })
         .catch((error) => {
           console.error(error);
@@ -223,7 +225,7 @@ export const FormularioRanchoComponent = () => {
                   Guardar
                 </button>
                 &nbsp;&nbsp;
-                <Link to="/cargaForMonth" className="btn btn-danger">
+                <Link to= {`${globals.miVariableGlobal}`} className="btn btn-danger">
                   Cancelar
                 </Link>
               </form>

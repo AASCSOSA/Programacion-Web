@@ -31,6 +31,8 @@ body {
   background-size: cover;
   background-position: center;
   height: 90.9vh;
+  filter: brightness(85%); /* Reduce el brillo al 50% */
+
 }
 
 .QUitar{
@@ -103,7 +105,15 @@ p {
   font-size: 1.2rem;
   color: aliceblue;
 }
-
+h2{
+  text-align: center;
+  font-family: 'Poetsen One', sans-serif;
+  font-size: 1.8rem;
+  color: aliceblue;
+}
+.h2Abajo{
+  margin-top: 18rem;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -219,14 +229,14 @@ footer {
 }
 
 .sidebar.open .toggle-menu-btn {
-  left: 270px; /* Ajusta esto según el ancho de tu menú lateral */
+  left: 20px; /* Ajusta esto según el ancho de tu menú lateral */
 }
 
 
 /* Estilos básicos para la barra lateral */
 .sidebar {
   width: 250px;
-  height: 92%;
+  height: 100%;
   background-color: #434534;
   position: fixed;
   top: 0;
@@ -234,7 +244,6 @@ footer {
   transition: left 0.3s ease-in-out;
   overflow-y: auto;
   z-index: 1000;
-  margin-top: 5rem;
 }
 
 /* Estilo para cuando la barra lateral está abierta */
@@ -270,9 +279,7 @@ footer {
   margin-left: 0;
 }
 
-.sidebar.open ~ .main-content {
-  margin-left: 250px; /* Ajusta esto según el ancho de tu menú lateral */
-}
+
 
 button.btn-primary {
   margin: 10px;
@@ -421,7 +428,7 @@ button.btn-primary {
   .imagenLogo {
     width: 6.5%; /* Reducir el tamaño del logo aún más para pantallas muy pequeñas */
     margin-left: -2.3rem;
-    margin-top: -1.8rem;
+    margin-top: -7.1rem;
   }
 
   .carousel-container {
@@ -433,18 +440,27 @@ button.btn-primary {
   }
 
   .sidebar {
-    width: 250px; /* Mantener el ancho de la barra lateral para una experiencia consistente */
+    width: 220px; /* Mantener el ancho de la barra lateral para una experiencia consistente */
   }
 }
 @media (max-width: 1200px) {
+  h2{
+    text-align: center;
+    font-family: 'Poetsen One', sans-serif;
+    font-size:0.9rem;
+    color: aliceblue;
+  }
+  .h2Abajo{
+    margin-top: 10rem;
+  }
   .imagenLogo {
-    width: 23%; /* Reducir el tamaño del logo aún más para pantallas muy pequeñas */
-    margin-left: -2.3rem;
-    margin-top:-0.9rem;
+    width: 22.6%; /* Reducir el tamaño del logo aún más para pantallas muy pequeñas */
+    margin-left: -2.5rem;
+    margin-top:-6rem;
   }
 
   .carousel-container {
-    max-width: 750px; /* Ajustar el ancho máximo del carrusel para permitir desplazamiento horizontal */
+    max-width: 380px; /* Ajustar el ancho máximo del carrusel para permitir desplazamiento horizontal */
   }
 
   .toggle-menu-btn {

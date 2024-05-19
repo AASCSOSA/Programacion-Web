@@ -2,14 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import CargaService from "../Controllers/CargaService";
 import RanchoService from "../Controllers/RanchoService";
 import { Link } from "react-router-dom";
-import  globals from "../Views/Global"; 
+import globals from "../Views/Global"; 
+
 export default function CargaForMonth() {
   const [carga, setCarga] = useState([]);
   const [ranchos, setRanchos] = useState([]);
   const [selectedCarga, setSelectedCarga] = useState(null);
   const [showInsertAndConsult, setShowInsertAndConsult] = useState(true);
   const tableRef = useRef(null);
-console.log(globals.miVariableGlobal="Alain");
 
   const listarCarga = () => {
     CargaService.findVentaXMonth()
@@ -77,6 +77,12 @@ console.log(globals.miVariableGlobal="Alain");
     };
   }, []);
 
+  const handleInsertClick = () => {
+    // Guardar el nombre en la variable global
+    globals.miVariableGlobal = "/cargaForMonth";
+  };
+
+
   return (
     <div>
       <footer className="tittleFrm">Carga</footer>
@@ -131,11 +137,12 @@ console.log(globals.miVariableGlobal="Alain");
         <div className="buttonsInLine">
           {showInsertAndConsult && (
             <>
-              <Link to="/form-carga">
+              <Link to ="/form-carga" >
                 <button
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
+                  onClick={handleInsertClick} // Manejar el clic del botón de insertar
                 >
                   {" "}
                   <img

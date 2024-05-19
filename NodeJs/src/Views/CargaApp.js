@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import CargaService from "../Controllers/CargaService";
 import RanchoService from "../Controllers/RanchoService";
 import { Link } from "react-router-dom";
-
+import globals from "./Global";
 export default function CargaApp() {
   const [carga, setCarga] = useState([]);
   const [ranchos, setRanchos] = useState([]);
@@ -60,6 +60,9 @@ export default function CargaApp() {
     setSelectedCarga(id);
     setShowInsertAndConsult(false); // Hide the Insert and Consult buttons when a row is selected
   };
+  const clickMove=()=>{
+    globals.miVariableGlobal="/carga"
+  }
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -136,6 +139,7 @@ export default function CargaApp() {
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
+                  onClick={()=> clickMove()  }
                 >
                   {" "}
                   <img
