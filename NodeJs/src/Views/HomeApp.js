@@ -17,6 +17,7 @@ export default function HomeApp() {
     };
 
     return (
+        <div className='fondo1'>
         <div className="CentroC">
             <BarraNavegacionComponent />
             <div className="carousel-container">
@@ -41,6 +42,7 @@ export default function HomeApp() {
                     </div>
                 </Slider>
             </div>
+        </div>
         </div>
     );
 }

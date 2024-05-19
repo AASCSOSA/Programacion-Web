@@ -68,8 +68,9 @@ export default function CompradorApp() {
             : ""}
         </p>
         <div className="table-container" ref={tableRef}>
-          <table className="table" id="tableComprador">
-            <thead className="table-dark">
+        <div className="table-responsive">
+        <table className="table table-hover table-bordered">
+            <thead className="table-success">
               <tr>
                 <th>Id Comprador</th>
                 <th>Nombre del comprador</th>
@@ -102,6 +103,7 @@ export default function CompradorApp() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
         <div className="buttonsInLine">
           {!clickedInsideTable && (
