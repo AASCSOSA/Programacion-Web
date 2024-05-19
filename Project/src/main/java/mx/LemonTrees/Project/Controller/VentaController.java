@@ -129,5 +129,4 @@ public class VentaController {
     public ResponseEntity<Iterable<QueryMonthVenta>> findVentaXMonth() {
         return ResponseEntity.ok(ventaRepository.findVentaXMonth());
     }
-
 }

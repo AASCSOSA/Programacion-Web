@@ -1,0 +1,40 @@
+GET http://localhost:8080/reporte/listarVentas
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-19T143703.200.json
+
+###
+
+GET http://localhost:8080/venta/reportePeriodo
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-19T120147.400.json
+
+###
+
+GET http://localhost:8080/reportes/reportePeriodo
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-19T120040.404.json
+
+###
+
+GET http://localhost:8080/reportes/reportePeriodo
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-05-19T115844.404.json
+
+###
+

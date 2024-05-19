@@ -4,11 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f9e149a8-540a-47fb-8023-3798901e6920" name="Changes" comment="" />
+    <list default="true" id="eeaf9992-467d-4603-8361-438416cf699e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NodeJs/src/Controllers/ReporteService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NodeJs/src/Views/ReporteApp.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Controller/ReporteController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/QueryInterface/QueryReporteVentas.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Repository/ReporteVentasRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeJs/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeJs/src/reportWebVitals.js" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/reportWebVitals.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Controller/VentaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Controller/VentaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Model/Rancho.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Model/Rancho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Repository/VentaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Repository/VentaRepository.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -17,33 +42,49 @@
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 3
 }</component>
-  <component name="ProjectId" id="2fTVFIjadKHROzdffPvngyTiMYh" />
+  <component name="ProjectId" id="2gh3Va1bq6sxmITSU7kZwBRCY3z" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+    <option name="showVisibilityIcons" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.LemonTreesApplication.executor": "Run",
+    "HTTP Request.generated-requests | #1.executor": "Run",
+    "HTTP Request.generated-requests | #3.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.LemonTreesApplication.executor": "Run",
     "git-widget-placeholder": "Lorenzo",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/OFFLINE/GIT/Programacion-Web",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.LemonTreesApplication">
+    <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" requestIdentifier="#1" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #3" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="3" requestIdentifier="#3" runType="Run single request">
+      <method v="2" />
+    </configuration>
     <configuration name="LemonTreesApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="Project" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="mx.LemonTrees.Project.LemonTreesApplication" />
@@ -51,6 +92,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="HTTP Request.generated-requests | #3" />
+        <item itemvalue="HTTP Request.generated-requests | #1" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -63,37 +110,17 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f9e149a8-540a-47fb-8023-3798901e6920" name="Changes" comment="" />
-      <created>1713824951464</created>
+      <changelist id="eeaf9992-467d-4603-8361-438416cf699e" name="Changes" comment="" />
+      <created>1716136007534</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1713824951464</updated>
-      <workItem from="1713824952704" duration="1602000" />
-      <workItem from="1713884575800" duration="10789000" />
-      <workItem from="1713956399315" duration="8482000" />
-      <workItem from="1713965504100" duration="1973000" />
-      <workItem from="1713981122006" duration="3526000" />
-      <workItem from="1715116839109" duration="66000" />
-      <workItem from="1715116925330" duration="11000" />
-      <workItem from="1715116975839" duration="16000" />
-      <workItem from="1715117097895" duration="96000" />
-      <workItem from="1716134186983" duration="381000" />
-      <workItem from="1716134953389" duration="19000" />
+      <updated>1716136007534</updated>
+      <workItem from="1716136009788" duration="127000" />
+      <workItem from="1716136150740" duration="15493000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>

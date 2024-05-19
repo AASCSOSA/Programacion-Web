@@ -25,6 +25,8 @@ import FormularioVentaComponent from "./Views/Components/FormularioVentaComponen
 import FormularioFertilizanteComponent from "./Views/Components/FormularioFertilizanteComponent";
 import FormularioFertilizacionComponent from "./Views/Components/FormularioFertilizacionComponent";
 
+import ReporteApp from "./Views/ReporteApp";
+
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
