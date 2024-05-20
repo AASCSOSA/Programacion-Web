@@ -154,6 +154,8 @@ export const FormularioFertilizacionComponent = () => {
     }
   };
 
+  //LIMITE DE CARACTERES
+  const maxCantidad = 7;
 
   return (
     <div>
@@ -172,14 +174,17 @@ export const FormularioFertilizacionComponent = () => {
                 <div className="form-group mb-2">
                   <label className="form-label">Cantidad de aplicación</label>
                   <input
-                    type="number"
-                    step="0.0"
+                    type="text"
                     placeholder="Ingresa la cantidad aplicada"
                     name="cantidad"
                     className={`form-control ${cantidad_AplicacionError ? 'is-invalid' : ''}`}//RESALTAR EL CAMPO EN EL FORMULARIO CON BORDES ROJOS Y DESPLEGAR ADVERTENCIA
                     value={cantidad_Aplicacion}
-                    onChange={validarCantidad_Aplicacion}>
-                  </input>
+                    onChange={validarCantidad_Aplicacion}
+                    maxLength={maxCantidad}
+                    />
+                    <div className="form-text">
+                      {cantidad_Aplicacion.length}/{maxCantidad} caracteres ingresados
+                    </div>
                   {cantidad_AplicacionError && (
                     <div className="alert alert-warning" role="alert">
                       La cantidad solo debe contener números.

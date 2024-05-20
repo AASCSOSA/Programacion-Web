@@ -9,10 +9,21 @@ export default function FertilizanteApp() {
   const tableRef = useRef(null);
   const [selectdNameFertilizante, setSelectdNameFertilizante] = useState(null);
 
+  //FORMATO EN TABLA 
+  const capitalize = (str) => {
+    return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+  };
+
   const listarFertilizante = () => {
     FertilizanteService.findAll()
       .then((response) => {
-        setFertilizante(response.data);
+        const formatoData = response.data.map(item => ({
+          ...item,
+          domicilio_Distribuidora: capitalize(item.domicilio_Distribuidora),
+          marca: capitalize(item.marca)
+        }));
+        setFertilizante(formatoData);
+        console.log(formatoData);
       })
       .catch((error) => {
         console.log(error);
@@ -24,13 +35,17 @@ export default function FertilizanteApp() {
   }, []);
 
   const deleteFertilizante = (id) => {
-    FertilizanteService.delete(id)
-      .then((response) => {
-        listarFertilizante();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const confirmarDelete = window.confirm("¿Estás seguro de que deseas eliminar este registro?");
+    if (confirmarDelete) {
+      FertilizanteService.delete(id)
+        .then((response) => {
+          listarFertilizante();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
   };
 
   const handleRowClick = (id, name) => {
@@ -131,7 +146,7 @@ export default function FertilizanteApp() {
                   Insertar
                 </button>
               </Link>
-              
+
             </>
           )}
           {selectedFertilizante && (

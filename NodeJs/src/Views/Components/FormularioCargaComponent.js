@@ -270,7 +270,7 @@ export const FormularioRanchoComponent = () => {
                   <label className="form-label">Fecha</label>
                   <input
                     type="date"
-                    name="NombreRancho"
+                    name="fecha"
                     className="form-control"
                     value={fecha}
                     max={maxDate} // Establecer el atributo max
