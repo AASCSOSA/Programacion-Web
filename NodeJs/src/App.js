@@ -14,6 +14,7 @@ import VentaForMonth from "./Views/VentaForMonth";
 import CargaForMonth from "./Views/CargaForMonth";
 import FertilizacionForMonth from "./Views/FertilizacionForMonth";
 import Pago_TrabajadoForMonth from "./Views/Pago_TrabajadorForMonth";
+import ReporteApp from "./Views/ReporteApp";
 
 import FormularioRanchoComponent from "./Views/Components/FormularioRanchoComponent";
 import FormularioCargaComponent from "./Views/Components/FormularioCargaComponent";
@@ -25,7 +26,7 @@ import FormularioVentaComponent from "./Views/Components/FormularioVentaComponen
 import FormularioFertilizanteComponent from "./Views/Components/FormularioFertilizanteComponent";
 import FormularioFertilizacionComponent from "./Views/Components/FormularioFertilizacionComponent";
 
-import ReporteApp from "./Views/ReporteApp";
+
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -36,6 +37,7 @@ function App() {
         <HeadComponent />
         <Routes>
           <Route exact path="/" element={<HomeApp />} />
+          <Route path="/reporte" element={<ReporteApp/>}/>
           <Route path="/venta" element={<VentaApp />} />
           <Route path="/rancho" element={<RanchoApp />} />
           <Route path="/carga" element={<CargaApp />} />
@@ -47,6 +49,7 @@ function App() {
           <Route path="/fertilizacion" element={<FertilizacionApp />} />
           <Route path="/ventaForMonth" element={<VentaForMonth />} />
           <Route path="/cargaForMonth" element={<CargaForMonth />} />
+
           <Route
             path="/fertilizacionForMonth"
             element={<FertilizacionForMonth />}

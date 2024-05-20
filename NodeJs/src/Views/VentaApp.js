@@ -39,7 +39,7 @@ export default function VentaApp() {
     const obtenerNombresCompradores = async () => {
       try {
         const nombresCompradres = await Promise.all(
-          venta.map(async (venta) => {
+            venta.map(async(venta)=>{
             const response = await CompradorService.getNameComprador(
               venta.id_Venta
             );

@@ -5,21 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eeaf9992-467d-4603-8361-438416cf699e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NodeJs/src/Controllers/ReporteService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NodeJs/src/Views/ReporteApp.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Controller/ReporteController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/QueryInterface/QueryReporteVentas.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Repository/ReporteVentasRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Repository/ReporteFertilizantesRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Repository/ReportePagoTrabajadoresRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeJs/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NodeJs/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeJs/src/reportWebVitals.js" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/reportWebVitals.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Project/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Controller/VentaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Controller/VentaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Model/Rancho.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Model/Rancho.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Repository/VentaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Repository/VentaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeJs/src/Controllers/ReporteService.js" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/Controllers/ReporteService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeJs/src/Views/ReporteApp.js" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/Views/ReporteApp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeJs/src/Views/VentaApp.js" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/Views/VentaApp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeJs/src/Views/VentaForMonth.js" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/Views/VentaForMonth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeJs/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/NodeJs/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Controller/ReporteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Project/src/main/java/mx/LemonTrees/Project/Controller/ReporteController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,8 +27,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
-        <option value="Interface" />
         <option value="JavaScript File" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -56,7 +53,9 @@
   "keyToString": {
     "Application.LemonTreesApplication.executor": "Run",
     "HTTP Request.generated-requests | #1.executor": "Run",
+    "HTTP Request.generated-requests | #2.executor": "Run",
     "HTTP Request.generated-requests | #3.executor": "Run",
+    "HTTP Request.generated-requests | #4.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -75,6 +74,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -82,7 +82,13 @@
     <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" requestIdentifier="#1" runType="Run single request">
       <method v="2" />
     </configuration>
+    <configuration name="generated-requests | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="2" requestIdentifier="#2" runType="Run single request">
+      <method v="2" />
+    </configuration>
     <configuration name="generated-requests | #3" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="3" requestIdentifier="#3" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #4" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="4" requestIdentifier="#4" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="LemonTreesApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
@@ -95,7 +101,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="HTTP Request.generated-requests | #3" />
+        <item itemvalue="HTTP Request.generated-requests | #2" />
         <item itemvalue="HTTP Request.generated-requests | #1" />
+        <item itemvalue="HTTP Request.generated-requests | #4" />
       </list>
     </recent_temporary>
   </component>
@@ -116,11 +124,26 @@
       <option name="presentableId" value="Default" />
       <updated>1716136007534</updated>
       <workItem from="1716136009788" duration="127000" />
-      <workItem from="1716136150740" duration="15493000" />
+      <workItem from="1716136150740" duration="19139000" />
+      <workItem from="1716161735454" duration="1808000" />
+      <workItem from="1716163634836" duration="10986000" />
+      <workItem from="1716222018863" duration="351000" />
+      <workItem from="1716222497302" duration="7502000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

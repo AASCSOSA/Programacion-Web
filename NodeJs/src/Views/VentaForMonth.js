@@ -14,6 +14,7 @@ export default function VentaForMonth() {
   const [selectedVenta, setselectedVenta] = useState(null);
 
   const [ventaXmes, setVentaXmes] = useState([]);
+
   const listarVenta = () => {
     VentaService.findAll()
       .then((response) => {
