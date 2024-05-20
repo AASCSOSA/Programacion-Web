@@ -14,6 +14,9 @@ export default function VentaApp() {
   const [selectedVenta, setselectedVenta] = useState(null);
 
   const [ventaXmes, setVentaXmes] = useState([]);
+  const [costos, setCostos] = useState([]);
+
+
   const listarVenta = () => {
     VentaService.findAll()
       .then((response) => {
@@ -35,6 +38,13 @@ export default function VentaApp() {
       setVentaXmes(response.data);
     });
   };
+  useEffect(() => {
+    VentaService.mostar().then((response) => {
+      const venta = response.data;
+      console.log("Ventas por mes: ", venta);
+      setCostos(response.data);
+  });
+})
   useEffect(() => {
     const obtenerNombresCompradores = async () => {
       try {

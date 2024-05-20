@@ -29,5 +29,8 @@ class VentaService {
   findVentaXMonth(){
     return axios.get(URL_BASE + "/ventaxmes");
   }
+  mostar(){
+    return axios.get(URL_BASE+"/ventaTotales")
+  }
 }
 export default new VentaService();

@@ -4,6 +4,7 @@ import mx.LemonTrees.Project.Model.Carga;
 import mx.LemonTrees.Project.Model.Comprador;
 import mx.LemonTrees.Project.Model.Venta;
 import mx.LemonTrees.Project.QueryInterface.QueryMonthVenta;
+import mx.LemonTrees.Project.QueryInterface.vtm;
 import mx.LemonTrees.Project.QueryInterface.QueryMonthCarga;
 import mx.LemonTrees.Project.Repository.CargaRepository;
 import mx.LemonTrees.Project.Repository.CompradorRepository;
@@ -128,6 +129,10 @@ public class VentaController {
     @GetMapping("/ventaxmes")
     public ResponseEntity<Iterable<QueryMonthVenta>> findVentaXMonth() {
         return ResponseEntity.ok(ventaRepository.findVentaXMonth());
+    }
+    @GetMapping("/ventaTotales")
+    public ResponseEntity<Iterable<vtm>> mostar() {
+        return ResponseEntity.ok(ventaRepository.mostar());
     }
 
 }
