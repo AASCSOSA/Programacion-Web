@@ -166,6 +166,20 @@ export default function FertilizacionForMonth() {
                   Consultar
                 </button>
               </Link>
+              <Link to="/">
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  class="btnimagen"
+                >
+                  <img
+                    src="icons/Regresar.png"
+                    alt="Regresar"
+                    className="imgBuscar"
+                  ></img>
+                  Regresar
+                </button>
+              </Link>
             </>
           )}
           {selectedFertilizacion && (

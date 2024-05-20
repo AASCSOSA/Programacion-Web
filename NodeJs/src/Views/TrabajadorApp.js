@@ -154,6 +154,7 @@ export default function TrabajadorApp() {
             </div>
           )}
           {!selectedRow && (
+            <>
             <Link to="/form-trabajador">
               <button
                 type="button"
@@ -168,6 +169,21 @@ export default function TrabajadorApp() {
                 Insertar
               </button>
             </Link>
+              <Link to="/">
+              <button
+                type="button"
+                className="btn btn-success"
+                class="btnimagen"
+              >
+                <img
+                  src="icons/Regresar.png"
+                  alt="Regresar"
+                  className="imgBuscar"
+                ></img>
+                Regresar
+              </button>
+            </Link>
+            </>
           )}
         </div>
       </div>
