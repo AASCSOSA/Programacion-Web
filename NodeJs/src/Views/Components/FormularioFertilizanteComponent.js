@@ -29,6 +29,7 @@ export const FormularioFertilizanteComponent = () => {
   const month = String(today.getMonth() + 1).padStart(2, '0'); // Los meses son de 0 a 11, por eso se suma 1
   const day = String(today.getDate()).padStart(2, '0');
   const minDate = `${year}-${month}-${day}`;
+  const maxDate = `${year}-${month}-${day}`;
 
   const [camposVaciosWarning, setCamposVaciosWarning] = useState(false); //VALIDACION DE LLENADO DE CAMPOS
 
@@ -45,6 +46,7 @@ export const FormularioFertilizanteComponent = () => {
         setCostoTotal(fertilizante.costo_Total);
         setDomicilioDistribuidora(fertilizante.domicilio_Distribuidora);
         setfechaCaducidad(fertilizante.fecha_Caducidad);
+        setfechaAdquisicion(fertilizante.fecha_Adquisicion);
         setLote(fertilizante.lote);
         setMarca(fertilizante.marca);
         setCostoUnitario(fertilizante.costo_Unitario);
@@ -65,6 +67,7 @@ export const FormularioFertilizanteComponent = () => {
       !costo_Unitario ||
       !domicilio_Distribuidora ||
       !fecha_Caducidad ||
+      !fecha_Adquisicion ||
       !lote ||
       !marca ||
 
@@ -176,13 +179,23 @@ export const FormularioFertilizanteComponent = () => {
     }
   };
 
-  // VALIDAR FECHA
-  const validarFecha = (e) => {
+  // VALIDAR FECHA CADUCIDAD
+  const validarFechaC = (e) => {
     const selectedDate = e.target.value;
     if (selectedDate >= minDate) {
       setfechaCaducidad(selectedDate);
     } else {
       alert("No puedes seleccionar una fecha anterior a la actual");
+    }
+  };
+
+  //VALIDAR  FECHA ADQUISICION
+  const validarFechaA = (e) => {
+    const selectedDate = e.target.value;
+    if (selectedDate <= maxDate) {
+      setfechaAdquisicion(selectedDate);
+    } else {
+      alert("No puedes seleccionar una fecha superior a la actual");
     }
   };
 
@@ -337,7 +350,7 @@ export const FormularioFertilizanteComponent = () => {
                     className="form-control"
                     value={fecha_Caducidad}
                     min={minDate} // Establecer el atributo min
-                    onChange={validarFecha}
+                    onChange={validarFechaC}
                   />
                 </div>
 
@@ -345,12 +358,14 @@ export const FormularioFertilizanteComponent = () => {
                   <label className="form-label">Fecha Adquisicon</label>
                   <input
                     type="date"
-                    name="fechaCaducidad"
+                    name="fechaAdquisicion"
                     className="form-control"
                     value={fecha_Adquisicion}
-                    onChange={(e) => setfechaAdquisicion(e.target.value)}
-                  ></input>
+                    max={maxDate} // Establecer el atributo min
+                    onChange={validarFechaA}
+                  />
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Lote</label>
                   <input
