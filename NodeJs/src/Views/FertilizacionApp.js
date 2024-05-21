@@ -128,8 +128,8 @@ export default function FertilizacionApp() {
                     <td>{fertilizacionItem.id_Fertilizacion}</td>
                     <td>{fertilizacionItem.cantidad_Aplicacion}</td>
                     <td>{fertilizacionItem.fecha_Aplicacion}</td>
-                    <td>{fertilizacionItem.marca}</td>
-                    <td>{fertilizacionItem.nombre_Rancho}</td>
+                    <td>{nameMarca[index]}</td>
+                    <td>{nameRancho[index]}</td>
                   </tr>
                 ))}
               </tbody>

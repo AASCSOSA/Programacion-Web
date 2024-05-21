@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import TrabajadorService from '../../Controllers/TrabajadorService';
-import HerramientaService from '../../Controllers/HerramientaService';
 
 export const FormularioTrabajadorComponent = () => {
     const [nombre, setNombre] = useState('');
@@ -25,7 +24,18 @@ export const FormularioTrabajadorComponent = () => {
     const navigate = useNavigate();
     const { id_Trabajador } = useParams();
 
-    
+    useEffect(() => {
+        if (id_Trabajador) {
+            TrabajadorService.findById(id_Trabajador).then(response => {
+                const trabajador = response.data;
+                setNombre(trabajador.nombre);
+                setApellido_Pat(trabajador.apellido_Pat);
+                setApellido_Mat(trabajador.apellido_Mat);
+                setTelefono(trabajador.telefono);
+                setDireccion(trabajador.direccion);
+            })
+        }
+    }, [id_Trabajador]);
 
     const saveTrabajador = (e) => {
         e.preventDefault();
