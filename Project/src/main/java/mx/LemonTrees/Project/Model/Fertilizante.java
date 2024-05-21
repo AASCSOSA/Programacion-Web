@@ -40,18 +40,16 @@ public class Fertilizante {
 
     @Column(nullable = false)
     private LocalDate Fecha_Caducidad;
-    @Column(nullable = false)
-    private LocalDate Fecha_Adquisicion;
 
     @OneToMany(mappedBy = "fertilizante", cascade = CascadeType.ALL)
     private List<Fertilizacion> Fertilizacion;
 
     public Fertilizante() {
     }
+    
 
     public Fertilizante(String marca, String domicilio_Distribuidora, Float cantidad, String clasificacion,
-            Integer lote, Float costo_Total, Float costo_Unitario, LocalDate fecha_Caducidad,
-            LocalDate fecha_Adquisicion) {
+            Integer lote, Float costo_Total, Float costo_Unitario, LocalDate fecha_Caducidad) {
         Marca = marca;
         Domicilio_Distribuidora = domicilio_Distribuidora;
         Cantidad = cantidad;
@@ -60,8 +58,8 @@ public class Fertilizante {
         Costo_Total = costo_Total;
         Costo_Unitario = costo_Unitario;
         Fecha_Caducidad = fecha_Caducidad;
-        Fecha_Adquisicion = fecha_Adquisicion;
     }
+
 
     public Integer getId_Fertilizante() {
         return Id_Fertilizante;
@@ -135,14 +133,6 @@ public class Fertilizante {
         Fecha_Caducidad = fecha_Caducidad;
     }
 
-    public LocalDate getFecha_Adquisicion() {
-        return Fecha_Adquisicion;
-    }
-
-    public void setFecha_Adquisicion(LocalDate fecha_Adquisicion) {
-        Fecha_Adquisicion = fecha_Adquisicion;
-    }
-
     public List<Fertilizacion> getFertilizacion() {
         return Fertilizacion;
     }
@@ -150,7 +140,6 @@ public class Fertilizante {
     public void setFertilizacion(List<Fertilizacion> fertilizacion) {
         Fertilizacion = fertilizacion;
     }
-    
 
     
 }

@@ -8,41 +8,44 @@ import jakarta.persistence.*;
 @Entity
 public class Herramienta {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer Id_Herramienta;
 
-    @Column(nullable = false, length = 30)
+    @Column (nullable = false, length = 30)
     private String Modelo;
 
-    @Column(nullable = false, length = 30)
+    @Column (nullable = false, length = 30)
     private String Marca;
 
-    @Column(nullable = false)
+    @Column (nullable = false)
     private int Cantidad;
 
-//    @Column(nullable = false, length = 10)
-//    private String Color;
+    @Column (nullable = false, length = 10)
+    private String Color;
 
-    @Column(nullable = false)
+    @Column (nullable = false)
     private float Costo;
 
-    @Column(nullable = false)
+    @Column (nullable = false)
     private LocalDate Fecha_Adquisicion;
+
+    @OneToMany(mappedBy = "herramienta", cascade = CascadeType.ALL)
+    private List<Trabajador> trabajador;
 
     public Herramienta() {
 
     }
 
-    public Herramienta(String modelo, String marca, int cantidad, float costo,
-            LocalDate fecha_Adquisicion) {
+    public Herramienta(String modelo, String marca, int cantidad, String color, float costo, LocalDate fecha_Adquisicion) {
 
         Modelo = modelo;
         Marca = marca;
         Cantidad = cantidad;
-//        Color = color;
+        Color = color;
         Costo = costo;
         Fecha_Adquisicion = fecha_Adquisicion;
     }
+
 
     public Integer getId_Herramienta() {
         return Id_Herramienta;
@@ -76,13 +79,13 @@ public class Herramienta {
         Cantidad = cantidad;
     }
 
-//    public String getColor() {
-//        return Color;
-//    }
-//
-//    public void setColor(String color) {
-//        Color = color;
-//    }
+    public String getColor() {
+        return Color;
+    }
+
+    public void setColor(String color) {
+        Color = color;
+    }
 
     public float getCosto() {
         return Costo;
@@ -100,5 +103,11 @@ public class Herramienta {
         Fecha_Adquisicion = fecha_Adquisicion;
     }
 
+    public List<Trabajador> getTrabajador() {
+        return trabajador;
+    }
 
+    public void setTrabajador(List<Trabajador> trabajador) {
+        this.trabajador = trabajador;
+    }
 }

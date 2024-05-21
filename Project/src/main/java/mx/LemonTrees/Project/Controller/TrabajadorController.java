@@ -27,14 +27,15 @@ public class TrabajadorController {
     @Autowired
     Pago_TrabajadorRepository pago_trabajadorRepository;
 
-    // BUSCAR TODOS
+
+    //BUSCAR TODOS
     @GetMapping()
     @CrossOrigin
     public ResponseEntity<Iterable<Trabajador>> findAll() {
         return ResponseEntity.ok(trabajadorRepository.findAll());
     }
 
-    // BUSCAR ID
+    //BUSCAR ID
     @GetMapping("/{Id_Trabajador}")
     public ResponseEntity<Trabajador> findById(@PathVariable Integer Id_Trabajador) {
         Optional<Trabajador> trabajadorOptional = trabajadorRepository.findById(Id_Trabajador);
@@ -44,10 +45,14 @@ public class TrabajadorController {
             return ResponseEntity.ok(trabajadorOptional.get());
         }
     }
-
-    // CREAR
+    //CREAR
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody Trabajador newTrabajador, UriComponentsBuilder ucb) {
+        Optional<Herramienta> herramientaOptional = herramientaRepository.findById(newTrabajador.getHerramienta().getId_Herramienta());
+        if (!herramientaOptional.isPresent()){
+            return ResponseEntity.unprocessableEntity().build();
+        }
+        newTrabajador.setHerramienta(herramientaOptional.get());
         Trabajador savedTrabajador = trabajadorRepository.save(newTrabajador);
         URI uri = ucb
                 .path("trabajador/{Id_Trabajador}")
@@ -56,7 +61,7 @@ public class TrabajadorController {
         return ResponseEntity.created(uri).build();
     }
 
-    // UPDATE
+    //UPDATE
     @PutMapping("/{Id_Trabajador}")
     public ResponseEntity<Void> update(@PathVariable Integer Id_Trabajador, @RequestBody Trabajador trabajadorAct) {
         Trabajador trabajadorAnt = trabajadorRepository.findById(Id_Trabajador).get();
@@ -67,8 +72,7 @@ public class TrabajadorController {
         }
         return ResponseEntity.notFound().build();
     }
-
-    // ELIMINAR
+    //ELIMINAR
     @DeleteMapping("/{Id_Trabajador}")
     public ResponseEntity<Void> delete(@PathVariable Integer Id_Trabajador) {
         if (trabajadorRepository.findById(Id_Trabajador).get() != null) {
@@ -78,4 +82,13 @@ public class TrabajadorController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/herramienta/{Id_Trabajador}")
+    public ResponseEntity<Herramienta> findByIdHerramienta(@PathVariable Integer Id_Trabajador) {
+        Optional<Trabajador> trabajadorOptional = trabajadorRepository.findById(Id_Trabajador);
+        if (!trabajadorOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        Herramienta herramienta = trabajadorOptional.get().getHerramienta();
+        return ResponseEntity.ok(herramienta);
+    }
 }
