@@ -5,16 +5,28 @@ import HerramientaService from "../Controllers/HerramientaService";
 
 export default function TrabajadorApp() {
   const [trabajador, setTrabajador] = useState([]);
-  const [herramientas, setHerramientas] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
   const [showButtons, setShowButtons] = useState(false);
   const tableRef = useRef(null);
   const [selectedTrabajador, setSelectedTrabajador] = useState(null);
 
+  //FORMATO PARA TABLA
+  const capitalize = (str) => {
+    return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+  };
+
   const listarTrabajador = () => {
     TrabajadorService.findAll()
       .then((response) => {
-        setTrabajador(response.data);
+        const formatoData = response.data.map(item => ({
+          ...item,
+          nombre: capitalize(item.nombre),
+          apellido_Pat: capitalize(item.apellido_Pat),
+          apellido_Mat: capitalize(item.apellido_Mat),
+          direccion: capitalize(item.direccion)
+        }));
+        setTrabajador(formatoData);
+        console.log(formatoData);
       })
       .catch((error) => {
         console.log(error);
@@ -25,36 +37,18 @@ export default function TrabajadorApp() {
     listarTrabajador();
   }, []);
 
-  useEffect(() => {
-    const obtenerModelosHerramientas = async () => {
-      try {
-        const modelosHerramientas = await Promise.all(
-          trabajador.map(async (trabajador) => {
-            const response = await HerramientaService.getModeloHerramienta(
-              trabajador.id_Trabajador
-            );
-            return response.data;
-          })
-        );
-        setHerramientas(modelosHerramientas);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    if (trabajador.length > 0) {
-      obtenerModelosHerramientas();
-    }
-  }, [trabajador]);
-
   const deleteTrabajador = (id_Trabajador) => {
-    TrabajadorService.delete(id_Trabajador)
-      .then((response) => {
-        listarTrabajador();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const confirmarDelete = window.confirm("¿Estás seguro de que deseas eliminar este registro?");
+    if (confirmarDelete) {
+      TrabajadorService.delete(id_Trabajador)
+        .then((response) => {
+          listarTrabajador();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
   };
 
   const handleRowClick = (id_Trabajador, nombreTrabajador) => {
@@ -86,7 +80,7 @@ export default function TrabajadorApp() {
         <p>
           {selectedTrabajador
             ? `Nombre del trabajador seleccionado: ${selectedTrabajador}`
-            : "No se esta seleccionando un trabajador"}
+            : ""}
         </p>
         <div className="table-container" ref={tableRef}>
           <div className="table-responsive">
@@ -99,7 +93,6 @@ export default function TrabajadorApp() {
                   <th>Apellido Materno</th>
                   <th>Teléfono</th>
                   <th>Dirección</th>
-                  <th>Modelo de la herramienta</th>
                 </tr>
               </thead>
               <tbody>
@@ -122,7 +115,6 @@ export default function TrabajadorApp() {
                     <td>{trabajador.apellido_Mat}</td>
                     <td>{trabajador.telefono}</td>
                     <td>{trabajador.direccion}</td>
-                    <td>{herramientas[index]}</td>
                   </tr>
                 ))}
               </tbody>
@@ -162,6 +154,7 @@ export default function TrabajadorApp() {
             </div>
           )}
           {!selectedRow && (
+            <>
             <Link to="/form-trabajador">
               <button
                 type="button"
@@ -176,6 +169,21 @@ export default function TrabajadorApp() {
                 Insertar
               </button>
             </Link>
+              <Link to="/">
+              <button
+                type="button"
+                className="btn btn-success"
+                class="btnimagen"
+              >
+                <img
+                  src="icons/Regresar.png"
+                  alt="Regresar"
+                  className="imgBuscar"
+                ></img>
+                Regresar
+              </button>
+            </Link>
+            </>
           )}
         </div>
       </div>

@@ -11,29 +11,44 @@ export default function HerramientaApp() {
   const [showEditAndDelete, setShowEditAndDelete] = useState(false);
   const [selectedNameHerramienta, setSelectedNameHerramienta] = useState(null);
 
+   //FORMATO PARA TABLA
+  const capitalize = (str) => {
+    return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+};
+
+
   const listarHerramienta = () => {
     HerramientaService.findAll()
       .then((response) => {
-        setHerramienta(response.data);
+        const formatoData = response.data.map(item => ({
+          ...item,
+          modelo: capitalize(item.modelo),
+      }));
+        setHerramienta(formatoData);
         console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
   useEffect(() => {
     listarHerramienta();
   }, []);
 
   const deleteHerramienta = (id_Herramienta) => {
-    HerramientaService.delete(id_Herramienta)
-      .then((response) => {
-        listarHerramienta();
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const confirmarDelete = window.confirm("¿Estás seguro de que deseas eliminar este registro?");
+        if (confirmarDelete) {
+          HerramientaService.delete(id_Herramienta)
+          .then((response) => {
+            listarHerramienta();
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        }
+   
   };
 
   const handleRowClick = (id_Herramienta, name) => {
@@ -69,7 +84,7 @@ export default function HerramientaApp() {
         <p>
           {selectedNameHerramienta
             ? `Herramienta seleccionada: ${selectedNameHerramienta}`
-            : "No se está seleccionando una herramienta"}
+            : ""}
         </p>
         <div className="table-container" ref={tableRef}>
           <div className="table-responsive">
@@ -80,7 +95,7 @@ export default function HerramientaApp() {
                   <th>Modelo</th>
                   <th>Marca</th>
                   <th>Cantidad</th>
-                  <th>Color</th>
+                  {/* <th>Color</th> */}
                   <th>Costo</th>
                   <th>Fecha de Adquisición</th>
                 </tr>
@@ -106,7 +121,7 @@ export default function HerramientaApp() {
                     <td>{herramienta.modelo}</td>
                     <td>{herramienta.marca}</td>
                     <td>{herramienta.cantidad}</td>
-                    <td>{herramienta.color}</td>
+                    {/* <td>{herramienta.color}</td> */}
                     <td>{herramienta.costo}</td>
                     <td>{herramienta.fecha_Adquisicion}</td>
                   </tr>
@@ -132,18 +147,18 @@ export default function HerramientaApp() {
                   Insertar
                 </button>
               </Link>
-              <Link to="/form-herramienta">
+              <Link to="/">
                 <button
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
                 >
                   <img
-                    src="icons/Buscar.png"
-                    alt="Buscar herramienta"
+                    src="icons/Regresar.png"
+                    alt="Regresar"
                     className="imgBuscar"
                   ></img>
-                  Consultar
+                  Regresar
                 </button>
               </Link>
             </>

@@ -94,7 +94,7 @@ export default function FertilizacionApp() {
         <p>
           {selectedNameFertilizacion
             ? `Fertilización del rancho: ${selectedNameFertilizacion}`
-            : "No se esta seleccionando una fertilización"}
+            : ""}
         </p>
         <div className="table-container" ref={tableRef}>
           <div className="table-responsive">
@@ -128,8 +128,8 @@ export default function FertilizacionApp() {
                     <td>{fertilizacionItem.id_Fertilizacion}</td>
                     <td>{fertilizacionItem.cantidad_Aplicacion}</td>
                     <td>{fertilizacionItem.fecha_Aplicacion}</td>
+                    <td>{fertilizacionItem.marca}</td>
                     <td>{fertilizacionItem.nombre_Rancho}</td>
-                    <td>{nameRancho[index]}</td>
                   </tr>
                 ))}
               </tbody>
@@ -154,18 +154,18 @@ export default function FertilizacionApp() {
                   Insertar
                 </button>
               </Link>
-              <Link to="/form-fertilizacion">
+              <Link to="/fertilizacionForMonth">
                 <button
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
                 >
                   <img
-                    src="icons/Buscar.png"
-                    alt="Buscar fertilizacion"
+                    src="icons/Regresar.png"
+                    alt="Regresar fertilizacion"
                     className="imgBuscar"
                   ></img>
-                  Consultar
+                  Regresar
                 </button>
               </Link>
             </>

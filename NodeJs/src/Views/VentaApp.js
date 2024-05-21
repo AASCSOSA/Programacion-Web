@@ -14,6 +14,9 @@ export default function VentaApp() {
   const [selectedVenta, setselectedVenta] = useState(null);
 
   const [ventaXmes, setVentaXmes] = useState([]);
+  const [costos, setCostos] = useState([]);
+
+
   const listarVenta = () => {
     VentaService.findAll()
       .then((response) => {
@@ -28,13 +31,20 @@ export default function VentaApp() {
     listarVenta();
     mesxprmex();
   }, []);
-  const mesxprmex=() => {
+  const mesxprmex = () => {
     VentaService.findVentaXMonth().then((response) => {
       const venta = response.data;
       console.log("Ventas por mes: ", venta);
       setVentaXmes(response.data);
     });
   };
+  useEffect(() => {
+    VentaService.mostar().then((response) => {
+      const venta = response.data;
+      console.log("Ventas por mes: ", venta);
+      setCostos(response.data);
+  });
+})
   useEffect(() => {
     const obtenerNombresCompradores = async () => {
       try {
@@ -102,11 +112,7 @@ export default function VentaApp() {
     <div>
       <footer className="tittleFrm">Venta</footer>
       <div className="container">
-        <p>
-          {selectedVenta
-            ? `Numero de venta: ${selectedVenta}`
-            : "No se está seleccionando una venta"}
-        </p>
+        <p>{selectedVenta ? `Numero de venta: ${selectedVenta}` : ""}</p>
         <div className="table-container" ref={tableRef}>
           <div className="table-responsive">
             <table className="table table-hover table-bordered">
@@ -166,18 +172,18 @@ export default function VentaApp() {
                   Insertar
                 </button>
               </Link>
-              <Link to="/form-venta">
+              <Link to="/ventaForMonth">
                 <button
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
                 >
                   <img
-                    src="icons/Buscar.png"
-                    alt="Buscar venta"
+                    src="icons/Regresar.png"
+                    alt="Regresar carga"
                     className="imgBuscar"
                   ></img>
-                  Consultar
+                  Regresar
                 </button>
               </Link>
             </div>
