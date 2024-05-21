@@ -92,7 +92,7 @@ export default function FertilizacionForMonth() {
         <p>
           {selectedNameFertilizacion
             ? `Fertilización del rancho: ${selectedNameFertilizacion}`
-            : ""}
+            : "No se esta seleccionando una fertilización"}
         </p>
         <div className="table-container" ref={tableRef}>
           <div className="table-responsive">
@@ -164,20 +164,6 @@ export default function FertilizacionForMonth() {
                     className="imgBuscar"
                   ></img>
                   Consultar
-                </button>
-              </Link>
-              <Link to="/">
-                <button
-                  type="button"
-                  className="btn btn-success"
-                  class="btnimagen"
-                >
-                  <img
-                    src="icons/Regresar.png"
-                    alt="Regresar"
-                    className="imgBuscar"
-                  ></img>
-                  Regresar
                 </button>
               </Link>
             </>

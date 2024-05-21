@@ -8,16 +8,14 @@ export const FormularioCompradorComponent = () => {
   const [apellido_Mat, setApellido_Mat] = useState("");
   const [telefono, setTelefono] = useState("");
   const [nombre_Empresa, setNombreEmpresa] = useState("");
-
-
+  
+  
   //Validaciones
   const [emptyFieldsWarning, setEmptyFieldsWarning] = useState(false); //Validar que se llenen todos los datos
   const [telefonoError, setTelefonoError] = useState(false);
   const [nombreError, setNombreError] = useState(false);
   const [apellidoPatError, setApellidoPatError] = useState(false);
   const [apellidoMatError, setApellidoMatError] = useState(false);
-  const [nombre_EmpresaError, setNombreEmpresaError] = useState(false);
-
 
 
   const navigate = useNavigate();
@@ -35,7 +33,7 @@ export const FormularioCompradorComponent = () => {
       .catch((e) => {
         console.log(e);
       });
-  }, [id]);
+  }, []);
   const saveComprador = (e) => {
     e.preventDefault();
 
@@ -85,74 +83,45 @@ export const FormularioCompradorComponent = () => {
     }
   };
 
-  //VALIDAR NOMBRE
-  const validarNombre = (e) => {
-    const valor = e.target.value.toUpperCase();
-    const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]*$/; //LETRAS, ACENTOS Y Ñ
-    if (regex.test(valor)) {
-      setNombre(valor);
+  const handleNombreChange = (e) => {
+    const inputValue = e.target.value;
+    if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+      setNombre(inputValue);
       setNombreError(false);
     } else {
       setNombreError(true);
     }
   };
 
-
-  //VALIDAR APELLIDO PAT
-  const validarApellido_Pat = (e) => {
-    const valor = e.target.value.toUpperCase();
-    const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]*$/; //LETRAS, ACENTOS Y Ñ
-    if (regex.test(valor)) {
-      setApellido_Pat(valor);
+  const handleApellidoPatChange = (e) => {
+    const inputValue = e.target.value;
+    if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+      setApellido_Pat(inputValue);
       setApellidoPatError(false);
     } else {
       setApellidoPatError(true);
     }
   };
 
-  //VALIDAR APAELLIDO MAT
-  const validarApellido_Mat = (e) => {
-    const valor = e.target.value.toUpperCase();
-    const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]*$/; //LETRAS, ACENTOS Y Ñ
-    if (regex.test(valor)) {
-      setApellido_Mat(valor);
+  const handleApellidoMatChange = (e) => {
+    const inputValue = e.target.value;
+    if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+      setApellido_Mat(inputValue);
       setApellidoMatError(false);
     } else {
       setApellidoMatError(true);
     }
   };
 
-  //VALIDAR TELEFONO
-  const validarTelefono = (e) => {
-    const valor = e.target.value;
-    const regex = /^[0-9]*$/; //NUMEROS 
-    if (regex.test(valor)) {
-      setTelefono(valor);
+  const handleTelefonoChange = (e) => {
+    const inputValue = e.target.value;
+    if (/^\d*$/.test(inputValue)) {
+      setTelefono(inputValue);
       setTelefonoError(false);
     } else {
       setTelefonoError(true);
     }
   };
-
-  //VALIDAR NOMBRE EMPRESA
-  const validarNombreEmpresa = (e) => {
-    const valor = e.target.value.toUpperCase();
-    const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ0-9.,\s]*$/; //LETRAS,NUMEROS, ACENTOS, Ñ, PUNTOS Y COMAS
-    if (regex.test(valor)) {
-      setNombreEmpresa(valor);
-      setNombreEmpresaError(false);
-    } else {
-      setNombreEmpresaError(true);
-    }
-  };
-
-  //LIMITE DE CARACTERES
-  const maxNombre = 30;
-  const maxApellidoP = 20;
-  const maxApellidoM = 20;
-  const maxTelefono = 10;
-  const maxNEmpresa = 20;
-
   return (
     <div>
       <div className="container" id="formComprador">
@@ -173,21 +142,16 @@ export const FormularioCompradorComponent = () => {
                     type="text"
                     placeholder="Ingrese el nombre del Comprador"
                     name="nombre"
-                    className={`form-control ${nombreError ? 'is-invalid' : ''}`}//RESALTAR EL CAMPO EN EL FORMULARIO CON BORDES ROJOS Y DESPLEGAR ADVERTENCIA
+                    className={`form-control ${nombreError ? 'is-invalid' : ''}`}
                     value={nombre}
-                    onChange={validarNombre}
-                    maxLength={maxNombre}
-                  />
-                  <div className="form-text">
-                    {nombre.length}/{maxNombre} caracteres ingresados
-                  </div>
+                    onChange={handleNombreChange}>
+                  </input>
                   {nombreError && (
                     <div className="alert alert-warning" role="alert">
                       El nombre no debe contener números.
                     </div>
                   )}
                 </div>
-
                 <div className="form-group mb-2">
                   <label className="form-label">Apellido Paterno</label>
                   <input
@@ -196,19 +160,14 @@ export const FormularioCompradorComponent = () => {
                     name="apellidoPaterno"
                     className={`form-control ${apellidoPatError ? 'is-invalid' : ''}`}
                     value={apellido_Pat}
-                    onChange={validarApellido_Pat}
-                    maxLength={maxApellidoP}
-                  />
-                  <div className="form-text">
-                    {apellido_Pat.length}/{maxApellidoP} caracteres ingresados
-                  </div>
+                    onChange={handleApellidoPatChange}>
+                  </input>
                   {apellidoPatError && (
                     <div className="alert alert-warning" role="alert">
                       El apellido paterno no debe contener números.
                     </div>
                   )}
                 </div>
-
                 <div className="form-group mb-2">
                   <label className="form-label">Apellido Materno</label>
                   <input
@@ -217,12 +176,8 @@ export const FormularioCompradorComponent = () => {
                     name="apellidoMaterno"
                     className={`form-control ${apellidoMatError ? 'is-invalid' : ''}`}
                     value={apellido_Mat}
-                    onChange={validarApellido_Mat}
-                    maxLength={maxApellidoM}
-                  />
-                  <div className="form-text">
-                    {apellido_Mat.length}/{maxApellidoM} caracteres ingresados
-                  </div>
+                    onChange={handleApellidoMatChange}>
+                  </input>
                   {apellidoMatError && (
                     <div className="alert alert-warning" role="alert">
                       El apellido materno no debe contener números.
@@ -237,40 +192,25 @@ export const FormularioCompradorComponent = () => {
                     name="telefono"
                     className={`form-control ${telefonoError ? 'is-invalid' : ''}`}
                     value={telefono}
-                    onChange={validarTelefono}
-                    maxLength={maxTelefono}
-                  />
-                  <div className="form-text">
-                    {telefono.length}/{maxTelefono} caracteres ingresados
-                  </div>
+                    onChange={handleTelefonoChange}>
+                  </input>
                   {telefonoError && (
                     <div className="alert alert-warning" role="alert">
                       El teléfono solo debe contener números.
                     </div>
                   )}
                 </div>
-
                 <div className="form-group mb-2">
                   <label className="form-label">Nombre de la empresa</label>
                   <input
                     type="text"
                     placeholder="Ingresa el nombre de la empresa"
                     name="nombreEmpresa"
-                    className={`form-control ${nombre_EmpresaError ? 'is-invalid' : ''}`}
+                    className="form-control"
                     value={nombre_Empresa}
-                    onChange={validarNombreEmpresa}
-                    maxLength={maxNEmpresa}
-                  />
-                  <div className="form-text">
-                    {nombre_Empresa.length}/{maxNEmpresa} caracteres ingresados
-                  </div>
-                  {nombre_EmpresaError && (
-                    <div className="alert alert-warning" role="alert">
-                      El nombre de la empresa no debe de contener caracteres especiales.
-                    </div>
-                  )}
+                    onChange={(e) => setNombreEmpresa(e.target.value)}
+                  ></input>
                 </div>
-
                 <button
                   className="btn btn-success"
                   onClick={(e) => saveComprador(e)}

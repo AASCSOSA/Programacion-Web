@@ -9,21 +9,10 @@ export default function FertilizanteApp() {
   const tableRef = useRef(null);
   const [selectdNameFertilizante, setSelectdNameFertilizante] = useState(null);
 
-  //FORMATO EN TABLA 
-  const capitalize = (str) => {
-    return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
-  };
-
   const listarFertilizante = () => {
     FertilizanteService.findAll()
       .then((response) => {
-        const formatoData = response.data.map(item => ({
-          ...item,
-          domicilio_Distribuidora: capitalize(item.domicilio_Distribuidora),
-          marca: capitalize(item.marca)
-        }));
-        setFertilizante(formatoData);
-        console.log(formatoData);
+        setFertilizante(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -35,17 +24,13 @@ export default function FertilizanteApp() {
   }, []);
 
   const deleteFertilizante = (id) => {
-    const confirmarDelete = window.confirm("¿Estás seguro de que deseas eliminar este registro?");
-    if (confirmarDelete) {
-      FertilizanteService.delete(id)
-        .then((response) => {
-          listarFertilizante();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-
+    FertilizanteService.delete(id)
+      .then((response) => {
+        listarFertilizante();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleRowClick = (id, name) => {
@@ -77,7 +62,7 @@ export default function FertilizanteApp() {
         <p>
           {selectdNameFertilizante
             ? `Nombre del Fertilizante: ${selectdNameFertilizante}`
-            : ""}
+            : "No se esta seleccionando un Fertilizante"}
         </p>
         <div className="table-container" ref={tableRef}>
           <div className="table-responsive">
@@ -91,7 +76,6 @@ export default function FertilizanteApp() {
                   <th>Costo unitario</th>
                   <th>Domicilio distribuidora</th>
                   <th>Fecha de caducidad</th>
-                  <th>Fecha de adquisicion</th>
                   <th>Lote</th>
                   <th>Marca</th>
                 </tr>
@@ -119,7 +103,6 @@ export default function FertilizanteApp() {
                     <td>{fertilizante.costo_Unitario}</td>
                     <td>{fertilizante.domicilio_Distribuidora}</td>
                     <td>{fertilizante.fecha_Caducidad}</td>
-                    <td>{fertilizante.fecha_Adquisicion}</td>
                     <td>{fertilizante.lote}</td>
                     <td>{fertilizante.marca}</td>
                   </tr>
@@ -146,18 +129,18 @@ export default function FertilizanteApp() {
                   Insertar
                 </button>
               </Link>
-              <Link to="/">
+              <Link to="/form-fertilizante">
                 <button
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
                 >
                   <img
-                    src="icons/Regresar.png"
-                    alt="Regresar"
+                    src="icons/Buscar.png"
+                    alt="Buscar fertilizante"
                     className="imgBuscar"
                   ></img>
-                  Regresar
+                  Consultar
                 </button>
               </Link>
             </>

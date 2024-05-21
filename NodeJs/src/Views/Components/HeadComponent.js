@@ -6,11 +6,13 @@ export default function HeadComponent() {
             <div>
                 <footer>
                     <div>
-                        <Link to="/" class="QUitar"><h1 id="title-footer" alt="Logotipo">Lemon Tree´s</h1></Link>
+                        <h1 id="title-footer" alt="Logotipo">Lemon Tree´s</h1>
                     </div>
                 </footer>
             </div>
-            
+            <Link to='/'>
+                <img src='../Img/Logo.jpeg' id="imgLogoHome" alt="Mapache y limones"></img>
+            </Link>
         </div>
     )
 }

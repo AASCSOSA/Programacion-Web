@@ -1,9 +1,3 @@
-body {
-  background-image: url(".././public/Img/BANNER_Tablas.png ");
-  font-family: 'Lobster';
-    background-repeat: no-repeat;
-
-}
 @font-face {
   font-family: 'Dancing Script';
   src: url('./Fonts/DancingScript-VariableFont_wght.ttf') format('truetype');
@@ -28,24 +22,7 @@ body {
   font-family: 'Bricolage';
   src: url('../src/Fonts/BricolageGrotesque-VariableFont_opsz\,wdth\,wght.ttf') format('truetype');
 }
-.fondo1{
-  background-image: url(".././public/Img/BANNER5.png ");
-  background-size: cover;
-  background-position: center;
-  height: 90.9vh;
-  filter: brightness(85%); /* Reduce el brillo al 50% */
-  background-repeat: no-repeat;
-}
 
-.QUitar{
-  text-decoration: none;
-  text-align: center;
-  font-size: 3rem;
-  font-family: 'Poetsen One', sans-serif;
-  margin-top: 1rem;
-  height: 4rem;
-  color: white;
-}
 .btnimagen {
   background: none;
   border: none;
@@ -53,68 +30,46 @@ body {
   cursor: pointer;
   width: 80px;
   height: 80px;
-  color: aliceblue;
 }
-
-.butonsEditandDelete {
+.butonsEditandDelete{
   margin-top: -0.2rem;
   display: inline-block;
-  color: aliceblue;
 }
-
-.buttonsInLine {
+.buttonsInLine{
   display: flex;
   margin-left: -1.6em;
   margin-top: 1rem;
-  color: aliceblue;
 }
-
-.imgEliminar {
+.imgEliminar{
   width: 85%;
   height: 78%;
   object-fit: cover;
-  color: aliceblue;
+
   /* Para ajustar la imagen al tamaño del botón */
 }
 
-.imgEditar {
+.imgEditar{
   width: 70%;
   height: 75%;
   object-fit: cover;
   /* Para ajustar la imagen al tamaño del botón */
-  color: aliceblue;
 }
-
 .imgInsert {
   width: 70%;
   height: 70%;
   object-fit: cover;
   /* Para ajustar la imagen al tamaño del botón */
-  color: aliceblue;
 }
-
 .imgBuscar {
   width: 80%;
   height: 72%;
   object-fit: cover;
   /* Para ajustar la imagen al tamaño del botón */
-  color: aliceblue;
 }
-
-p {
+p{
   text-align: left;
   font-family: 'Poetsen One';
   font-size: 1.2rem;
-  color: aliceblue;
-}
-h2{
-  text-align: center;
-  font-family: 'Poetsen One', sans-serif;
-  font-size: 1.8rem;
-  color: black;
-}
-.h2Abajo{
-  margin-top: 18rem;
 }
 body {
   margin: 0;
@@ -127,6 +82,13 @@ body {
   box-sizing: border-box;
 }
 
+#imgLogoHome {
+  border-radius: 80%;
+  width: 5%;
+  display: block;
+  margin-top: -5.4rem;
+  margin-right: auto;
+}
 
 .tittleFrm {
   font-size: 1.5rem;
@@ -137,7 +99,7 @@ body {
 }
 
 footer {
-  background-color: #434534;
+  background-color: #3b3b3b;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -154,350 +116,65 @@ footer {
   margin-top: 1rem;
   height: 4rem;
 }
-/* Estilos base comunes para todos los tamaños de pantalla */
-.imagenLogo {
-  border-radius: 80%;
-  width:10%; /* Tamaño predeterminado */
-  display: block;
-  margin-left: -1.3rem;
-  margin-top: -1.4rem;
-}
-
-.carousel-container {
-  position: relative;
-  max-width: 900px; /* Ancho máximo del contenedor */
-  margin: 0 auto; /* Centra el contenedor horizontalmente */
-  padding: 20px; /* Añade relleno al contenedor si es necesario */
-}
-
-.carousel-item {
-  position: relative;
-}
-
-.carousel-image {
-  width: 100%; /* Asegúrate de que la imagen ocupe todo el ancho del contenedor */
-  height: auto; /* Mantiene la proporción de la imagen */
-}
-
-.NameButtons {
-  position: absolute;
-  top: 50%; /* Ajusta según donde quieras colocar el texto */
-  left: 50%;
-  transform: translate(-50%, -50%); /* Centra el texto horizontal y verticalmente */
-  color: white; /* Color del texto */
-  font-size: 4rem; /* Tamaño del texto */
-  padding: 10px; /* Espaciado alrededor del texto */
-  border-radius: 5px; /* Bordes redondeados */
-  text-align: center;
-}
-
-/* Estilo para el botón de alternar menú */
-.toggle-menu-btn {
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 1100;
-  transition: background-color 0.3s ease, left 0.3s ease;
-}
-
-.sidebar {
-  width: 250px;
-  height: 100%;
-  background-color: #434534;
-  position: fixed;
-  top: 0;
-  left: -250px; /* Inicialmente oculto a la izquierda */
-  transition: left 0.3s ease-in-out;
-  overflow-y: auto;
-  z-index: 1000;
-}
-/* Estilo para el botón de alternar menú */
-.toggle-menu-btn {
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 1100;
-  transition: background-color 0.3s ease, left 0.3s ease;
-}
-
-.sidebar.open .toggle-menu-btn {
-  left: 20px; /* Ajusta esto según el ancho de tu menú lateral */
-}
 
 
-/* Estilos básicos para la barra lateral */
-.sidebar {
-  width: 250px;
-  height: 100%;
-  background-color: #434534;
-  position: fixed;
-  top: 0;
-  left: -250px; /* Inicialmente oculto a la izquierda */
-  transition: left 0.3s ease-in-out;
-  overflow-y: auto;
-  z-index: 1000;
-}
+@media (min-width: 1200px) {
 
-/* Estilo para cuando la barra lateral está abierta */
-.sidebar.open {
-  left: 0;
-}
-
-/* Estilo para los elementos de la lista del menú */
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar ul li {
-  padding: 15px 20px;
-  border-bottom: 1px solid #5a5e4a;
-}
-
-.sidebar ul li a {
-  text-decoration: none;
-  color: white;
-  font-family: 'Poetsen One', sans-serif;
-  font-size: 18px;
-  display: block;
-}
-
-.sidebar ul li a:hover {
-  background-color: #5a5e4a;
-}
-.main-content {
-  transition: margin-left 0.3s ease-in-out;
-  margin-left: 0;
-}
-
-
-
-button.btn-primary {
-  margin: 10px;
-  width: 9rem;
-  height: 7rem;
-  font-size: 1.3rem;
-  text-align: center;
-  color: black;
-  background-color: #70be4a;
-  margin-top: 4rem;
-  font-family: 'Bricolage';
-}
-
-#buttonsHome {
-  width: 70%;
-  margin-left: 27%;
-}
-
-.table-container {
-  margin-top: 1rem;
-  max-height: 25rem;
-  /* Altura máxima del contenedor de la tabla */
-  overflow-y: auto;
-  /* Añade scroll vertical cuando el contenido excede la altura máxima */
-  border-collapse: collapse;
-
-}
-
-.carousel-container {
-  max-width: 800px; /* Ancho máximo del contenedor */
-  margin: 0 auto; /* Centra el contenedor horizontalmente */
-  padding: 20px; /* Añade relleno al contenedor si es necesario */
-  position: relative;
-}
-
-
-.carousel-image-container {
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-
-}
-
-.carousel-image {
-  max-width: 100%; /* Establece el ancho máximo de la imagen al 100% del contenedor */
-  height: auto; /* Permite que la altura se ajuste automáticamente para mantener la proporción */
-  border-radius: 20px;
-  filter: brightness(50%); /* Reduce el brillo al 50% */
-}
-
-.carousel-image:hover {
-  cursor: pointer; /* Cambia el cursor cuando se pasa sobre la imagen */
-}
-
-
-/* Media Queries para tamaños de pantalla específicos */
-
-@media (max-width: 800px) {
-  .imagenLogo {
-    width: 14%; /* Reducir el tamaño del logo para pantallas más pequeñas */
-    margin-left: -2rem;
-    margin-top: -1.5rem;
-  }
-
-  .toggle-menu-btn {
-    left: 20px; /* Ajustar la posición del botón del menú para pantallas más pequeñas */
-  }
-}
-
-@media (max-width: 400px) {
-  .imagenLogo {
-    width: 22.2%; /* Reducir el tamaño del logo aún más para pantallas muy pequeñas */
-    margin-left: -2.3rem;
-  }
-
-  .carousel-container {
-    max-width: 7000px; /* Ajustar el ancho máximo del carrusel para permitir desplazamiento horizontal */
-  }
-
-  .toggle-menu-btn {
-    left: 20px; /* Ajustar la posición del botón del menú para pantallas muy pequeñas */
-  }
-
-  .sidebar {
-    width: 250px; /* Mantener el ancho de la barra lateral para una experiencia consistente */
-  }
-}
-@media (max-width: 2000px){
-  .imagenLogo {
-    width:9%; /* Reducir el tamaño del logo aún más para pantallas muy pequeñas */
-    margin-left: -2.3rem;
-  }
-
-  .carousel-container {
-    max-width: 750px; /* Ajustar el ancho máximo del carrusel para permitir desplazamiento horizontal */
-  }
-
-  .toggle-menu-btn {
-    left: 20px; /* Ajustar la posición del botón del menú para pantallas muy pequeñas */
-  }
-
-  .sidebar {
-    width: 250px; /* Mantener el ancho de la barra lateral para una experiencia consistente */
-  }
-}
-@media (max-width: 1024px) {
-  .imagenLogo {
-    width: 11%; /* Reducir el tamaño del logo aún más para pantallas muy pequeñas */
-    margin-left: -2.3rem;
-  }
-
-  .carousel-container {
-    max-width: 750px; /* Ajustar el ancho máximo del carrusel para permitir desplazamiento horizontal */
-  }
-
-  .toggle-menu-btn {
-    left: 20px; /* Ajustar la posición del botón del menú para pantallas muy pequeñas */
-  }
-
-  .sidebar {
-    width: 250px; /* Mantener el ancho de la barra lateral para una experiencia consistente */
-  }
-}
-
-@media (max-width: 1084px) {
-  .imagenLogo {
-    width: 20%; /* Reducir el tamaño del logo aún más para pantallas muy pequeñas */
-    margin-left: -2.3rem;
-    margin-top: 0px;
-  }
-
-  .carousel-container {
-    max-width: 500px; /* Ajustar el ancho máximo del carrusel para permitir desplazamiento horizontal */
-  }
-
-  .toggle-menu-btn {
-    left: 20px; /* Ajustar la posición del botón del menú para pantallas muy pequeñas */
-  }
-
-  .sidebar {
-    width: 250px; /* Mantener el ancho de la barra lateral para una experiencia consistente */
-  }
-}
-@media (min-width: 1900px) and (max-height:1000px){
-
-  .imagenLogo {
-    width: 6.5%; /* Reducir el tamaño del logo aún más para pantallas muy pequeñas */
-    margin-left: -2.3rem;
-    margin-top: -7.1rem;
-  }
-
-  .carousel-container {
-    max-width: 800px; /* Ajustar el ancho máximo del carrusel para permitir desplazamiento horizontal */
-  }
-
-  .toggle-menu-btn {
-    left: 20px; /* Ajustar la posición del botón del menú para pantallas muy pequeñas */
-  }
-
-  .sidebar {
-    width: 220px; /* Mantener el ancho de la barra lateral para una experiencia consistente */
-  }
-}
-@media (max-width: 1200px) {
-  h2{
+  button.btn-primary {
+    margin: 10px;
+    width: 9rem;
+    height: 7rem;
+    font-size: 1.3rem;
     text-align: center;
-    font-family: 'Poetsen One', sans-serif;
-    font-size:0.9rem;
     color: black;
-  }
-  .h2Abajo{
-    margin-top: 10rem;
-  }
-  .imagenLogo {
-    width: 22.6%; /* Reducir el tamaño del logo aún más para pantallas muy pequeñas */
-    margin-left: -2.5rem;
-    margin-top:-6rem;
+    background-color: #70be4a;
+    margin-top: 4rem;
+    font-family: 'Bricolage';
   }
 
-  .carousel-container {
-    max-width: 380px; /* Ajustar el ancho máximo del carrusel para permitir desplazamiento horizontal */
+  #buttonsHome {
+    width: 70%;
+    margin-left: 20%;
   }
 
-  .toggle-menu-btn {
-    left: 20px; /* Ajustar la posición del botón del menú para pantallas muy pequeñas */
-  }
+  .table-container {
+    margin-top: 1rem;
+    max-height: 20rem;
+    /* Altura máxima del contenedor de la tabla */
+    overflow-y: auto;
+    width: 75rem;
+    /* Añade scroll vertical cuando el contenido excede la altura máxima */
+    border-collapse: collapse;
 
-  .sidebar {
-    width: 250px; /* Mantener el ancho de la barra lateral para una experiencia consistente */
   }
 }
-@media (max-width: 1366px) {
-  h2{
+
+@media (min-width: 1400px) {
+  button.btn-primary {
+    margin: 10px;
+    width: 9rem;
+    height: 7rem;
+    font-size: 1.3rem;
     text-align: center;
-    font-family: 'Poetsen One', sans-serif;
-    font-size:0.9rem;
     color: black;
-  }
-  .h2Abajo{
-    margin-top: 10rem;
-  }
-  .imagenLogo {
-    width: 8%; /* Reducir el tamaño del logo aún más para pantallas muy pequeñas */
-    margin-left: -2.5rem;
-    margin-top:-6.5rem;
+    background-color: #70be4a;
+    margin-top: 4rem;
+    font-family: 'Bricolage';
   }
 
-  .carousel-container {
-    max-width: 380px; /* Ajustar el ancho máximo del carrusel para permitir desplazamiento horizontal */
+  #buttonsHome {
+    width: 70%;
+    margin-left: 27%;
   }
 
-  .toggle-menu-btn {
-    left: 20px; /* Ajustar la posición del botón del menú para pantallas muy pequeñas */
-  }
+  .table-container {
+    margin-top: 1rem;
+    max-height: 25rem;
+    /* Altura máxima del contenedor de la tabla */
+    overflow-y: auto;
+    width: 90rem;
+    /* Añade scroll vertical cuando el contenido excede la altura máxima */
+    border-collapse: collapse;
 
-  .sidebar {
-    width: 250px; /* Mantener el ancho de la barra lateral para una experiencia consistente */
   }
 }
