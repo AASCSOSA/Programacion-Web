@@ -46,6 +46,9 @@ export default function CargaForMonth() {
   }, [carga]);
 
   const deleteCarga = (id) => {
+    const confirmarDelete = window.confirm("¿Estás seguro de que deseas eliminar este registro?");
+    console.log(confirmarDelete);
+    if(confirmarDelete){
     CargaService.delete(id)
       .then((response) => {
         listarCarga();
@@ -55,6 +58,7 @@ export default function CargaForMonth() {
       .catch((error) => {
         console.log(error);
       });
+    }
   };
 
   const handleRowClick = (id) => {
@@ -190,6 +194,7 @@ export default function CargaForMonth() {
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
+                  onClick={handleInsertClick} // Manejar el clic del botón de insertar
                 >
                   <img
                     src="icons/Actualizar.png"

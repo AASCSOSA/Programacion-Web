@@ -9,6 +9,7 @@ import mx.LemonTrees.Project.Repository.CargaRepository;
 import mx.LemonTrees.Project.Repository.CompradorRepository;
 import mx.LemonTrees.Project.Repository.VentaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -129,5 +131,4 @@ public class VentaController {
     public ResponseEntity<Iterable<QueryMonthVenta>> findVentaXMonth() {
         return ResponseEntity.ok(ventaRepository.findVentaXMonth());
     }
-
 }

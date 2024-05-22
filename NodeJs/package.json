@@ -10,6 +10,7 @@
     "bootstrap": "^5.3.3",
     "browserify-zlib": "^0.2.0",
     "express": "4.19.2",
+    "pdfkit": "^0.15.0",
     "react": "^18.3.1",
     "react-awesome-slider": "^4.1.0",
     "react-dom": "^18.3.1",
@@ -19,6 +20,7 @@
     "react-slick": "^0.30.2",
     "react-transition-group": "^4.4.5",
     "slick-carousel": "^1.8.1",
+    "sweetalert2": "^11.11.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

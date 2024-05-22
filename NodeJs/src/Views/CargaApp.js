@@ -174,6 +174,7 @@ export default function CargaApp() {
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
+                  onClick={()=> clickMove()  }
                 >
                   <img
                     src="icons/Actualizar.png"
