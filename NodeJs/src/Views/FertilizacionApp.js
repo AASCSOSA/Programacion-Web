@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import FertilizacionService from "../Controllers/FertilizacionService";
 import { Link } from "react-router-dom";
+import globals from "../Views/Global"; 
 
 export default function FertilizacionApp() {
   const [fertilizacion, setFertilizacion] = useState([]);
@@ -23,7 +24,9 @@ export default function FertilizacionApp() {
     };
     fetchData();
   }, []);
-
+  const clickMove=()=>{
+    globals.miVariableGlobal="/fertilizacion"
+  }
   useEffect(() => {
     const obtenerDetallesFertilizantes = async () => {
       try {
@@ -86,7 +89,10 @@ export default function FertilizacionApp() {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
-
+  const handleInsertClick = () => {
+    // Guardar el nombre en la variable global
+    globals.miVariableGlobal = "/cargaForMonth";
+  };
   return (
     <div>
       <footer className="tittleFrm">Fertilizacion</footer>
@@ -144,6 +150,8 @@ export default function FertilizacionApp() {
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
+                  onClick={()=> clickMove()  }
+
                 >
                   {" "}
                   <img
@@ -177,6 +185,8 @@ export default function FertilizacionApp() {
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
+                  onClick={()=> clickMove()  }
+
                 >
                   <img
                     src="icons/Actualizar.png"

@@ -3,6 +3,7 @@ import VentaService from "../../src/Controllers/VentaService";
 import CargaService from "../Controllers/CargaService";
 import CompradorService from "../Controllers/CompradorService";
 import { Link } from "react-router-dom";
+import globals from "../Views/Global"; 
 
 export default function VentaForMonth() {
   const [venta, setVenta] = useState([]);
@@ -14,7 +15,6 @@ export default function VentaForMonth() {
   const [selectedVenta, setselectedVenta] = useState(null);
 
   const [ventaXmes, setVentaXmes] = useState([]);
-
   const listarVenta = () => {
     VentaService.findAll()
       .then((response) => {
@@ -97,6 +97,10 @@ export default function VentaForMonth() {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+  const handleInsertClick = () => {
+    // Guardar el nombre en la variable global
+    globals.miVariableGlobal = "/ventaForMonth";
+  };
 
   return (
     <div>
@@ -156,6 +160,8 @@ export default function VentaForMonth() {
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
+                  onClick={handleInsertClick} // Manejar el clic del botón de insertar
+
                 >
                   {" "}
                   <img
@@ -180,6 +186,20 @@ export default function VentaForMonth() {
                   Consultar
                 </button>
               </Link>
+              <Link to="/">
+              <button
+                type="button"
+                className="btn btn-success"
+                class="btnimagen"
+              >
+                <img
+                  src="icons/Regresar.png"
+                  alt="Regresar"
+                  className="imgBuscar"
+                ></img>
+                Regresar
+              </button>
+            </Link>
             </div>
           )}
           {selectedRow && showButtons && (
@@ -189,6 +209,8 @@ export default function VentaForMonth() {
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
+                  onClick={handleInsertClick} // Manejar el clic del botón de insertar
+
                 >
                   <img
                     src="icons/Actualizar.png"

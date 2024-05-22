@@ -1,6 +1,8 @@
 body {
   background-image: url(".././public/Img/BANNER_Tablas.png ");
   font-family: 'Lobster';
+    background-repeat: no-repeat;
+
 }
 @font-face {
   font-family: 'Dancing Script';
@@ -32,7 +34,7 @@ body {
   background-position: center;
   height: 90.9vh;
   filter: brightness(85%); /* Reduce el brillo al 50% */
-
+  background-repeat: no-repeat;
 }
 
 .QUitar{
@@ -109,7 +111,7 @@ h2{
   text-align: center;
   font-family: 'Poetsen One', sans-serif;
   font-size: 1.8rem;
-  color: black;
+  color: aliceblue;
 }
 .h2Abajo{
   margin-top: 18rem;
@@ -457,6 +459,34 @@ button.btn-primary {
     width: 22.6%; /* Reducir el tamaño del logo aún más para pantallas muy pequeñas */
     margin-left: -2.5rem;
     margin-top:-6rem;
+  }
+
+  .carousel-container {
+    max-width: 380px; /* Ajustar el ancho máximo del carrusel para permitir desplazamiento horizontal */
+  }
+
+  .toggle-menu-btn {
+    left: 20px; /* Ajustar la posición del botón del menú para pantallas muy pequeñas */
+  }
+
+  .sidebar {
+    width: 250px; /* Mantener el ancho de la barra lateral para una experiencia consistente */
+  }
+}
+@media (max-width: 1366px) {
+  h2{
+    text-align: center;
+    font-family: 'Poetsen One', sans-serif;
+    font-size:0.9rem;
+    color: aliceblue;
+  }
+  .h2Abajo{
+    margin-top: 10rem;
+  }
+  .imagenLogo {
+    width: 8%; /* Reducir el tamaño del logo aún más para pantallas muy pequeñas */
+    margin-left: -2.5rem;
+    margin-top:-6.5rem;
   }
 
   .carousel-container {
