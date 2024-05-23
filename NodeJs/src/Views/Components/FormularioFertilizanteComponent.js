@@ -41,15 +41,16 @@ export const FormularioFertilizanteComponent = () => {
     FertilizanteService.findById(id_Fertilizante)
       .then((response) => {
         const fertilizante = response.data;
-        setCantidad(fertilizante.cantidad);
+        setCantidad(String(fertilizante.cantidad));
         setClasificacion(fertilizante.clasificacion);
-        setCostoTotal(fertilizante.costo_Total);
+        setCostoTotal(String(fertilizante.costo_Total));
+        setCostoUnitario(String(fertilizante.costo_Unitario));
         setDomicilioDistribuidora(fertilizante.domicilio_Distribuidora);
         setfechaCaducidad(fertilizante.fecha_Caducidad);
         setfechaAdquisicion(fertilizante.fecha_Adquisicion);
-        setLote(fertilizante.lote);
+        setLote(String(fertilizante.lote));
         setMarca(fertilizante.marca);
-        setCostoUnitario(fertilizante.costo_Unitario);
+
       })
       .catch((error) => {
         console.log(error);
@@ -252,10 +253,10 @@ export const FormularioFertilizanteComponent = () => {
                     value={cantidad}
                     onChange={validarCantidad}
                     maxLength={maxCantidad}
-                    />
-                    <div className="form-text">
-                        {cantidad.length}/{maxCantidad} caracteres ingresados
-                    </div>
+                  />
+                  <div className="form-text">
+                    {cantidad.length}/{maxCantidad} caracteres ingresados
+                  </div>
                   {cantidadError && (
                     <div className="alert alert-warning" role="alert">
                       La cantidad solo debe contener numeros.
@@ -289,13 +290,14 @@ export const FormularioFertilizanteComponent = () => {
                     value={costo_Total}
                     onChange={validarCostoTotal}
                     maxLength={maxCTotal}
-                    />
-                    <div className="form-text">
-                        {costo_Total.length}/{maxCTotal} caracteres ingresados
-                    </div>
+                  />
+                  <div className="form-text">
+                    {costo_Total.length}/{maxCTotal} caracteres ingresados
+                  </div>
                   {costo_TotalError && (
                     <div className="alert alert-warning" role="alert">
-                      El costo total solo debe contener números.
+                      -El costo solo debe contener números. <br></br>
+                      -Después de un punto solo puede ingresar dos digitos
                     </div>
                   )}
                 </div>
@@ -310,13 +312,14 @@ export const FormularioFertilizanteComponent = () => {
                     value={costo_Unitario}
                     onChange={validarCostoUnitario}
                     maxLength={maxCUnitario}
-                    />
-                    <div className="form-text">
-                        {costo_Unitario.length}/{maxCUnitario} caracteres ingresados
-                    </div>
+                  />
+                  <div className="form-text">
+                    {costo_Unitario.length}/{maxCUnitario} caracteres ingresados
+                  </div>
                   {costo_UnitarioError && (
                     <div className="alert alert-warning" role="alert">
-                      El costo unitario solo debe contener números.
+                      -El costo solo debe contener números. <br></br>
+                      -Después de un punto solo puede ingresar dos digitos
                     </div>
                   )}
                 </div>
@@ -331,13 +334,13 @@ export const FormularioFertilizanteComponent = () => {
                     value={domicilio_Distribuidora}
                     onChange={validarDomicilio}
                     maxLength={maxDomicilio}
-                    />
-                    <div className="form-text">
-                        {domicilio_Distribuidora.length}/{maxDomicilio} caracteres ingresados
-                    </div>
+                  />
+                  <div className="form-text">
+                    {domicilio_Distribuidora.length}/{maxDomicilio} caracteres ingresados
+                  </div>
                   {domicilio_DistribuidoraError && (
                     <div className="alert alert-warning" role="alert">
-                      El costo unitario solo debe contener números.
+                      El domicilio no debe contener caracteres especiales.
                     </div>
                   )}
                 </div>
@@ -376,10 +379,10 @@ export const FormularioFertilizanteComponent = () => {
                     value={lote}
                     onChange={validarLote}
                     maxLength={maxLote}
-                    />
-                    <div className="form-text">
-                        {lote.length}/{maxLote} caracteres ingresados
-                    </div>
+                  />
+                  <div className="form-text">
+                    {lote.length}/{maxLote} caracteres ingresados
+                  </div>
                   {loteError && (
                     <div className="alert alert-warning" role="alert">
                       El lote solo debe contener números.
@@ -397,10 +400,10 @@ export const FormularioFertilizanteComponent = () => {
                     value={marca}
                     onChange={validarMarca}
                     maxLength={maxMarca}
-                    />
-                    <div className="form-text">
-                        {marca.length}/{maxMarca} caracteres ingresados
-                    </div>
+                  />
+                  <div className="form-text">
+                    {marca.length}/{maxMarca} caracteres ingresados
+                  </div>
                   {marcaError && (
                     <div className="alert alert-warning" role="alert">
                       La marca no debe de contener caracteres especiales.

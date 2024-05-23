@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Pago_TrabajadorService from "../Controllers/Pago_TrabajadorService";
+import Swal from 'sweetalert2';
+
 
 export default function Pago_TrabajadorApp() {
   const [pago_Trabajador, setPago_Trabajador] = useState([]);
@@ -49,13 +51,33 @@ export default function Pago_TrabajadorApp() {
   }, [pago_Trabajador]);
 
   const deletePago_Trabajador = (id_Pago_Trabajador) => {
-    Pago_TrabajadorService.delete(id_Pago_Trabajador)
-      .then((response) => {
-        listarPago();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    Swal.fire({
+      title: '¿Estás seguro de que deseas eliminar este registro?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Pago_TrabajadorService.delete(id_Pago_Trabajador)
+          .then((response) => {
+            listarPago();
+            Swal.fire(
+              'Eliminado!',
+              'El registro ha sido eliminado.',
+              'success'
+            );
+          })
+          .catch((error) => {
+            console.log(error);
+            Swal.fire(
+              'Error!',
+              'Hubo un problema al eliminar el registro.',
+              'error'
+            );
+          });
+      }
+    });
   };
 
   const handleRowClick = (id_Pago_Trabajador, nombre) => {

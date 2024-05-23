@@ -42,7 +42,7 @@ export const FormularioPago_TrabajadorComponent = () => {
         if (id_Pago_Trabajador) {
             Pago_TrabajadorService.findById(id_Pago_Trabajador).then(response => {
                 const pago_Trabajador = response.data;
-                setMonto(pago_Trabajador.monto);
+                setMonto(String(pago_Trabajador.monto));
                 setfecha_Pago(pago_Trabajador.fecha_Pago);
 
                 Pago_TrabajadorService.findByIdTrabajador(id_Pago_Trabajador)

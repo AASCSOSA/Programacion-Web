@@ -21,11 +21,21 @@ export const FormularioTrabajadorComponent = () => {
 
     const [camposVaciosWarning, setCamposVaciosWarning] = useState(false); //VALIDAR EL LLENADO DE DATOS
 
-
     const navigate = useNavigate();
     const { id_Trabajador } = useParams();
 
-    
+    useEffect(() => {
+        TrabajadorService.findById(id_Trabajador).then(response => {
+            const trabajador = response.data;
+            setNombre(trabajador.nombre);
+            setApellido_Pat(trabajador.apellido_Pat);
+            setApellido_Mat(trabajador.apellido_Mat);
+            setTelefono(String(trabajador.telefono));
+            setDireccion(trabajador.direccion)
+        }).catch(e => {
+            console.log(e);
+        })
+    }, [id_Trabajador]);
 
     const saveTrabajador = (e) => {
         e.preventDefault();

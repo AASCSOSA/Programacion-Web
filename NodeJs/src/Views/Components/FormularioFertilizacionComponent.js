@@ -48,7 +48,7 @@ export const FormularioFertilizacionComponent = () => {
     FertilizacionService.findById(id_Fertilizacion)
       .then((response) => {
         const fertilizacion = response.data;
-        setCantidadAplicacion(fertilizacion.cantidad_Aplicacion);
+        setCantidadAplicacion(String(fertilizacion.cantidad_Aplicacion));
         setFechaAplicacion(fertilizacion.fecha_Aplicacion);
 
         // Obtener todos los fertilizantes
@@ -187,7 +187,8 @@ export const FormularioFertilizacionComponent = () => {
                     </div>
                   {cantidad_AplicacionError && (
                     <div className="alert alert-warning" role="alert">
-                      La cantidad solo debe contener números.
+                      -La cantidad solo debe contener números. <br></br>
+                      -Después de un punto solo puede ingresar dos digitos
                     </div>
                   )}
                 </div>

@@ -56,13 +56,13 @@ export const FormularioRanchoComponent = () => {
         .then((response) => {
           const carga = response.data;
           setFecha(carga.fecha);
-          setRejasVerde(carga.rejas_LimonVerde);
-          setRejasSegunda(carga.rejas_LimonSegunda);
-          setRejasTercera(carga.rejas_LimonTercera);
-          setPesoTLimonVerde(carga.total_PesoLimonVerde);
-          setPesoTLimonSegunda(carga.total_PesoLimonSegunda);
-          setPesoTLimonTercera(carga.total_PesoLimonTercera);
-          setTrabajadores(carga.total_Trabajadores);
+          setRejasVerde(String(carga.rejas_LimonVerde));
+          setRejasSegunda(String(carga.rejas_LimonSegunda));
+          setRejasTercera(String(carga.rejas_LimonTercera));
+          setPesoTLimonVerde(String(carga.total_PesoLimonVerde));
+          setPesoTLimonSegunda(String(carga.total_PesoLimonSegunda));
+          setPesoTLimonTercera(String(carga.total_PesoLimonTercera));
+          setTrabajadores(String(carga.total_Trabajadores));
           // Buscar el ID del rancho asociado a esta carga
           CargaService.findByIdRancho(id)
             .then((response2) => {
@@ -357,7 +357,8 @@ export const FormularioRanchoComponent = () => {
                     </div>
                   {total_PesoLimonVerdeError && (
                     <div className="alert alert-warning" role="alert">
-                      El total del peso solo debe contener números.
+                      -El peso solo debe contener números. <br></br>
+                      -Después de un punto solo puede ingresar dos digitos
                     </div>
                   )}
                 </div>
@@ -378,7 +379,8 @@ export const FormularioRanchoComponent = () => {
                     </div>
                   {total_PesoLimonSegundaError && (
                     <div className="alert alert-warning" role="alert">
-                      El total del peso solo debe contener números.
+                      -El peso solo debe contener números. <br></br>
+                      -Después de un punto solo puede ingresar dos digitos
                     </div>
                   )}
                 </div>
@@ -399,7 +401,8 @@ export const FormularioRanchoComponent = () => {
                     </div>
                   {total_PesoLimonTerceraError && (
                     <div className="alert alert-warning" role="alert">
-                      El total del peso solo debe contener números.
+                      -El peso solo debe contener números. <br></br>
+                      -Después de un punto solo puede ingresar dos digitos
                     </div>
                   )}
                 </div>

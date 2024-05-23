@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import RanchoService from "../Controllers/RanchoService";
 import { Link } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 export default function RanchoApp() {
   const [rancho, setRancho] = useState([]);
@@ -37,19 +38,36 @@ export default function RanchoApp() {
   }, []);
 
   const deleteRancho = (id) => {
-    const confirmarDelete = window.confirm("¿Estás seguro de que deseas eliminar este registro?");
-    if (confirmarDelete) {
-      RanchoService.delete(id)
-      .then((response) => {
-        listarCarga();
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    }
-    
+    Swal.fire({
+      title: '¿Estás seguro de que deseas eliminar este registro?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        RanchoService.delete(id)
+        .then((response) => {
+          listarCarga();
+          console.log(response.data);
+          Swal.fire(
+            'Eliminado!',
+            'El registro ha sido eliminado.',
+            'success'
+          );
+        })
+        .catch((error) => {
+          console.log(error);
+          Swal.fire(
+            'Error!',
+            'Hubo un problema al eliminar el registro.',
+            'error'
+          );
+        });
+      }
+    });
   };
+  
 
   const handleRowClick = (id, nombreRancho) => {
     setSelectedRow(id);

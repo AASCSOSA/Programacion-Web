@@ -3,6 +3,7 @@ import VentaService from "../../src/Controllers/VentaService";
 import CargaService from "../Controllers/CargaService";
 import CompradorService from "../Controllers/CompradorService";
 import { Link } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 export default function VentaForMonth() {
   const [venta, setVenta] = useState([]);
@@ -12,8 +13,8 @@ export default function VentaForMonth() {
   const tableRef = useRef(null);
   const [showButtons, setShowButtons] = useState(false);
   const [selectedVenta, setselectedVenta] = useState(null);
-
   const [ventaXmes, setVentaXmes] = useState([]);
+
   const listarVenta = () => {
     VentaService.findAll()
       .then((response) => {
@@ -70,14 +71,35 @@ export default function VentaForMonth() {
   }, [venta]);
 
   const deleteVenta = (id) => {
-    VentaService.delete(id)
-      .then((response) => {
-        mesxprmex();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    Swal.fire({
+      title: '¿Estás seguro de que deseas eliminar este registro?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        VentaService.delete(id)
+          .then((response) => {
+            listarVenta();
+            Swal.fire(
+              'Eliminado!',
+              'El registro ha sido eliminado.',
+              'success'
+            );
+          })
+          .catch((error) => {
+            console.log(error);
+            Swal.fire(
+              'Error!',
+              'Hubo un problema al eliminar el registro.',
+              'error'
+            );
+          });
+      }
+    });
   };
+
   const handleRowClick = (id) => {
     setselectedVenta(id);
   };
