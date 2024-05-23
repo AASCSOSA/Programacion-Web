@@ -18,8 +18,8 @@ class Pago_TrabajadorService {
         return axios.delete(URL_BASE + "/" + id_Pago_Trabajador);
     }
 
-    findByIdTrabajador(id_Trabajador) {
-        return axios.get(URL_BASE + "/trabajador/" + id_Trabajador);
+    findByIdTrabajador(id_Pago_Trabajador) {
+        return axios.get(URL_BASE + "/trabajador/" + id_Pago_Trabajador);
     }
 
     getNameTrabajador(id_Pago_Trabajador){
