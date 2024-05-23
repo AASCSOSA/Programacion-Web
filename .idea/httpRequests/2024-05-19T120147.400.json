@@ -1,0 +1,6 @@
+{
+  "timestamp": "2024-05-19T18:01:47.144+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "path": "/venta/reportePeriodo"
+}
