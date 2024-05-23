@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import VentaService from "../../Controllers/VentaService";
 import CompradorService from "../../Controllers/CompradorService";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import globals from "../Global"; 
 
 export const FormularioVentaComponent = () => {
   const [pago_Total, setPagoTotal] = useState("");
@@ -120,16 +121,16 @@ export const FormularioVentaComponent = () => {
     };
     if (id) {
       VentaService.update(venta, id)
-        .then(() => {
-          navigate("/ventaForMonth");
+        .then((response) => {
+          navigate(`${globals.miVariableGlobal}`);
         })
         .catch((error) => {
           console.error(error);
         });
     } else {
       VentaService.create(venta)
-        .then(() => {
-          navigate("/ventaForMonth");
+        .then((response) => {
+          navigate(`${globals.miVariableGlobal}`);
         })
         .catch((error) => {
           console.error(error);
@@ -397,7 +398,7 @@ export const FormularioVentaComponent = () => {
                   Guardar
                 </button>
                 &nbsp;&nbsp;
-                <Link to="/ventaForMonth" className="btn btn-danger">
+                <Link to= {`${globals.miVariableGlobal}`} className="btn btn-danger">
                   Cancelar
                 </Link>
               </form>

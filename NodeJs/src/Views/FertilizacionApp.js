@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import FertilizacionService from "../Controllers/FertilizacionService";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
+import globals from "../Views/Global"; 
 
 export default function FertilizacionApp() {
   const [fertilizacion, setFertilizacion] = useState([]);
@@ -24,21 +25,9 @@ export default function FertilizacionApp() {
     };
     fetchData();
   }, []);
-
-  // const listarFertilizacion = () => {
-  //   FertilizacionService.findAll()
-  //     .then((response) => {
-  //       setFertilizacion(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   listarFertilizacion();
-  // }, []);
-
+  const clickMove=()=>{
+    globals.miVariableGlobal="/fertilizacion"
+  }
   useEffect(() => {
     const obtenerDetallesFertilizantes = async () => {
       try {
@@ -122,7 +111,10 @@ export default function FertilizacionApp() {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
-
+  const handleInsertClick = () => {
+    // Guardar el nombre en la variable global
+    globals.miVariableGlobal = "/cargaForMonth";
+  };
   return (
     <div>
       <footer className="tittleFrm">Fertilizacion</footer>
@@ -164,8 +156,8 @@ export default function FertilizacionApp() {
                     <td>{fertilizacionItem.id_Fertilizacion}</td>
                     <td>{fertilizacionItem.cantidad_Aplicacion}</td>
                     <td>{fertilizacionItem.fecha_Aplicacion}</td>
-                    <td>{fertilizacionItem.marca}</td>
-                    <td>{fertilizacionItem.nombre_Rancho}</td>
+                    <td>{nameMarca[index]}</td>
+                    <td>{nameRancho[index]}</td>
                   </tr>
                 ))}
               </tbody>
@@ -180,6 +172,8 @@ export default function FertilizacionApp() {
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
+                  onClick={()=> clickMove()  }
+
                 >
                   {" "}
                   <img
@@ -213,6 +207,8 @@ export default function FertilizacionApp() {
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
+                  onClick={()=> clickMove()  }
+
                 >
                   <img
                     src="icons/Actualizar.png"

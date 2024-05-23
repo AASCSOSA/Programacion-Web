@@ -4,6 +4,7 @@ import CargaService from "../Controllers/CargaService";
 import CompradorService from "../Controllers/CompradorService";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
+import globals from "./Global";
 
 export default function VentaApp() {
   const [venta, setVenta] = useState([]);
@@ -121,6 +122,9 @@ export default function VentaApp() {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+  const clickMove=()=>{
+    globals.miVariableGlobal="/venta"
+  }
 
   return (
     <div>
@@ -176,6 +180,8 @@ export default function VentaApp() {
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
+                  onClick={()=> clickMove()  }
+
                 >
                   {" "}
                   <img
@@ -209,6 +215,7 @@ export default function VentaApp() {
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
+                  onClick={()=> clickMove()  }
                 >
                   <img
                     src="icons/Actualizar.png"

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import FertilizacionService from "../Controllers/FertilizacionService";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
+import globals from "../Views/Global"; 
 
 export default function FertilizacionForMonth() {
   const [fertilizacion, setFertilizacion] = useState([]);
@@ -106,7 +107,10 @@ export default function FertilizacionForMonth() {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
-
+  const handleInsertClick = () => {
+    // Guardar el nombre en la variable global
+    globals.miVariableGlobal = "/fertilizacionForMonth";
+  };
   return (
     <div>
       <footer className="tittleFrm">Fertilizacion</footer>
@@ -164,6 +168,7 @@ export default function FertilizacionForMonth() {
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
+                  onClick={handleInsertClick} // Manejar el clic del botón de insertar
                 >
                   {" "}
                   <img
@@ -188,6 +193,20 @@ export default function FertilizacionForMonth() {
                   Consultar
                 </button>
               </Link>
+              <Link to="/">
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  class="btnimagen"
+                >
+                  <img
+                    src="icons/Regresar.png"
+                    alt="Regresar"
+                    className="imgBuscar"
+                  ></img>
+                  Regresar
+                </button>
+              </Link>
             </>
           )}
           {selectedFertilizacion && (
@@ -197,6 +216,8 @@ export default function FertilizacionForMonth() {
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
+                  onClick={handleInsertClick} // Manejar el clic del botón de insertar
+
                 >
                   <img
                     src="icons/Actualizar.png"

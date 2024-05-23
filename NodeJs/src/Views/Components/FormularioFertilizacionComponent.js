@@ -3,6 +3,7 @@ import FertilizacionService from "../../Controllers/FertilizacionService";
 import FertilizanteService from "../../Controllers/FertilizanteService";
 import RanchoService from "../../Controllers/RanchoService";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import globals from "../Global"; 
 
 export const FormularioFertilizacionComponent = () => {
   const [cantidad_Aplicacion, setCantidadAplicacion] = useState("");
@@ -109,7 +110,7 @@ export const FormularioFertilizacionComponent = () => {
     if (id_Fertilizacion) {
       FertilizacionService.update(id_Fertilizacion, fertilizacion)
         .then(() => {
-          navigate("/fertilizacionForMonth");
+          navigate(`${globals.miVariableGlobal}`);
         })
         .catch((error) => {
           console.log(error);
@@ -117,7 +118,7 @@ export const FormularioFertilizacionComponent = () => {
     } else {
       FertilizacionService.create(fertilizacion)
         .then(() => {
-          navigate("/fertilizacionForMonth");
+          navigate(`${globals.miVariableGlobal}`);
         })
         .catch((error) => {
           console.log(error);
@@ -245,7 +246,7 @@ export const FormularioFertilizacionComponent = () => {
                   Guardar
                 </button>
                 &nbsp;&nbsp;
-                <Link to="/fertilizacion" className="btn btn-danger">
+                <Link to= {`${globals.miVariableGlobal}`} className="btn btn-danger">
                   Cancelar
                 </Link>
               </form>
