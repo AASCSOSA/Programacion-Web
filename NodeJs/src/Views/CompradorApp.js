@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import CompradorService from "../Controllers/CompradorService";
 import { Link } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 export default function CompradorApp() {
   const [comprador, setComprador] = useState([]);
@@ -9,13 +10,13 @@ export default function CompradorApp() {
   const [clickedInsideTable, setClickedInsideTable] = useState(false);
   const tableRef = useRef(null);
   const [selectNameComprador, setSelectNameComprador] = useState(null);
-  const listarComprador = () => {
 
     //FORMATO EN TABLA 
     const capitalize = (str) => {
       return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
     };
 
+  const listarComprador = () => {
     CompradorService.findAll()
       .then((response) => {
         const formatoData = response.data.map(item => ({
@@ -56,18 +57,34 @@ export default function CompradorApp() {
   }, []);
 
   const deleteComprador = (id) => {
-    const confirmarDelete = window.confirm("¿Estás seguro de que deseas eliminar este registro?");
-    if (confirmarDelete) {
-      CompradorService.delete(id)
-      .then((response) => {
-        listarComprador();
-        console.log(response.id);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    }
-   
+    Swal.fire({
+      title: '¿Estás seguro de que deseas eliminar este registro?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        CompradorService.delete(id)
+        .then((response) => {
+          listarComprador();
+          console.log(response.data);
+          Swal.fire(
+            'Eliminado!',
+            'El registro ha sido eliminado.',
+            'success'
+          );
+        })
+        .catch((error) => {
+          console.log(error);
+          Swal.fire(
+            'Error!',
+            'Hubo un problema al eliminar el registro.',
+            'error'
+          );
+        });
+      }
+    });
   };
 
   const handleRowClick = (id, name) => {

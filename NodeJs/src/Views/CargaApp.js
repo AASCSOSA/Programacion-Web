@@ -3,6 +3,9 @@ import CargaService from "../Controllers/CargaService";
 import RanchoService from "../Controllers/RanchoService";
 import { Link } from "react-router-dom";
 import globals from "./Global";
+import Swal from 'sweetalert2';
+
+
 export default function CargaApp() {
   const [carga, setCarga] = useState([]);
   const [ranchos, setRanchos] = useState([]);
@@ -10,7 +13,8 @@ export default function CargaApp() {
   const [showInsertAndConsult, setShowInsertAndConsult] = useState(true);
   const tableRef = useRef(null);
   console.log(global.miVariableGlobal);
-    const listarCarga = () => {
+  
+  const listarCarga = () => {
     CargaService.findAll()
       .then((response) => {
         setCarga(response.data);
@@ -36,7 +40,7 @@ export default function CargaApp() {
           })
         );
         setRanchos(nombresRanchos);
-      } catch (error) {}
+      } catch (error) { }
     };
 
     if (carga.length > 0) {
@@ -44,24 +48,57 @@ export default function CargaApp() {
     }
   }, [carga]);
 
+  // const deleteCarga = (id) => {
+  //   CargaService.delete(id)
+  //     .then((response) => {
+  //       listarCarga();
+  //       setSelectedCarga(null); // Deselect the row after deletion
+  //       setShowInsertAndConsult(true); // Show the Insert and Consult buttons after deletion
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+
   const deleteCarga = (id) => {
-    CargaService.delete(id)
-      .then((response) => {
-        listarCarga();
-        setSelectedCarga(null); // Deselect the row after deletion
-        setShowInsertAndConsult(true); // Show the Insert and Consult buttons after deletion
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    Swal.fire({
+      title: '¿Estás seguro de que deseas eliminar este registro?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        CargaService.delete(id)
+          .then((response) => {
+            listarCarga();
+            setSelectedCarga(null); // Deselect the row after deletion
+            setShowInsertAndConsult(true); // Show the Insert and Consult buttons after deletion
+            Swal.fire(
+              'Eliminado!',
+              'El registro ha sido eliminado.',
+              'success'
+            );
+          })
+          .catch((error) => {
+            console.log(error);
+            Swal.fire(
+              'Error!',
+              'Hubo un problema al eliminar el registro.',
+              'error'
+            );
+          });
+      }
+    });
   };
+
 
   const handleRowClick = (id) => {
     setSelectedCarga(id);
     setShowInsertAndConsult(false); // Hide the Insert and Consult buttons when a row is selected
   };
-  const clickMove=()=>{
-    globals.miVariableGlobal="/carga"
+  const clickMove = () => {
+    globals.miVariableGlobal = "/carga"
   }
 
   useEffect(() => {
@@ -139,7 +176,7 @@ export default function CargaApp() {
                   type="button"
                   className="btn btn-success"
                   class="btnimagen"
-                  onClick={()=> clickMove()  }
+                  onClick={() => clickMove()}
                 >
                   {" "}
                   <img
@@ -150,7 +187,7 @@ export default function CargaApp() {
                   Insertar
                 </button>
               </Link>
-              
+
               <Link to="/cargaForMonth">
                 <button
                   type="button"

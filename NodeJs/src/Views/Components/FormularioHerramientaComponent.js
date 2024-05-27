@@ -12,8 +12,8 @@ export const FormularioHerramientaComponent = () => {
 
     //VALIDACIONES
     const [modeloError, setModeloError] = useState(false);
+    const [marcaError, setMarcaError] = useState(false);
     const [cantidadError, setCantidadError] = useState(false);
-    // const [colorError, setColorError] = useState(false);
     const [costoError, setCostoError] = useState(false);
 
     // Obtener la fecha actual en formato YYYY-MM-DD
@@ -35,9 +35,8 @@ export const FormularioHerramientaComponent = () => {
             const herramienta = response.data;
             setModelo(herramienta.modelo);
             setMarca(herramienta.marca);
-            setCantidad(herramienta.cantidad);
-            // setColor(herramienta.color);
-            setCosto(herramienta.costo);
+            setCantidad(String(herramienta.cantidad));
+            setCosto(String(herramienta.costo));
             setFecha_Adquisicion(herramienta.fecha_Adquisicion)
         }).catch(e => {
             console.log(e);
@@ -52,14 +51,12 @@ export const FormularioHerramientaComponent = () => {
             !modelo ||
             !marca ||
             !cantidad ||
-            // !color ||
             !costo ||
             !fecha_Adquisicion
         ) {
             setCamposVaciosWarning(true);
             return;
         }
-
 
         const herramienta = { modelo,marca, cantidad, costo, fecha_Adquisicion };
         if (id_Herramienta) {
@@ -97,6 +94,18 @@ export const FormularioHerramientaComponent = () => {
         }
     };
 
+      //VALIDAR MODELO 
+      const validarMarca = (e) => {
+        const valor = e.target.value.toUpperCase();
+        const regex = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ0-9.,\s]*$/; //LETRAS,NUMEROS, ACENTOS, Ñ, PUNTOS Y COMAS
+        if (regex.test(valor)) {
+            setMarca(valor);
+            setMarcaError(false);// DESACTIVA ADVERTENCIA 
+        } else {
+            setMarcaError(true);//ACTIVA ADVERTENCIA
+        }
+    };
+
     //VALIDAR CANTIDAD
     const validarCantidad = (e) => {
         const inputValue = e.target.value;
@@ -108,19 +117,6 @@ export const FormularioHerramientaComponent = () => {
             setCantidadError(true);
         }
     };
-
-    // //VALIDAR COLOR
-    // const validarColor = (e) => {
-    //     const inputValue = e.target.value;
-
-    //     //MAYUSCULAS, MINUSCULAS Y ESPACIOS
-    //     if (/^[a-zA-Z\s]*$/.test(inputValue)) {
-    //         setColor(inputValue);
-    //         setColorError(false);
-    //     } else {
-    //         setColorError(true);
-    //     }
-    // };
 
     //VALIDAR COSTO
     const validarCosto = (e) => {
@@ -146,6 +142,7 @@ export const FormularioHerramientaComponent = () => {
 
     //LIMITE DE CARACTERES
     const maxModelo = 30;
+    const maxMarca = 20;
     const maxCantidad = 3;
     const maxCosto = 8;
 
@@ -192,9 +189,18 @@ export const FormularioHerramientaComponent = () => {
                                         name='marcaHerramienta'
                                         className='form-control'
                                         value={marca}
-                                        onChange={(e) => setMarca(e.target.value)}>
-                                    </input>
-                                </div> 
+                                        onChange={(e) => setMarca(e.target.value)}
+                                        maxLength={maxMarca}
+                                        />
+                                        <div className="form-text">
+                                            {marca.length}/{maxModelo} caracteres ingresados
+                                        </div>
+                                        {modeloError && (
+                                            <div className="alert alert-warning" role="alert">
+                                                El modelo solo debe contener letras.
+                                            </div>
+                                        )}
+                                    </div>
 
                                 <div className='form-group mb-2'>
                                     <label className='form-label'>Cantidad</label>

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import TrabajadorService from "../Controllers/TrabajadorService";
 import HerramientaService from "../Controllers/HerramientaService";
+import Swal from 'sweetalert2';
 
 export default function TrabajadorApp() {
   const [trabajador, setTrabajador] = useState([]);
@@ -38,17 +39,34 @@ export default function TrabajadorApp() {
   }, []);
 
   const deleteTrabajador = (id_Trabajador) => {
-    const confirmarDelete = window.confirm("¿Estás seguro de que deseas eliminar este registro?");
-    if (confirmarDelete) {
-      TrabajadorService.delete(id_Trabajador)
+    Swal.fire({
+      title: '¿Estás seguro de que deseas eliminar este registro?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        TrabajadorService.delete(id_Trabajador)
         .then((response) => {
           listarTrabajador();
+          console.log(response.data);
+          Swal.fire(
+            'Eliminado!',
+            'El registro ha sido eliminado.',
+            'success'
+          );
         })
         .catch((error) => {
           console.log(error);
+          Swal.fire(
+            'Error!',
+            'Hubo un problema al eliminar el registro.',
+            'error'
+          );
         });
-    }
-
+      }
+    });
   };
 
   const handleRowClick = (id_Trabajador, nombreTrabajador) => {

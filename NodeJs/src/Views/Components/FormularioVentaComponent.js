@@ -15,8 +15,7 @@ export const FormularioVentaComponent = () => {
   const [id_Comprador, setIdComprador] = useState("");
   const [compradores, setCompradores] = useState([]);
 
-
-  //VALIDACIONES
+  // VALIDACIONES
   const [precio_LimonVerdeError, setPrecioLimonVerdeError] = useState(false);
   const [precio_LimonSegundaError, setPrecioLimonSegundaError] = useState(false);
   const [precio_LimonTerceraError, setPrecioLimonTerceraError] = useState(false);
@@ -30,11 +29,9 @@ export const FormularioVentaComponent = () => {
   const day = String(today.getDate()).padStart(2, '0');
   const maxDate = `${year}-${month}-${day}`;
 
-  const [camposVaciosWarning, setCamposVaciosWarning] = useState(false); //VALIDACION DE LLENADO DE CAMPOS
-
+  const [camposVaciosWarning, setCamposVaciosWarning] = useState(false); // VALIDACIÓN DE LLENADO DE CAMPOS
 
   const navigate = useNavigate();
-
   const { id } = useParams();
 
   useEffect(() => {
@@ -52,11 +49,11 @@ export const FormularioVentaComponent = () => {
       VentaService.findById(id)
         .then((response) => {
           const venta = response.data;
-          setPagoTotal(venta.pago_Total);
-          setPesoTotal(venta.peso_Total);
-          setPrecioLimonVerde(venta.precio_LimonVerde);
-          setPrecioLimonSegunda(venta.precio_LimonSegunda);
-          setPrecioLimonTercera(venta.precio_LimonTercera);
+          setPagoTotal(String(venta.pago_Total));
+          setPesoTotal(String(venta.peso_Total));
+          setPrecioLimonVerde(String(venta.precio_LimonVerde));
+          setPrecioLimonSegunda(String(venta.precio_LimonSegunda));
+          setPrecioLimonTercera(String(venta.precio_LimonTercera));
           setFecha(venta.fecha);
 
           VentaService.findByIdCarga(id)
@@ -85,6 +82,7 @@ export const FormularioVentaComponent = () => {
     }
   }, [id]);
 
+
   const saveVenta = (e) => {
     e.preventDefault();
 
@@ -98,8 +96,7 @@ export const FormularioVentaComponent = () => {
       !id_Carga ||
       !id_Comprador ||
       !fecha ||
-
-      //ERRORES
+      // ERRORES
       precio_LimonVerdeError ||
       precio_LimonSegundaError ||
       precio_LimonTerceraError ||
@@ -149,10 +146,10 @@ export const FormularioVentaComponent = () => {
     }
   };
 
-  //VALIDAR PRECIO LIMON VERDE
+  // VALIDAR PRECIO LIMÓN VERDE
   const validarPrecio_LimonVerde = (e) => {
     const inputValue = e.target.value;
-    const regex = /^\d*(\.\d{0,2})?$/; //NUMEROS Y DOS NUMEROS DESPUES DEL PUNTO
+    const regex = /^\d*(\.\d{0,2})?$/; // NÚMEROS Y DOS NÚMEROS DESPUÉS DEL PUNTO
     if (regex.test(inputValue)) {
       setPrecioLimonVerde(inputValue);
       setPrecioLimonVerdeError(false);
@@ -161,10 +158,10 @@ export const FormularioVentaComponent = () => {
     }
   };
 
-  //VALIDAR PRECIO LIMON SEGUNDA
+  // VALIDAR PRECIO LIMÓN SEGUNDA
   const validarPrecio_LimonSegunda = (e) => {
     const inputValue = e.target.value;
-    const regex = /^\d*(\.\d{0,2})?$/; //NUMEROS Y DOS NUMEROS DESPUES DEL PUNTO
+    const regex = /^\d*(\.\d{0,2})?$/; // NÚMEROS Y DOS NÚMEROS DESPUÉS DEL PUNTO
     if (regex.test(inputValue)) {
       setPrecioLimonSegunda(inputValue);
       setPrecioLimonSegundaError(false);
@@ -173,10 +170,10 @@ export const FormularioVentaComponent = () => {
     }
   };
 
-  //VALIDAR PAGO LIMON TERCERA
+  // VALIDAR PRECIO LIMÓN TERCERA
   const validarPrecio_LimonTercera = (e) => {
     const inputValue = e.target.value;
-    const regex = /^\d*(\.\d{0,2})?$/; //NUMEROS Y DOS NUMEROS DESPUES DEL PUNTO
+    const regex = /^\d*(\.\d{0,2})?$/; // NÚMEROS Y DOS NÚMEROS DESPUÉS DEL PUNTO
     if (regex.test(inputValue)) {
       setPrecioLimonTercera(inputValue);
       setPrecioLimonTerceraError(false);
@@ -185,10 +182,10 @@ export const FormularioVentaComponent = () => {
     }
   };
 
-  //VALIDAR PESO TOTAL
+  // VALIDAR PESO TOTAL
   const validarPeso_Total = (e) => {
     const inputValue = e.target.value;
-    const regex = /^\d*(\.\d{0,2})?$/; //NUMEROS Y DOS NUMEROS DESPUES DEL PUNTO
+    const regex = /^\d*(\.\d{0,2})?$/; // NÚMEROS Y DOS NÚMEROS DESPUÉS DEL PUNTO
     if (regex.test(inputValue)) {
       setPesoTotal(inputValue);
       setPesoTotalError(false);
@@ -197,10 +194,10 @@ export const FormularioVentaComponent = () => {
     }
   };
 
-  //VALIDAR PAGO TOTAL
+  // VALIDAR PAGO TOTAL
   const validarPago_Total = (e) => {
     const inputValue = e.target.value;
-    const regex = /^\d*(\.\d{0,2})?$/; //NUMEROS Y DOS NUMEROS DESPUES DEL PUNTO
+    const regex = /^\d*(\.\d{0,2})?$/; // NÚMEROS Y DOS NÚMEROS DESPUÉS DEL PUNTO
     if (regex.test(inputValue)) {
       setPagoTotal(inputValue);
       setPagoTotalError(false);
@@ -209,7 +206,7 @@ export const FormularioVentaComponent = () => {
     }
   };
 
-  //VALIDAR FECHA
+  // VALIDAR FECHA
   const validarFecha = (e) => {
     const selectedDate = e.target.value;
     if (selectedDate <= maxDate) {
@@ -219,20 +216,19 @@ export const FormularioVentaComponent = () => {
     }
   };
 
-  //LIMITE DE CARACTERES
+  // LÍMITE DE CARACTERES
   const maxPrecioVerde = 7;
   const maxPrecioSegunda = 7;
   const maxPrecioTercera = 7;
   const maxPeso = 7;
   const maxPago = 7;
 
-
   return (
     <div>
       <div className="container" id="formVenta">
         <div className="row">
           <div className="card col-md-6 offset-md-3 offset-md-3">
-            <h2 classsName="text-center">{titulo()}</h2>
+            <h2 className="text-center">{titulo()}</h2>
             <h2 className="text-center">Gestión de Ventas</h2>
             <div className="card-body">
               {camposVaciosWarning && (
@@ -247,7 +243,7 @@ export const FormularioVentaComponent = () => {
                     type="text"
                     placeholder="Ingrese el precio del limón verde"
                     name="precioLimonVerde"
-                    className={`form-control ${precio_LimonVerdeError ? 'is-invalid' : ''}`}//RESALTAR EL CAMPO EN EL FORMULARIO CON BORDES ROJOS Y DESPLEGAR ADVERTENCIA
+                    className={`form-control ${precio_LimonVerdeError ? 'is-invalid' : ''}`}
                     value={precio_LimonVerde}
                     onChange={validarPrecio_LimonVerde}
                     maxLength={maxPrecioVerde}
@@ -257,7 +253,8 @@ export const FormularioVentaComponent = () => {
                   </div>
                   {precio_LimonVerdeError && (
                     <div className="alert alert-warning" role="alert">
-                      El precio solo debe contener números.
+                      -El precio solo debe contener números. <br></br>
+                      -Después de un punto solo puede ingresar dos digitos
                     </div>
                   )}
                 </div>
@@ -272,13 +269,14 @@ export const FormularioVentaComponent = () => {
                     value={precio_LimonSegunda}
                     onChange={validarPrecio_LimonSegunda}
                     maxLength={maxPrecioSegunda}
-                    />
-                    <div className="form-text">
-                      {precio_LimonSegunda.length}/{maxPrecioSegunda} caracteres ingresados
-                    </div>
+                  />
+                  <div className="form-text">
+                    {precio_LimonSegunda.length}/{maxPrecioSegunda} caracteres ingresados
+                  </div>
                   {precio_LimonSegundaError && (
                     <div className="alert alert-warning" role="alert">
-                      El precio solo debe contener números.
+                      -El precio solo debe contener números. <br></br>
+                      -Después de un punto solo puede ingresar dos digitos
                     </div>
                   )}
                 </div>
@@ -293,13 +291,14 @@ export const FormularioVentaComponent = () => {
                     value={precio_LimonTercera}
                     onChange={validarPrecio_LimonTercera}
                     maxLength={maxPrecioTercera}
-                    />
-                    <div className="form-text">
-                      {precio_LimonTercera.length}/{maxPrecioTercera} caracteres ingresados
-                    </div>
+                  />
+                  <div className="form-text">
+                    {precio_LimonTercera.length}/{maxPrecioTercera} caracteres ingresados
+                  </div>
                   {precio_LimonTerceraError && (
                     <div className="alert alert-warning" role="alert">
-                      El precio solo debe contener números.
+                      -El precio solo debe contener números. <br></br>
+                      -Después de un punto solo puede ingresar dos digitos
                     </div>
                   )}
                 </div>
@@ -315,13 +314,15 @@ export const FormularioVentaComponent = () => {
                     value={peso_Total}
                     onChange={validarPeso_Total}
                     maxLength={maxPeso}
-                    />
-                    <div className="form-text">
-                      {peso_Total.length}/{maxPeso} caracteres ingresados
-                    </div>
+                  />
+                  <div className="form-text">
+                    {peso_Total.length}/{maxPeso} caracteres ingresados
+                  </div>
                   {peso_TotalError && (
                     <div className="alert alert-warning" role="alert">
-                      El peso solo debe contener números.
+                      -El peso solo debe contener números. <br></br>
+                      -Después de un punto solo puede ingresar dos digitos
+
                     </div>
                   )}
                 </div>
@@ -329,21 +330,21 @@ export const FormularioVentaComponent = () => {
                 <div className="form-group mb-2">
                   <label className="form-label">Pago Total</label>
                   <input
-                    type="number"
-                    step="0.01"
+                    type="text"
                     placeholder="Ingrese el pago total $"
                     name="precioTotal"
                     className={`form-control ${pago_TotalError ? 'is-invalid' : ''}`}
                     value={pago_Total}
                     onChange={validarPago_Total}
                     maxLength={maxPago}
-                    />
-                    <div className="form-text">
-                      {pago_Total.length}/{maxPago} caracteres ingresados
-                    </div>
+                  />
+                  <div className="form-text">
+                    {pago_Total.length}/{maxPago} caracteres ingresados
+                  </div>
                   {pago_TotalError && (
                     <div className="alert alert-warning" role="alert">
-                      El pago solo debe contener números.
+                      -El pago solo debe contener números. <br></br>
+                      -Después de un punto solo puede ingresar dos digitos
                     </div>
                   )}
                 </div>
@@ -355,9 +356,9 @@ export const FormularioVentaComponent = () => {
                     name="fechaVenta"
                     className="form-control"
                     value={fecha}
-                    max={maxDate} // Establecer el atributo max
+                    max={maxDate}
                     onChange={validarFecha}
-                  ></input>
+                  />
                 </div>
 
                 <div className="form-group mb-2">
@@ -369,8 +370,9 @@ export const FormularioVentaComponent = () => {
                     className="form-control"
                     value={id_Carga}
                     onChange={(e) => setIdCarga(e.target.value)}
-                  ></input>
+                  />
                 </div>
+
                 <div className="form-group mb-2">
                   <label className="form-label">Seleccione el Comprador</label>
                   <select
@@ -407,4 +409,5 @@ export const FormularioVentaComponent = () => {
     </div>
   );
 };
+
 export default FormularioVentaComponent;

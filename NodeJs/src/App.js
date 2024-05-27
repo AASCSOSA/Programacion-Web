@@ -14,6 +14,7 @@ import VentaForMonth from "./Views/VentaForMonth";
 import CargaForMonth from "./Views/CargaForMonth";
 import FertilizacionForMonth from "./Views/FertilizacionForMonth";
 import Pago_TrabajadoForMonth from "./Views/Pago_TrabajadorForMonth";
+import ReporteApp from "./Views/ReporteApp";
 
 import FormularioRanchoComponent from "./Views/Components/FormularioRanchoComponent";
 import FormularioCargaComponent from "./Views/Components/FormularioCargaComponent";
@@ -52,6 +53,10 @@ function App() {
           <Route
             path="/pago_trabajadorForMonth"
             element={<Pago_TrabajadoForMonth />}
+          />
+          <Route
+            path="/reporte"
+            element={<ReporteApp/>}
           />
 
           <Route path="/form-rancho" element={<FormularioRanchoComponent />} />

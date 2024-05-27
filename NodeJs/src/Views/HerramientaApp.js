@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import HerramientaService from "../Controllers/HerramientaService";
 import { Link } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 export default function HerramientaApp() {
   const [herramienta, setHerramienta] = useState([]);
@@ -37,20 +38,35 @@ export default function HerramientaApp() {
   }, []);
 
   const deleteHerramienta = (id_Herramienta) => {
-    const confirmarDelete = window.confirm("¿Estás seguro de que deseas eliminar este registro?");
-        if (confirmarDelete) {
-          HerramientaService.delete(id_Herramienta)
+    Swal.fire({
+      title: '¿Estás seguro de que deseas eliminar este registro?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        HerramientaService.delete(id_Herramienta)
           .then((response) => {
             listarHerramienta();
-            console.log(response.data);
+            Swal.fire(
+              'Eliminado!',
+              'El registro ha sido eliminado.',
+              'success'
+            );
           })
           .catch((error) => {
             console.log(error);
+            Swal.fire(
+              'Error!',
+              'Hubo un problema al eliminar el registro.',
+              'error'
+            );
           });
-        }
-   
+      }
+    });
   };
-
+  
   const handleRowClick = (id_Herramienta, name) => {
     setSelectedRow(id_Herramienta);
     setSelectedHerramienta(id_Herramienta);

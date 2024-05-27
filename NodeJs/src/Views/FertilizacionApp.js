@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import FertilizacionService from "../Controllers/FertilizacionService";
 import { Link } from "react-router-dom";
+import Swal from 'sweetalert2';
 import globals from "../Views/Global"; 
 
 export default function FertilizacionApp() {
@@ -55,18 +56,39 @@ export default function FertilizacionApp() {
   }, [fertilizacion]);
 
   const deleteFertilizacion = (id) => {
-    FertilizacionService.delete(id)
-      .then(() => {
-        setFertilizacion(
-          fertilizacion.filter((item) => item.id_Fertilizacion !== id)
-        );
-        setSelectedFertilizacion(null); // Deselect the row after deletion
-        setShowInsertAndConsult(true); // Show the Insert and Consult buttons after deletion
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+    Swal.fire({
+      title: '¿Estás seguro de que deseas eliminar este registro?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        FertilizacionService.delete(id)
+          .then(() => {
+            setFertilizacion(
+              fertilizacion.filter((item) => item.id_Fertilizacion !== id)
+            );
+            setSelectedFertilizacion(null); // Deselect the row after deletion
+            setShowInsertAndConsult(true); // Show the Insert and Consult buttons after deletion
+            Swal.fire(
+              'Eliminado!',
+              'El registro ha sido eliminado.',
+              'success'
+            );
+          })
+          .catch((error) => {
+            console.log(error);
+            Swal.fire(
+              'Error!',
+              'Hubo un problema al eliminar el registro.',
+              'error'
+            );
+          });
+      }
+    });
+  }
+
 
   const handleRowClick = (id, name) => {
     setSelectedFertilizacion(id);
