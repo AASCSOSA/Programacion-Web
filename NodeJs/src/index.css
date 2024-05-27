@@ -2,6 +2,8 @@ body {
   background-image: url(".././public/Img/BANNER_Tablas.png ");
   font-family: 'Lobster';
     background-repeat: no-repeat;
+    height: 100vh;
+
 
 }
 @font-face {
